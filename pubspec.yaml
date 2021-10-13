@@ -33,6 +33,14 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_native_splash: ^1.2.4
+
+flutter_native_splash:
+  background_image: "assets/splash_screen.png"
+  background_image_dark: "assets/splash_screen_dark.png"
+  android: true
+  ios: true
+  fullscreen: true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
