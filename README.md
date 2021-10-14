@@ -1,4 +1,4 @@
-# joeun_camp
+# edutopik
 
 A new Flutter project.
 

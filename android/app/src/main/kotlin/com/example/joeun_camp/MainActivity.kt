@@ -1,4 +1,4 @@
-package com.example.joeun_camp
+package com.example.edutopik
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.joeun_camp">
+    package="com.example.edutopik">
    <application
-        android:label="joeun_camp"
+        android:label="edutopik"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true">
         <activity
