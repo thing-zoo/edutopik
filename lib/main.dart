@@ -1,5 +1,6 @@
+import 'package:edutopik/screen/splash_screen.dart';
+import 'package:edutopik/widget/webviewpage.dart';
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,67 +23,14 @@ class MyApp extends StatelessWidget {
           // Loading is done, return the app:
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'EDUTOPIK',
+            title: 'EDU TOPIK',
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            home: MyHomePage(),
+            home: WebViewPage(),
           );
         }
       },
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key}) : super(key: key);
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: WebView(
-          initialUrl: 'http://m.edutopik.com/',
-          javascriptMode: JavascriptMode.unrestricted,
-        ),
-      ),
-    );
-  }
-}
-
-class Splash extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    bool lightMode =
-        MediaQuery.of(context).platformBrightness == Brightness.light;
-    return Scaffold(
-      backgroundColor: lightMode
-          ? Color(0xffffff).withOpacity(1.0)
-          : Color(0x0d5b9c).withOpacity(1.0),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-        child: Center(
-            child: lightMode
-                ? Image.asset('assets/logo.png')
-                : Image.asset('assets/logo_dark.png')),
-      ),
-    );
-  }
-}
-
-class Init {
-  Init._();
-  static final instance = Init._();
-
-  Future initialize() async {
-    // This is where you can initialize the resources needed by your app while
-    // the splash screen is displayed.  Remove the following example because
-    // delaying the user experience is a bad design practice!
-    await Future.delayed(const Duration(seconds: 3));
   }
 }
