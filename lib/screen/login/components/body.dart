@@ -1,11 +1,11 @@
 import 'package:edutopik/screen/login/btn/already_have_an_account_acheck.dart';
-import 'package:edutopik/widget/webviewpage_signup.dart';
+import 'package:edutopik/screen/webview_screen.dart';
+import 'package:edutopik/screen/webview_signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:edutopik/screen/login/components/background.dart';
 import 'package:edutopik/screen/login/btn/rounded_button.dart';
 import 'package:edutopik/screen/login/btn/rounded_email_field.dart';
 import 'package:edutopik/screen/login/btn/rounded_password_field.dart';
-import 'package:edutopik/widget/webviewpage.dart';
 
 class Body extends StatefulWidget {
   const Body({
@@ -74,7 +74,7 @@ class _BodyState extends State<Body> {
                     _controllerPassword.text == "123") {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (_) => WebViewPage(),
+                      builder: (_) => WebViewScreen(),
                     ),
                   );
                 } else if (_controllerEmail.text == "wlwl1011@naver.com" &&
@@ -93,7 +93,7 @@ class _BodyState extends State<Body> {
               press: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (_) => WebViewPageSinup(),
+                    builder: (_) => WebViewSignupScreen(),
                   ),
                 );
               },

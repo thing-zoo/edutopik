@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class WebViewPageSinup extends StatefulWidget {
-  WebViewPageSinup({key}) : super(key: key);
+class WebViewSignupScreen extends StatefulWidget {
+  WebViewSignupScreen({key}) : super(key: key);
 
   @override
   _WebViewPageState createState() => _WebViewPageState();
 }
 
-class _WebViewPageState extends State<WebViewPageSinup> {
+class _WebViewPageState extends State<WebViewSignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,3 +1,4 @@
+import 'package:edutopik/screen/player_screen.dart';
 import 'package:edutopik/screen/splash_screen.dart';
 import 'screen/Login/login_screen.dart';
 import 'package:flutter/material.dart';
