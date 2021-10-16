@@ -12,8 +12,12 @@ class _PlayerScreenState extends State<PlayerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: DefaultPlayer(),
+      backgroundColor: Colors.black,
+      body: Center(
+        child: Container(
+          child: DefaultPlayer(),
+          height: MediaQuery.of(context).size.width * (9 / 16),
+        ),
       ),
     );
   }
