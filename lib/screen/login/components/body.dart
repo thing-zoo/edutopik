@@ -1,3 +1,5 @@
+import 'package:edutopik/screen/login/btn/already_have_an_account_acheck.dart';
+import 'package:edutopik/widget/webviewpage_signup.dart';
 import 'package:flutter/material.dart';
 import 'package:edutopik/screen/login/components/background.dart';
 import 'package:edutopik/screen/login/btn/rounded_button.dart';
@@ -84,15 +86,18 @@ class _BodyState extends State<Body> {
                 } else {
                   print("error");
                 }
-/*
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => MyHomePage(),
-                  ),
-                );*/
               },
             ),
             SizedBox(height: size.height * 0.03),
+            AlreadyHaveAnAccountCheck(
+              press: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => WebViewPageSinup(),
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),
