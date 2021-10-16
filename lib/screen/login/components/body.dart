@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:edutopik/screen/login/components/background.dart';
-import 'package:edutopik/screen/login/btn/already_have_an_account_acheck.dart';
 import 'package:edutopik/screen/login/btn/rounded_button.dart';
 import 'package:edutopik/screen/login/btn/rounded_email_field.dart';
 import 'package:edutopik/screen/login/btn/rounded_password_field.dart';
 import 'package:edutopik/widget/webviewpage.dart';
-import 'package:edutopik/widget/webviewpage_signup.dart';
 
 class Body extends StatefulWidget {
   const Body({
@@ -95,15 +93,6 @@ class _BodyState extends State<Body> {
               },
             ),
             SizedBox(height: size.height * 0.03),
-            AlreadyHaveAnAccountCheck(
-              press: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => WebViewPageSinup(),
-                  ),
-                );
-              },
-            ),
           ],
         ),
       ),
