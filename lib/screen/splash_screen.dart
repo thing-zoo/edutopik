@@ -1,4 +1,4 @@
-
+import 'package:edutopik/constants.dart';
 import 'package:flutter/material.dart';
 
 class Splash extends StatelessWidget {
@@ -8,8 +8,8 @@ class Splash extends StatelessWidget {
         MediaQuery.of(context).platformBrightness == Brightness.light;
     return Scaffold(
       backgroundColor: lightMode
-          ? Color(0xffffff).withOpacity(1.0)
-          : Color(0x0d5b9c).withOpacity(1.0),
+          ? kPrimaryLightColor.withOpacity(1.0)
+          : kPrimaryColor.withOpacity(1.0),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
         child: Center(

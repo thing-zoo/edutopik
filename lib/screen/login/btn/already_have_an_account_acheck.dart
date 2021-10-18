@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:edutopik/screen/login/btn/constants.dart';
+import 'package:edutopik/constants.dart';
 
 class AlreadyHaveAnAccountCheck extends StatelessWidget {
   final bool login;
