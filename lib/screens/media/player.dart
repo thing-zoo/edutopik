@@ -17,6 +17,7 @@ class Player extends StatefulWidget {
 class _PlayerState extends State<Player> {
   late FlickManager flickManager;
   late DataManager dataManager;
+  /* 백엔드: 전체 동영상 여기에 리스트로 넣도록~~ */
   List<String> urls = (mockData["items"] as List)
       .map<String>((item) => item["trailer_url"])
       .toList();
@@ -26,7 +27,7 @@ class _PlayerState extends State<Player> {
     super.initState();
     flickManager = FlickManager(
         videoPlayerController: VideoPlayerController.network(
-          urls[0], /* 현재 강의 동영상은 여기 넣으면 됩니당 */
+          urls[0], /* 백엔드: 현재 강의 동영상은 여기 넣으면 됩니당~ */
         ),
         onVideoEnd: () {
           dataManager.skipToNextVideo(Duration(seconds: 5));

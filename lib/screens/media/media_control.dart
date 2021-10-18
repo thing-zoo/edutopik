@@ -24,12 +24,13 @@ class _MediaControlsState extends State<MediaControls> {
 
     return Stack(
       children: <Widget>[
+        //아이콘 보이도록 투명한 검은 뒷배경
         Positioned.fill(
-          //아이콘 보이도록 투명한 검은 뒷배경
           child: FlickAutoHideChild(
             child: Container(color: Colors.black38),
           ),
         ),
+        /* 상단 부분 */
         Positioned.fill(
             child: FlickAutoHideChild(
           child: Padding(
@@ -39,8 +40,8 @@ class _MediaControlsState extends State<MediaControls> {
               children: [
                 Row(
                   children: [
+                    /* 뒤로가기 */
                     GestureDetector(
-                      //뒤로가기
                       onTap: () {
                         // SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
                         SystemChrome.setEnabledSystemUIMode(
@@ -57,9 +58,9 @@ class _MediaControlsState extends State<MediaControls> {
                     SizedBox(
                       width: iconSize / 2,
                     ),
+                    /* 강의 제목 */
                     Text(
-                      //강의 제목
-                      '[TOPIK] 1강. 강의 소개',
+                      '[TOPIK] 1강. 강의 소개',/* 백엔드: 여기에 이름 가져와서 넣도록~ */
                       style: TextStyle(fontSize: fontSize),
                     ),
                   ],
@@ -68,21 +69,22 @@ class _MediaControlsState extends State<MediaControls> {
             ),
           ),
         )),
+        /* 중앙부분 */
         Positioned.fill(
           child: FlickShowControlsAction(
             child: FlickSeekVideoAction(
-              //뒤로,빨리감기
+              /* 뒤로,빨리감기 */
               child: Center(
                 child: flickVideoManager.nextVideoAutoPlayTimer != null
                     ? FlickAutoPlayCircularProgress(
-                        //로딩
+                        /* 로딩 */
                         colors: FlickAutoPlayTimerProgressColors(
                           backgroundColor: Colors.white30,
                           color: kPrimaryColor,
                         ),
                       )
                     : FlickVideoBuffer(
-                        //재생
+                        /* 재생 */
                         child: FlickAutoHideChild(
                           showIfVideoNotInitialized: false,
                           child: FlickPlayToggle(
@@ -100,6 +102,7 @@ class _MediaControlsState extends State<MediaControls> {
             ),
           ),
         ),
+        /* 하단부분 */
         Positioned.fill(
           child: FlickAutoHideChild(
             child: Padding(
@@ -108,7 +111,7 @@ class _MediaControlsState extends State<MediaControls> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   FlickVideoProgressBar(
-                    //재생바
+                    /* 재생바 */
                     flickProgressBarSettings: FlickProgressBarSettings(
                       height: 5,
                       handleRadius: 5,
@@ -124,8 +127,8 @@ class _MediaControlsState extends State<MediaControls> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
+                        /* 시청시간/전체시간 */
                         Row(
-                          //시청시간, 전체시간
                           children: <Widget>[
                             FlickCurrentPosition(
                               fontSize: fontSize,
@@ -141,6 +144,7 @@ class _MediaControlsState extends State<MediaControls> {
                             SizedBox(
                               width: iconSize / 2,
                             ),
+                            /* 배속 조절 */
                             GestureDetector(
                               onTap: () {
                                 if (playBackSpeed <= 0.5)
@@ -177,6 +181,7 @@ class _MediaControlsState extends State<MediaControls> {
                             ),
                           ],
                         ),
+                        /* 강의 이동 */
                         Row(
                           children: [
                             GestureDetector(
@@ -243,6 +248,7 @@ class _MediaControlsState extends State<MediaControls> {
             ),
           ),
         ),
+        /* 소리 조절 */
         Positioned.fill(
             child: Column(
           children: [
