@@ -5,14 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-class MediaControls extends StatelessWidget {
-  MediaControls(
-      {Key? key, this.iconSize = 30, this.fontSize = 14, this.dataManager})
-      : super(key: key);
-  final double iconSize;
-  final double fontSize;
+class MediaControls extends StatefulWidget {
+  MediaControls({Key? key, this.dataManager}) : super(key: key);
   final DataManager? dataManager;
 
+  @override
+  State<MediaControls> createState() => _MediaControlsState();
+}
+
+class _MediaControlsState extends State<MediaControls> {
+  final double iconSize = 30;
+  final double fontSize = 14;
   @override
   Widget build(BuildContext context) {
     FlickVideoManager flickVideoManager =
@@ -27,55 +30,69 @@ class MediaControls extends StatelessWidget {
           ),
         ),
         Positioned.fill(
+            child: FlickAutoHideChild(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    GestureDetector(
+                      //뒤로가기
+                      onTap: () {
+                        // SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+                        SystemChrome.setEnabledSystemUIMode(
+                            SystemUiMode.manual);
+                        SystemChrome.setPreferredOrientations(
+                            [DeviceOrientation.portraitUp]);
+                        Navigator.pop(context);
+                      },
+                      child: Icon(
+                        Icons.arrow_back_ios_new,
+                        size: iconSize * 0.8,
+                      ),
+                    ),
+                    SizedBox(
+                      width: iconSize / 2,
+                    ),
+                    Text(
+                      //강의 제목
+                      '[TOPIK] 1강. 강의 소개',
+                      style: TextStyle(fontSize: fontSize),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        )),
+        Positioned.fill(
           child: FlickShowControlsAction(
             child: FlickSeekVideoAction(
+              //뒤로,빨리감기
               child: Center(
                 child: flickVideoManager.nextVideoAutoPlayTimer != null
                     ? FlickAutoPlayCircularProgress(
+                        //로딩
                         colors: FlickAutoPlayTimerProgressColors(
                           backgroundColor: Colors.white30,
-                          color: Colors.red,
+                          color: kPrimaryColor,
                         ),
                       )
-                    : FlickAutoHideChild(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: GestureDetector(
-                                onTap: () {
-                                  dataManager!.skipToPreviousVideo();
-                                },
-                                child: Icon(
-                                  Icons.skip_previous,
-                                  color: dataManager!.hasPreviousVideo()
-                                      ? Colors.white
-                                      : Colors.white38,
-                                  size: 35,
-                                ),
-                              ),
+                    : FlickVideoBuffer(
+                        //재생
+                        child: FlickAutoHideChild(
+                          showIfVideoNotInitialized: false,
+                          child: FlickPlayToggle(
+                            size: iconSize,
+                            color: Colors.black,
+                            padding: EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: Colors.white70,
+                              borderRadius: BorderRadius.circular(40),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: FlickPlayToggle(size: 50),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: GestureDetector(
-                                onTap: () {
-                                  dataManager!.skipToNextVideo();
-                                },
-                                child: Icon(
-                                  Icons.skip_next,
-                                  color: dataManager!.hasNextVideo()
-                                      ? Colors.white
-                                      : Colors.white38,
-                                  size: 35,
-                                ),
-                              ),
-                            )
-                          ],
+                          ),
                         ),
                       ),
               ),
@@ -85,44 +102,102 @@ class MediaControls extends StatelessWidget {
         Positioned.fill(
           child: FlickAutoHideChild(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          FlickCurrentPosition(
-                            fontSize: fontSize,
-                          ),
-                          Text(
-                            ' / ',
-                            style: TextStyle(
-                                color: Colors.white, fontSize: fontSize),
-                          ),
-                          FlickTotalDuration(
-                            fontSize: fontSize,
-                          ),
-                        ],
-                      ),
-                      Expanded(
-                        child: Container(),
-                      ),
-                      FlickFullScreenToggle(
-                        size: iconSize,
-                      ),
-                    ],
-                  ),
                   FlickVideoProgressBar(
+                    //재생바
                     flickProgressBarSettings: FlickProgressBarSettings(
                       height: 5,
                       handleRadius: 5,
                       curveRadius: 50,
                       backgroundColor: Colors.white24,
                       bufferedColor: Colors.white38,
-                      playedColor: Colors.red,
-                      handleColor: Colors.red,
+                      playedColor: kPrimaryColor,
+                      handleColor: kPrimaryColor,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Row(
+                          //시청시간, 전체시간
+                          children: <Widget>[
+                            FlickCurrentPosition(
+                              fontSize: fontSize,
+                            ),
+                            Text(
+                              ' / ',
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: fontSize),
+                            ),
+                            FlickTotalDuration(
+                              fontSize: fontSize,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                widget.dataManager!.skipToPreviousVideo();
+                              },
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.skip_previous,
+                                    color:
+                                        widget.dataManager!.hasPreviousVideo()
+                                            ? Colors.white
+                                            : Colors.white38,
+                                    size: iconSize,
+                                  ),
+                                  Text(
+                                    '이전 강의',
+                                    style: TextStyle(
+                                      fontSize: fontSize,
+                                      color:
+                                          widget.dataManager!.hasPreviousVideo()
+                                              ? Colors.white
+                                              : Colors.white38,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              width: iconSize / 2,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                widget.dataManager!.skipToNextVideo();
+                              },
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.skip_next,
+                                    color: widget.dataManager!.hasNextVideo()
+                                        ? Colors.white
+                                        : Colors.white38,
+                                    size: iconSize,
+                                  ),
+                                  Text('다음 강의',
+                                      style: TextStyle(
+                                        fontSize: fontSize,
+                                        color:
+                                            widget.dataManager!.hasNextVideo()
+                                                ? Colors.white
+                                                : Colors.white38,
+                                      )),
+                                ],
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
                     ),
                   ),
                 ],
