@@ -14,7 +14,8 @@ class _WebViewScreenState extends State<WebViewScreen> {
     return Scaffold(
       body: SafeArea(
         child: WebView(
-          initialUrl: 'http://m.edutopik.com/',
+          // initialUrl: 'http://m.edutopik.com/',
+          initialUrl: 'http://118.45.182.188/', //for test
           javascriptMode: JavascriptMode.unrestricted,
         ),
       ),
