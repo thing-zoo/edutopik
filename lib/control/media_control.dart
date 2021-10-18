@@ -16,6 +16,7 @@ class MediaControls extends StatefulWidget {
 class _MediaControlsState extends State<MediaControls> {
   final double iconSize = 30;
   final double fontSize = 14;
+  double playBackSpeed = 1.0;
   @override
   Widget build(BuildContext context) {
     FlickVideoManager flickVideoManager =
@@ -136,6 +137,43 @@ class _MediaControlsState extends State<MediaControls> {
                             ),
                             FlickTotalDuration(
                               fontSize: fontSize,
+                            ),
+                            SizedBox(
+                              width: iconSize / 2,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                if (playBackSpeed <= 0.5)
+                                  playBackSpeed = 0.5;
+                                else
+                                  playBackSpeed -= 0.25;
+                                flickVideoManager.videoPlayerController
+                                    ?.setPlaybackSpeed(playBackSpeed);
+                              },
+                              child: Icon(
+                                Icons.remove,
+                                size: iconSize * 0.8,
+                              ),
+                            ),
+                            Text(
+                              playBackSpeed.toStringAsFixed(2) + "x",
+                              style: TextStyle(
+                                fontSize: fontSize,
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                if (playBackSpeed >= 2.0)
+                                  playBackSpeed = 2.0;
+                                else
+                                  playBackSpeed += 0.25;
+                                flickVideoManager.videoPlayerController
+                                    ?.setPlaybackSpeed(playBackSpeed);
+                              },
+                              child: Icon(
+                                Icons.add,
+                                size: iconSize * 0.8,
+                              ),
                             ),
                           ],
                         ),
