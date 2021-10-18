@@ -1,6 +1,6 @@
 import 'package:edutopik/screens/media/player_screen.dart';
 import 'package:edutopik/screens/splash_screen.dart';
-import 'screen/Login/login_screen.dart';
+import 'screens/Login/login_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
