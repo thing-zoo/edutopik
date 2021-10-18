@@ -1,11 +1,10 @@
-import 'package:edutopik/screen/login/btn/already_have_an_account_acheck.dart';
-import 'package:edutopik/screen/webview_screen.dart';
-import 'package:edutopik/screen/webview_signup_screen.dart';
+import 'package:edutopik/screens/login/btn/already_have_an_account_acheck.dart';
+import 'package:edutopik/widget/web_view.dart';
 import 'package:flutter/material.dart';
-import 'package:edutopik/screen/login/components/background.dart';
-import 'package:edutopik/screen/login/btn/rounded_button.dart';
-import 'package:edutopik/screen/login/btn/rounded_email_field.dart';
-import 'package:edutopik/screen/login/btn/rounded_password_field.dart';
+import 'package:edutopik/screens/login/components/background.dart';
+import 'package:edutopik/screens/login/btn/rounded_button.dart';
+import 'package:edutopik/screens/login/btn/rounded_email_field.dart';
+import 'package:edutopik/screens/login/btn/rounded_password_field.dart';
 
 class Body extends StatefulWidget {
   const Body({
@@ -74,7 +73,8 @@ class _BodyState extends State<Body> {
                     _controllerPassword.text == "123") {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (_) => WebViewScreen(),
+                      builder: (_) =>
+                          WebViewScreen(url: 'http://118.45.182.188/'),
                     ),
                   );
                 } else if (_controllerEmail.text == "wlwl1011@naver.com" &&
@@ -93,7 +93,8 @@ class _BodyState extends State<Body> {
               press: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (_) => WebViewSignupScreen(),
+                    builder: (_) => WebViewScreen(
+                        url: 'http://www.edutopik.com/member/join_agree.asp'),
                   ),
                 );
               },

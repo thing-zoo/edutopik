@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:edutopik/screen/login/components/body.dart';
+import 'package:edutopik/screens/login/components/body.dart';
 
 //Show Loin screen
 class LoginScreen extends StatelessWidget {

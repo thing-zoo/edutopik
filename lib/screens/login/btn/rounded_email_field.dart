@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:edutopik/screen/login/btn/text_field_container.dart';
+import 'package:edutopik/screens/login/btn/text_field_container.dart';
 import 'package:edutopik/constants.dart';
 
 class RoundedInputField extends StatelessWidget {

@@ -1,5 +1,5 @@
 import 'package:edutopik/constants.dart';
-import 'package:edutopik/model/media_manager.dart';
+import 'package:edutopik/screens/media/data_manager.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -243,6 +243,12 @@ class _MediaControlsState extends State<MediaControls> {
             ),
           ),
         ),
+        Positioned.fill(
+            child: Column(
+          children: [
+            
+          ],
+        ))
       ],
     );
   }

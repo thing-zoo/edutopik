@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewScreen extends StatefulWidget {
-  WebViewScreen({Key? key}) : super(key: key);
-
+  WebViewScreen({Key? key, required this.url}) : super(key: key);
+  final String url;
   @override
   _WebViewScreenState createState() => _WebViewScreenState();
 }
@@ -14,8 +14,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
     return Scaffold(
       body: SafeArea(
         child: WebView(
-          // initialUrl: 'http://m.edutopik.com/',
-          initialUrl: 'http://118.45.182.188/', //for test
+          initialUrl: widget.url,
           javascriptMode: JavascriptMode.unrestricted,
         ),
       ),

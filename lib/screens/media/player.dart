@@ -1,6 +1,6 @@
-import 'package:edutopik/control/media_control.dart';
-import 'package:edutopik/mock_data.dart'; //임시로 아무데나 만듦
-import 'package:edutopik/model/media_manager.dart';
+import 'package:edutopik/screens/media/media_control.dart';
+import 'package:edutopik/models/mock_data.dart'; //임시로 아무데나 만듦
+import 'package:edutopik/screens/media/data_manager.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

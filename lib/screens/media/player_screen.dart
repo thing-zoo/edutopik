@@ -1,4 +1,4 @@
-import 'package:edutopik/widget/player.dart';
+import 'package:edutopik/screens/media/player.dart';
 import 'package:flutter/material.dart';
 
 class PlayerScreen extends StatefulWidget {
