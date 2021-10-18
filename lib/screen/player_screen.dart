@@ -13,11 +13,8 @@ class _PlayerScreenState extends State<PlayerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Center(
-        child: Container(
-          child: DefaultPlayer(),
-          height: MediaQuery.of(context).size.width * (9 / 16),
-        ),
+      body: Container(
+        child: Player(),
       ),
     );
   }

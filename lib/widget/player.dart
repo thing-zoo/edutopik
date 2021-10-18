@@ -1,31 +1,48 @@
+import 'package:edutopik/control/media_control.dart';
+import 'package:edutopik/mock_data.dart'; //임시로 아무데나 만듦
+import 'package:edutopik/model/media_manager.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:video_player/video_player.dart';
 
-class DefaultPlayer extends StatefulWidget {
-  DefaultPlayer({Key? key}) : super(key: key);
+class Player extends StatefulWidget {
+  Player({Key? key}) : super(key: key);
 
   @override
-  _DefaultPlayerState createState() => _DefaultPlayerState();
+  _PlayerState createState() => _PlayerState();
 }
 
-class _DefaultPlayerState extends State<DefaultPlayer> {
+class _PlayerState extends State<Player> {
   late FlickManager flickManager;
+  late DataManager dataManager;
+  List<String> urls = (mockData["items"] as List)
+      .map<String>((item) => item["trailer_url"])
+      .toList();
+
   @override
   void initState() {
     super.initState();
     flickManager = FlickManager(
-      videoPlayerController: VideoPlayerController.network(
-        "https://video-previews.elements.envatousercontent.com/files/69d73a06-e5b2-4a6b-80f5-02b24aae2d9e/video_preview_h264.mp4",
-      ),
-    );
+        videoPlayerController: VideoPlayerController.network(
+          urls[0], /* 현재 강의 동영상은 여기 넣으면 됩니당 */
+        ),
+        onVideoEnd: () {
+          dataManager.skipToNextVideo(Duration(seconds: 5));
+        });
+
+    dataManager = DataManager(flickManager: flickManager, urls: urls);
   }
 
   @override
   void dispose() {
     flickManager.dispose();
     super.dispose();
+  }
+
+  skipToVideo(String url) {
+    flickManager.handleChangeVideo(VideoPlayerController.network(url));
   }
 
   @override
@@ -39,16 +56,24 @@ class _DefaultPlayerState extends State<DefaultPlayer> {
           flickManager.flickControlManager?.autoResume();
         }
       },
-      child: Container(
-        child: FlickVideoPlayer(
-          flickManager: flickManager,
-          flickVideoWithControls: FlickVideoWithControls(
-            controls: FlickPortraitControls(),
+      child: Column(
+        children: <Widget>[
+          Expanded(
+            child: FlickVideoPlayer(
+              flickManager: flickManager,
+              preferredDeviceOrientation: [
+                //바로 전체화면 되도록!
+                DeviceOrientation.portraitDown,
+                DeviceOrientation.landscapeLeft,
+                DeviceOrientation.landscapeRight,
+              ],
+              flickVideoWithControls: FlickVideoWithControls(
+                videoFit: BoxFit.fitWidth,
+                controls: MediaControls(dataManager: dataManager),
+              ),
+            ),
           ),
-          flickVideoWithControlsFullscreen: FlickVideoWithControls(
-            controls: FlickLandscapeControls(),
-          ),
-        ),
+        ],
       ),
     );
   }
