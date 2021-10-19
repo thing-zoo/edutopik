@@ -13,7 +13,9 @@ class _PlayerScreenState extends State<PlayerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Container(
+      body: SafeArea(
+        top: false,
+        bottom: false,
         child: Player(),
       ),
     );

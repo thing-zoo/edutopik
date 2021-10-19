@@ -10,12 +10,16 @@ class Splash extends StatelessWidget {
       backgroundColor: lightMode
           ? kPrimaryLightColor.withOpacity(1.0)
           : kPrimaryColor.withOpacity(1.0),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-        child: Center(
-            child: lightMode
-                ? Image.asset('assets/logo.png')
-                : Image.asset('assets/logo_dark.png')),
+      body: SafeArea(
+        top: false,
+        bottom: false,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+          child: Center(
+              child: lightMode
+                  ? Image.asset('assets/logo.png')
+                  : Image.asset('assets/logo_dark.png')),
+        ),
       ),
     );
   }
