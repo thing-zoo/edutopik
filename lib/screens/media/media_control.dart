@@ -17,11 +17,14 @@ class _MediaControlsState extends State<MediaControls> {
   final double iconSize = 30;
   final double fontSize = 14;
   double playBackSpeed = 1.0;
+  double voulmeGap = 0.1;
 
   @override
   Widget build(BuildContext context) {
     FlickVideoManager flickVideoManager =
         Provider.of<FlickVideoManager>(context);
+    FlickControlManager flickControlManager =
+        Provider.of<FlickControlManager>(context);
 
     return Stack(
       children: <Widget>[
@@ -145,12 +148,14 @@ class _MediaControlsState extends State<MediaControls> {
                         /* 배속 조절 */
                         GestureDetector(
                           onTap: () {
-                            if (playBackSpeed <= 0.5)
-                              playBackSpeed = 0.5;
-                            else
-                              playBackSpeed -= 0.25;
-                            flickVideoManager.videoPlayerController
-                                ?.setPlaybackSpeed(playBackSpeed);
+                            setState(() {
+                              if (playBackSpeed <= 0.5)
+                                playBackSpeed = 0.5;
+                              else
+                                playBackSpeed -= 0.25;
+                              flickVideoManager.videoPlayerController
+                                  ?.setPlaybackSpeed(playBackSpeed);
+                            });
                           },
                           child: Icon(
                             Icons.remove,
@@ -165,12 +170,14 @@ class _MediaControlsState extends State<MediaControls> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            if (playBackSpeed >= 2.0)
-                              playBackSpeed = 2.0;
-                            else
-                              playBackSpeed += 0.25;
-                            flickVideoManager.videoPlayerController
-                                ?.setPlaybackSpeed(playBackSpeed);
+                            setState(() {
+                              if (playBackSpeed >= 2.0)
+                                playBackSpeed = 2.0;
+                              else
+                                playBackSpeed += 0.25;
+                              flickVideoManager.videoPlayerController
+                                  ?.setPlaybackSpeed(playBackSpeed);
+                            });
                           },
                           child: Icon(
                             Icons.add,
@@ -247,9 +254,38 @@ class _MediaControlsState extends State<MediaControls> {
         ),
         /* 소리 조절 */
         Positioned.fill(
-            child: Column(
-          children: [],
-        ))
+          child: FlickAutoHideChild(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        flickControlManager.increaseVolume(voulmeGap);
+                      },
+                      child: Icon(
+                        Icons.add,
+                        size: iconSize * 0.8,
+                      ),
+                    ),
+                    FlickSoundToggle(),
+                    GestureDetector(
+                      onTap: () {
+                        flickControlManager.decreaseVolume(voulmeGap);
+                      },
+                      child: Icon(
+                        Icons.remove,
+                        size: iconSize * 0.8,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }
