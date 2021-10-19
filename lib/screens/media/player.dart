@@ -57,24 +57,19 @@ class _PlayerState extends State<Player> {
           flickManager.flickControlManager?.autoResume();
         }
       },
-      child: Column(
-        children: <Widget>[
-          Expanded(
-            child: FlickVideoPlayer(
-              flickManager: flickManager,
-              preferredDeviceOrientation: [
-                //바로 전체화면 되도록!
-                DeviceOrientation.portraitDown,
-                DeviceOrientation.landscapeLeft,
-                DeviceOrientation.landscapeRight,
-              ],
-              flickVideoWithControls: FlickVideoWithControls(
-                videoFit: BoxFit.fitWidth,
-                controls: MediaControls(dataManager: dataManager),
-              ),
-            ),
+      child: Container(
+        child: FlickVideoPlayer(
+          flickManager: flickManager,
+          preferredDeviceOrientation: [
+            //바로 전체화면 되도록!
+            DeviceOrientation.portraitDown,
+            DeviceOrientation.landscapeLeft,
+            DeviceOrientation.landscapeRight,
+          ],
+          flickVideoWithControls: FlickVideoWithControls(
+            controls: MediaControls(dataManager: dataManager),
           ),
-        ],
+        ),
       ),
     );
   }

@@ -17,6 +17,7 @@ class _MediaControlsState extends State<MediaControls> {
   final double iconSize = 30;
   final double fontSize = 14;
   double playBackSpeed = 1.0;
+
   @override
   Widget build(BuildContext context) {
     FlickVideoManager flickVideoManager =
@@ -32,9 +33,7 @@ class _MediaControlsState extends State<MediaControls> {
         ),
         /* 상단 부분 */
         Positioned.fill(
-            child: FlickAutoHideChild(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
+          child: FlickAutoHideChild(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -60,7 +59,8 @@ class _MediaControlsState extends State<MediaControls> {
                     ),
                     /* 강의 제목 */
                     Text(
-                      '[TOPIK] 1강. 강의 소개',/* 백엔드: 여기에 이름 가져와서 넣도록~ */
+                      '[TOPIK] 1강. 강의 소개',
+                      /* 백엔드: 여기에 이름 가져와서 넣도록~ */
                       style: TextStyle(fontSize: fontSize),
                     ),
                   ],
@@ -68,12 +68,12 @@ class _MediaControlsState extends State<MediaControls> {
               ],
             ),
           ),
-        )),
+        ),
         /* 중앙부분 */
-        Positioned.fill(
+        Positioned(
           child: FlickShowControlsAction(
+            /* 뒤로,빨리감기 */
             child: FlickSeekVideoAction(
-              /* 뒤로,빨리감기 */
               child: Center(
                 child: flickVideoManager.nextVideoAutoPlayTimer != null
                     ? FlickAutoPlayCircularProgress(
@@ -105,155 +105,150 @@ class _MediaControlsState extends State<MediaControls> {
         /* 하단부분 */
         Positioned.fill(
           child: FlickAutoHideChild(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(10, 0, 10, 20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  FlickVideoProgressBar(
-                    /* 재생바 */
-                    flickProgressBarSettings: FlickProgressBarSettings(
-                      height: 5,
-                      handleRadius: 5,
-                      curveRadius: 50,
-                      backgroundColor: Colors.white24,
-                      bufferedColor: Colors.white38,
-                      playedColor: kPrimaryColor,
-                      handleColor: kPrimaryColor,
-                    ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                /* 재생바 */
+                FlickVideoProgressBar(
+                  flickProgressBarSettings: FlickProgressBarSettings(
+                    height: 5,
+                    handleRadius: 5,
+                    curveRadius: 50,
+                    backgroundColor: Colors.white24,
+                    bufferedColor: Colors.white38,
+                    playedColor: kPrimaryColor,
+                    handleColor: kPrimaryColor,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                ),
+                /* 시간, 배속, 이동 */
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    /* 시간, 배속 */
+                    Row(
                       children: <Widget>[
-                        /* 시청시간/전체시간 */
-                        Row(
-                          children: <Widget>[
-                            FlickCurrentPosition(
-                              fontSize: fontSize,
-                            ),
-                            Text(
-                              ' / ',
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: fontSize),
-                            ),
-                            FlickTotalDuration(
-                              fontSize: fontSize,
-                            ),
-                            SizedBox(
-                              width: iconSize / 2,
-                            ),
-                            /* 배속 조절 */
-                            GestureDetector(
-                              onTap: () {
-                                if (playBackSpeed <= 0.5)
-                                  playBackSpeed = 0.5;
-                                else
-                                  playBackSpeed -= 0.25;
-                                flickVideoManager.videoPlayerController
-                                    ?.setPlaybackSpeed(playBackSpeed);
-                              },
-                              child: Icon(
-                                Icons.remove,
-                                size: iconSize * 0.8,
-                              ),
-                            ),
-                            Text(
-                              playBackSpeed.toStringAsFixed(2) + "x",
-                              style: TextStyle(
-                                fontSize: fontSize,
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                if (playBackSpeed >= 2.0)
-                                  playBackSpeed = 2.0;
-                                else
-                                  playBackSpeed += 0.25;
-                                flickVideoManager.videoPlayerController
-                                    ?.setPlaybackSpeed(playBackSpeed);
-                              },
-                              child: Icon(
-                                Icons.add,
-                                size: iconSize * 0.8,
-                              ),
-                            ),
-                          ],
+                        /* 현재시간/전체시간 */
+                        FlickCurrentPosition(
+                          fontSize: fontSize,
                         ),
-                        /* 강의 이동 */
-                        Row(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                widget.dataManager!.skipToPreviousVideo();
-                              },
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.skip_previous,
-                                    color:
-                                        widget.dataManager!.hasPreviousVideo()
-                                            ? Colors.white
-                                            : Colors.white38,
-                                    size: iconSize,
-                                  ),
-                                  Text(
-                                    '이전 강의',
-                                    style: TextStyle(
-                                      fontSize: fontSize,
-                                      color:
-                                          widget.dataManager!.hasPreviousVideo()
-                                              ? Colors.white
-                                              : Colors.white38,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              width: iconSize / 2,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                widget.dataManager!.skipToNextVideo();
-                              },
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.skip_next,
-                                    color: widget.dataManager!.hasNextVideo()
-                                        ? Colors.white
-                                        : Colors.white38,
-                                    size: iconSize,
-                                  ),
-                                  Text('다음 강의',
-                                      style: TextStyle(
-                                        fontSize: fontSize,
-                                        color:
-                                            widget.dataManager!.hasNextVideo()
-                                                ? Colors.white
-                                                : Colors.white38,
-                                      )),
-                                ],
-                              ),
-                            ),
-                          ],
-                        )
+                        Text(
+                          ' / ',
+                          style: TextStyle(
+                              color: Colors.white, fontSize: fontSize),
+                        ),
+                        FlickTotalDuration(
+                          fontSize: fontSize,
+                        ),
+                        SizedBox(
+                          width: iconSize / 2,
+                        ),
+                        /* 배속 조절 */
+                        GestureDetector(
+                          onTap: () {
+                            if (playBackSpeed <= 0.5)
+                              playBackSpeed = 0.5;
+                            else
+                              playBackSpeed -= 0.25;
+                            flickVideoManager.videoPlayerController
+                                ?.setPlaybackSpeed(playBackSpeed);
+                          },
+                          child: Icon(
+                            Icons.remove,
+                            size: iconSize * 0.8,
+                          ),
+                        ),
+                        Text(
+                          playBackSpeed.toStringAsFixed(2) + "x",
+                          style: TextStyle(
+                            fontSize: fontSize,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            if (playBackSpeed >= 2.0)
+                              playBackSpeed = 2.0;
+                            else
+                              playBackSpeed += 0.25;
+                            flickVideoManager.videoPlayerController
+                                ?.setPlaybackSpeed(playBackSpeed);
+                          },
+                          child: Icon(
+                            Icons.add,
+                            size: iconSize * 0.8,
+                          ),
+                        ),
                       ],
                     ),
-                  ),
-                ],
-              ),
+                    /* 강의 이동 */
+                    Row(
+                      children: [
+                        /* 이전강의로 */
+                        GestureDetector(
+                          onTap: () {
+                            widget.dataManager!.skipToPreviousVideo();
+                          },
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.skip_previous,
+                                color: widget.dataManager!.hasPreviousVideo()
+                                    ? Colors.white
+                                    : Colors.white38,
+                                size: iconSize,
+                              ),
+                              Text(
+                                '이전 강의',
+                                style: TextStyle(
+                                  fontSize: fontSize,
+                                  color: widget.dataManager!.hasPreviousVideo()
+                                      ? Colors.white
+                                      : Colors.white38,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          width: iconSize / 2,
+                        ),
+                        /* 다음강의로 */
+                        GestureDetector(
+                          onTap: () {
+                            widget.dataManager!.skipToNextVideo();
+                          },
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.skip_next,
+                                color: widget.dataManager!.hasNextVideo()
+                                    ? Colors.white
+                                    : Colors.white38,
+                                size: iconSize,
+                              ),
+                              Text(
+                                '다음 강의',
+                                style: TextStyle(
+                                  fontSize: fontSize,
+                                  color: widget.dataManager!.hasNextVideo()
+                                      ? Colors.white
+                                      : Colors.white38,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
         /* 소리 조절 */
         Positioned.fill(
             child: Column(
-          children: [
-            
-          ],
+          children: [],
         ))
       ],
     );
