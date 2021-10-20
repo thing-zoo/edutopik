@@ -19,7 +19,6 @@ class _BodyState extends State<Body> {
   final _controllerEmail = TextEditingController();
   final _controllerPassword = TextEditingController();
 
-  @override
   void dispoes() {
     _controllerEmail.dispose();
     _controllerPassword.dispose();
@@ -35,18 +34,14 @@ class _BodyState extends State<Body> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              "LOGIN",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: size.height * 0.03),
-            Positioned(
-              top: 0,
-              left: 0,
-              child: Image.asset(
-                "assets/logo.png",
-                width: size.width * 0.6,
-              ),
+            // Text(
+            //   "LOGIN",
+            //   style: TextStyle(fontWeight: FontWeight.bold),
+            // ),
+            // SizedBox(height: size.height * 0.03),
+            Image.asset(
+              "assets/logo.png",
+              width: size.width * 0.6,
             ),
             SizedBox(height: size.height * 0.03),
             RoundedInputField(
