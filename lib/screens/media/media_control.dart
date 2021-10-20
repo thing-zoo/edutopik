@@ -16,8 +16,8 @@ class MediaControls extends StatefulWidget {
 class _MediaControlsState extends State<MediaControls> {
   final double iconSize = 30;
   final double fontSize = 14;
-  double playBackSpeed = 1.0;
-  double voulmeGap = 0.1;
+  double _playBackSpeed = 1.0;
+  double _volumLevel = 1.0;
 
   @override
   Widget build(BuildContext context) {
@@ -149,12 +149,12 @@ class _MediaControlsState extends State<MediaControls> {
                         GestureDetector(
                           onTap: () {
                             setState(() {
-                              if (playBackSpeed <= 0.5)
-                                playBackSpeed = 0.5;
+                              if (_playBackSpeed <= 0.5)
+                                _playBackSpeed = 0.5;
                               else
-                                playBackSpeed -= 0.25;
+                                _playBackSpeed -= 0.25;
                               flickVideoManager.videoPlayerController
-                                  ?.setPlaybackSpeed(playBackSpeed);
+                                  ?.setPlaybackSpeed(_playBackSpeed);
                             });
                           },
                           child: Icon(
@@ -163,7 +163,7 @@ class _MediaControlsState extends State<MediaControls> {
                           ),
                         ),
                         Text(
-                          playBackSpeed.toStringAsFixed(2) + "x",
+                          _playBackSpeed.toStringAsFixed(2) + "x",
                           style: TextStyle(
                             fontSize: fontSize,
                           ),
@@ -171,12 +171,12 @@ class _MediaControlsState extends State<MediaControls> {
                         GestureDetector(
                           onTap: () {
                             setState(() {
-                              if (playBackSpeed >= 2.0)
-                                playBackSpeed = 2.0;
+                              if (_playBackSpeed >= 2.0)
+                                _playBackSpeed = 2.0;
                               else
-                                playBackSpeed += 0.25;
+                                _playBackSpeed += 0.25;
                               flickVideoManager.videoPlayerController
-                                  ?.setPlaybackSpeed(playBackSpeed);
+                                  ?.setPlaybackSpeed(_playBackSpeed);
                             });
                           },
                           child: Icon(
@@ -261,25 +261,30 @@ class _MediaControlsState extends State<MediaControls> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        flickControlManager.increaseVolume(voulmeGap);
-                      },
-                      child: Icon(
-                        Icons.add,
-                        size: iconSize * 0.8,
+                    
+                    SliderTheme(
+                      data: SliderThemeData(
+                        trackHeight: 5,
+                        activeTrackColor: kPrimaryColor,
+                        activeTickMarkColor: kPrimaryColor,
+                        inactiveTickMarkColor: kPrimaryColor,
+                        inactiveTrackColor: Colors.white60,
+                      ),
+                      child: Slider(
+                        value: _volumLevel,
+                        min: 0.0,
+                        max: 1.0,
+                        onChanged: (double newValue) {
+                          setState(() {
+                            double diff = newValue - _volumLevel;
+                            _volumLevel = newValue;
+                            flickControlManager.increaseVolume(diff);
+                          });
+                        },
                       ),
                     ),
-                    FlickSoundToggle(),
-                    GestureDetector(
-                      onTap: () {
-                        flickControlManager.decreaseVolume(voulmeGap);
-                      },
-                      child: Icon(
-                        Icons.remove,
-                        size: iconSize * 0.8,
-                      ),
-                    ),
+
+                    FlickSoundToggle(size: iconSize),
                   ],
                 ),
               ],
