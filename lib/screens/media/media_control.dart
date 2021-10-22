@@ -1,30 +1,80 @@
+import 'dart:async';
 import 'package:edutopik/constants.dart';
 import 'package:edutopik/screens/media/data_manager.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:screen_brightness/screen_brightness.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
+import 'package:volume_control/volume_control.dart';
 
-class MediaControls extends StatefulWidget {
-  MediaControls({Key? key, this.dataManager}) : super(key: key);
+class MediaControl extends StatefulWidget {
+  MediaControl({Key? key, this.dataManager}) : super(key: key);
   final DataManager? dataManager;
 
   @override
-  State<MediaControls> createState() => _MediaControlsState();
+  State<MediaControl> createState() => _MediaControlState();
 }
 
-class _MediaControlsState extends State<MediaControls> {
+class _MediaControlState extends State<MediaControl> {
   final double iconSize = 30;
   final double fontSize = 14;
   double _playBackSpeed = 1.0;
-  double _volumLevel = 1.0;
+  late double _volume;
+  late double _brightness;
+
+  @override
+  void initState() {
+    super.initState();
+    initScreenBrightness();
+    initVolumeState();
+  }
+
+  //init screen_brightness plugin
+  Future<void> initScreenBrightness() async {
+    double _initBrightness;
+
+    try {
+      final currentBrightness = await ScreenBrightness.current;
+      final initialBrightness = await ScreenBrightness.initial;
+      _initBrightness = initialBrightness == currentBrightness
+          ? initialBrightness
+          : currentBrightness;
+    } catch (e) {
+      debugPrint(e.toString());
+      throw 'Failed to get initial brightness';
+    }
+
+    if (!mounted) return;
+
+    setState(() {
+      _brightness = _initBrightness;
+    });
+  }
+
+  Future<void> setBrightness(double brightness) async {
+    try {
+      await ScreenBrightness.setScreenBrightness(brightness);
+    } catch (e) {
+      debugPrint(e.toString());
+      throw 'Failed to set brightness';
+    }
+  }
+
+  //init volume_control plugin
+  Future<void> initVolumeState() async {
+    if (!mounted) return;
+
+    //read the current volume
+    _volume = await VolumeControl.volume;
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     FlickVideoManager flickVideoManager =
         Provider.of<FlickVideoManager>(context);
-    FlickControlManager flickControlManager =
-        Provider.of<FlickControlManager>(context);
 
     return Stack(
       children: <Widget>[
@@ -36,6 +86,7 @@ class _MediaControlsState extends State<MediaControls> {
         ),
         /* 상단 부분 */
         Positioned.fill(
+          top: 20,
           child: FlickAutoHideChild(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -107,6 +158,7 @@ class _MediaControlsState extends State<MediaControls> {
         ),
         /* 하단부분 */
         Positioned.fill(
+          bottom: 20,
           child: FlickAutoHideChild(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -116,7 +168,7 @@ class _MediaControlsState extends State<MediaControls> {
                   flickProgressBarSettings: FlickProgressBarSettings(
                     height: 5,
                     handleRadius: 5,
-                    curveRadius: 50,
+                    // curveRadius: 50,
                     backgroundColor: Colors.white24,
                     bufferedColor: Colors.white38,
                     playedColor: kPrimaryColor,
@@ -261,30 +313,49 @@ class _MediaControlsState extends State<MediaControls> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    
                     SliderTheme(
                       data: SliderThemeData(
-                        trackHeight: 5,
                         activeTrackColor: kPrimaryColor,
-                        activeTickMarkColor: kPrimaryColor,
-                        inactiveTickMarkColor: kPrimaryColor,
-                        inactiveTrackColor: Colors.white60,
+                        inactiveTrackColor: Colors.white54,
                       ),
-                      child: Slider(
-                        value: _volumLevel,
-                        min: 0.0,
-                        max: 1.0,
-                        onChanged: (double newValue) {
+                      child: SfSlider.vertical(
+                        value: _volume,
+                        onChanged: (dynamic newValue) async {
+                          await VolumeControl.setVolume(newValue);
                           setState(() {
-                            double diff = newValue - _volumLevel;
-                            _volumLevel = newValue;
-                            flickControlManager.increaseVolume(diff);
+                            _volume = newValue;
                           });
                         },
+                        thumbIcon: Icon(Icons.volume_up),
                       ),
                     ),
-
-                    FlickSoundToggle(size: iconSize),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+        /* 밝기 조절 */
+        Positioned.fill(
+          child: FlickAutoHideChild(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SfSlider.vertical(
+                      value: _brightness,
+                      onChanged: (dynamic value) async {
+                        await setBrightness(value);
+                        setState(() {
+                          _brightness = value;
+                        });
+                      },
+                      activeColor: kPrimaryColor,
+                      inactiveColor: Colors.white54,
+                      thumbIcon: Icon(Icons.light_mode),
+                    ),
                   ],
                 ),
               ],
