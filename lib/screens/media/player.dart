@@ -67,7 +67,8 @@ class _PlayerState extends State<Player> {
             DeviceOrientation.landscapeRight,
           ],
           flickVideoWithControls: FlickVideoWithControls(
-            controls: MediaControls(dataManager: dataManager),
+            videoFit: BoxFit.fitWidth,
+            controls: MediaControl(dataManager: dataManager),
           ),
         ),
       ),
