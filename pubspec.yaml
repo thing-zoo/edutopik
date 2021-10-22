@@ -32,7 +32,10 @@ dependencies:
   flutter_svg: ^0.19.1
   flick_video_player: ^0.4.0-dev.4
   video_player: ^2.2.5
-  visibility_detector: ^0.2.2 
+  visibility_detector: ^0.2.2
+  volume_control: ^0.1.5
+  screen_brightness: ^0.0.4
+  syncfusion_flutter_sliders: ^19.3.46
 
 dev_dependencies:
   flutter_test:
