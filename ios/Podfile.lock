@@ -1,6 +1,10 @@
 PODS:
   - Flutter (1.0.0)
+  - screen_brightness (0.0.1):
+    - Flutter
   - video_player (0.0.1):
+    - Flutter
+  - volume_control (0.0.1):
     - Flutter
   - wakelock (0.0.1):
     - Flutter
@@ -9,15 +13,21 @@ PODS:
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
+  - screen_brightness (from `.symlinks/plugins/screen_brightness/ios`)
   - video_player (from `.symlinks/plugins/video_player/ios`)
+  - volume_control (from `.symlinks/plugins/volume_control/ios`)
   - wakelock (from `.symlinks/plugins/wakelock/ios`)
   - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/ios`)
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
+  screen_brightness:
+    :path: ".symlinks/plugins/screen_brightness/ios"
   video_player:
     :path: ".symlinks/plugins/video_player/ios"
+  volume_control:
+    :path: ".symlinks/plugins/volume_control/ios"
   wakelock:
     :path: ".symlinks/plugins/wakelock/ios"
   webview_flutter_wkwebview:
@@ -25,7 +35,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  screen_brightness: 994a74a8a983e319ff8a8e1e2380b1d7be899098
   video_player: ecd305f42e9044793efd34846e1ce64c31ea6fcb
+  volume_control: ae2b373c092d9ff5e57f704e9fa5e3098cc16d07
   wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
   webview_flutter_wkwebview: 44aa025fbcf6730d808f1e0d86a5af5ac25fa8de
 
