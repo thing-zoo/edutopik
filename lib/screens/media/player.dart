@@ -66,8 +66,9 @@ class _PlayerState extends State<Player> {
             DeviceOrientation.landscapeLeft,
             DeviceOrientation.landscapeRight,
           ],
+          systemUIOverlay: [], //하단바,상단바 없애줌
           flickVideoWithControls: FlickVideoWithControls(
-            videoFit: BoxFit.fitWidth,
+            videoFit: BoxFit.fitWidth,//영상을 safearea에 맞게
             controls: MediaControl(dataManager: dataManager),
           ),
         ),
