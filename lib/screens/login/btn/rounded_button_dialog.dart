@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:edutopik/constants.dart';
 
-class RoundedButton extends StatelessWidget {
+class RoundedButtonForDialog extends StatelessWidget {
   final String text;
   final VoidCallback press;
   final Color color, textColor;
-  const RoundedButton({
+  const RoundedButtonForDialog({
     Key? key,
     required this.text,
     required this.press,
@@ -18,7 +18,7 @@ class RoundedButton extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
-      width: size.width * 0.8,
+      width: size.width * 0.7,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(29),
         child: newElevatedButton(),
@@ -38,7 +38,7 @@ class RoundedButton extends StatelessWidget {
       onPressed: press,
       style: ElevatedButton.styleFrom(
           primary: color,
-          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
           textStyle: TextStyle(
               color: textColor, fontSize: 14, fontWeight: FontWeight.w500)),
     );
