@@ -1,6 +1,8 @@
 import 'package:edutopik/screens/login/login_screen.dart';
 import 'package:edutopik/screens/media/player_screen.dart';
 import 'package:edutopik/screens/splash_screen.dart';
+import 'package:edutopik/screens/test.dart';
+import 'package:edutopik/widget/web_view.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -24,11 +26,11 @@ class MyApp extends StatelessWidget {
           // Loading is done, return the app:
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'EDU TOPIK',
+            title: 'EDU-TOPIK',
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            home: PlayerScreen(),
+            home: JSTest(),
           );
         }
       },

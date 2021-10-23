@@ -1,3 +1,4 @@
+import 'package:edutopik/screens/media/player_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -35,6 +36,11 @@ class _JSTestState extends State<JSTest> {
                 name: 'JavaScriptChannel',
                 onMessageReceived: (JavascriptMessage message) {
                   print(message.message);
+                  //미디어 플레이어로 이동
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PlayerScreen()),
+                  );
                 })
           ]),
         ),

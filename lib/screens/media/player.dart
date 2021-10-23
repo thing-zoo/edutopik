@@ -17,7 +17,7 @@ class Player extends StatefulWidget {
 class _PlayerState extends State<Player> {
   late FlickManager flickManager;
   late DataManager dataManager;
-  /* 백엔드: 전체 동영상 여기에 리스트로 넣도록~~ */
+
   List<String> urls = (mockData["items"] as List)
       .map<String>((item) => item["trailer_url"])
       .toList();
@@ -68,7 +68,7 @@ class _PlayerState extends State<Player> {
           ],
           systemUIOverlay: [], //하단바,상단바 없애줌
           flickVideoWithControls: FlickVideoWithControls(
-            videoFit: BoxFit.fitWidth,//영상을 safearea에 맞게
+            videoFit: BoxFit.fitWidth, //영상을 safearea에 맞게
             controls: MediaControl(dataManager: dataManager),
           ),
         ),
