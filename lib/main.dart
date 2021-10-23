@@ -1,6 +1,5 @@
 import 'package:edutopik/screens/media/player_screen.dart';
 import 'package:edutopik/screens/splash_screen.dart';
-import 'screens/Login/login_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -28,7 +27,7 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            home: LoginScreen(),
+            home: PlayerScreen(),
           );
         }
       },
