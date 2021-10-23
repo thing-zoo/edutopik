@@ -27,15 +27,15 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
-  webview_flutter: ^2.1.1
-  flutter_svg: ^0.19.1
+  cupertino_icons: 
+  webview_flutter: 
+  flutter_svg: 
   flick_video_player: ^0.4.0-dev.4
-  video_player: ^2.2.5
-  visibility_detector: ^0.2.2
-  volume_control: ^0.1.5
-  screen_brightness: ^0.0.4
-  syncfusion_flutter_sliders: ^19.3.46
+  video_player: 
+  visibility_detector: 
+  volume_control: 
+  screen_brightness: 
+  syncfusion_flutter_sliders: 
 
 dev_dependencies:
   flutter_test:
