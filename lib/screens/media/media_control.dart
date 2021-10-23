@@ -21,8 +21,8 @@ class _MediaControlState extends State<MediaControl> {
   final double iconSize = 30;
   final double fontSize = 14;
   double _playBackSpeed = 1.0;
-  late double _volume;
-  late double _brightness;
+  double _volume = 0.5;
+  double _brightness = 0.5;
 
   @override
   void initState() {
@@ -96,7 +96,6 @@ class _MediaControlState extends State<MediaControl> {
                     /* 뒤로가기 */
                     GestureDetector(
                       onTap: () {
-                        // SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
                         SystemChrome.setEnabledSystemUIMode(
                             SystemUiMode.manual);
                         SystemChrome.setPreferredOrientations(
@@ -167,8 +166,8 @@ class _MediaControlState extends State<MediaControl> {
                 FlickVideoProgressBar(
                   flickProgressBarSettings: FlickProgressBarSettings(
                     height: 5,
-                    handleRadius: 5,
-                    // curveRadius: 50,
+                    handleRadius: 6,
+                    curveRadius: 50,
                     backgroundColor: Colors.white24,
                     bufferedColor: Colors.white38,
                     playedColor: kPrimaryColor,
@@ -313,21 +312,17 @@ class _MediaControlState extends State<MediaControl> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SliderTheme(
-                      data: SliderThemeData(
-                        activeTrackColor: kPrimaryColor,
-                        inactiveTrackColor: Colors.white54,
-                      ),
-                      child: SfSlider.vertical(
-                        value: _volume,
-                        onChanged: (dynamic newValue) async {
-                          await VolumeControl.setVolume(newValue);
-                          setState(() {
-                            _volume = newValue;
-                          });
-                        },
-                        thumbIcon: Icon(Icons.volume_up),
-                      ),
+                    SfSlider.vertical(
+                      value: _volume,
+                      onChanged: (dynamic newValue) async {
+                        await VolumeControl.setVolume(newValue);
+                        setState(() {
+                          _volume = newValue;
+                        });
+                      },
+                      activeColor: kPrimaryColor,
+                      inactiveColor: Colors.white54,
+                      thumbIcon: Icon(Icons.volume_up),
                     ),
                   ],
                 ),
