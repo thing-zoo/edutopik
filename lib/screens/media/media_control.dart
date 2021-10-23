@@ -84,44 +84,7 @@ class _MediaControlState extends State<MediaControl> {
             child: Container(color: Colors.black38),
           ),
         ),
-        /* 상단 부분 */
-        Positioned.fill(
-          top: 20,
-          child: FlickAutoHideChild(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    /* 뒤로가기 */
-                    GestureDetector(
-                      onTap: () {
-                        SystemChrome.setEnabledSystemUIMode(
-                            SystemUiMode.manual);
-                        SystemChrome.setPreferredOrientations(
-                            [DeviceOrientation.portraitUp]);
-                        Navigator.pop(context);
-                      },
-                      child: Icon(
-                        Icons.arrow_back_ios_new,
-                        size: iconSize * 0.8,
-                      ),
-                    ),
-                    SizedBox(
-                      width: iconSize / 2,
-                    ),
-                    /* 강의 제목 */
-                    Text(
-                      '[TOPIK] 1강. 강의 소개',
-                      /* 백엔드: 여기에 이름 가져와서 넣도록~ */
-                      style: TextStyle(fontSize: fontSize),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
+
         /* 중앙부분 */
         Positioned(
           child: FlickShowControlsAction(
@@ -155,6 +118,7 @@ class _MediaControlState extends State<MediaControl> {
             ),
           ),
         ),
+
         /* 하단부분 */
         Positioned.fill(
           bottom: 20,
@@ -303,6 +267,7 @@ class _MediaControlState extends State<MediaControl> {
             ),
           ),
         ),
+
         /* 소리 조절 */
         Positioned.fill(
           child: FlickAutoHideChild(
@@ -330,6 +295,7 @@ class _MediaControlState extends State<MediaControl> {
             ),
           ),
         ),
+
         /* 밝기 조절 */
         Positioned.fill(
           child: FlickAutoHideChild(
@@ -350,6 +316,45 @@ class _MediaControlState extends State<MediaControl> {
                       activeColor: kPrimaryColor,
                       inactiveColor: Colors.white54,
                       thumbIcon: Icon(Icons.light_mode),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+
+        /* 상단 부분 */
+        Positioned.fill(
+          top: 20,
+          child: FlickAutoHideChild(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    /* 뒤로가기 */
+                    GestureDetector(
+                      onTap: () {
+                        SystemChrome.setEnabledSystemUIMode(
+                            SystemUiMode.manual);
+                        SystemChrome.setPreferredOrientations(
+                            [DeviceOrientation.portraitUp]);
+                        Navigator.pop(context);
+                      },
+                      child: Icon(
+                        Icons.arrow_back_ios_new,
+                        size: iconSize * 0.8,
+                      ),
+                    ),
+                    SizedBox(
+                      width: iconSize / 2,
+                    ),
+                    /* 강의 제목 */
+                    Text(
+                      '[TOPIK] 1강. 강의 소개',
+                      /* 백엔드: 여기에 이름 가져와서 넣도록~ */
+                      style: TextStyle(fontSize: fontSize),
                     ),
                   ],
                 ),
