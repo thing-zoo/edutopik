@@ -36,6 +36,7 @@ dependencies:
   volume_control: 
   screen_brightness: 
   syncfusion_flutter_sliders: 
+  http:
 
 dev_dependencies:
   flutter_test:
