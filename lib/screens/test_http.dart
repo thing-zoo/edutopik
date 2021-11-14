@@ -14,7 +14,7 @@ class Session {
   Future<dynamic> get(String url) async {
     print('get() url: $url');
     http.Response response =
-        await http.get(Uri.encodeFull(url), headers: headers);
+        await http.get(Uri.parse(url), headers: headers);
     
     final int statusCode = response.statusCode;
     if (statusCode < 200 || statusCode > 400 || json == null) {
@@ -25,7 +25,7 @@ class Session {
 
   Future<dynamic> post(String url, dynamic data) async {
     print('post() url: $url');
-    http.Response response = await http.post(Uri.encodeFull(url),
+    http.Response response = await http.post(Uri.parse(url),
         body: json.encode(data), headers: headers);
     final int statusCode = response.statusCode;
     if (statusCode < 200 || statusCode > 400 || json == null) {

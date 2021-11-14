@@ -2,7 +2,8 @@ import 'package:edutopik/screens/media/player.dart';
 import 'package:flutter/material.dart';
 
 class PlayerScreen extends StatefulWidget {
-  PlayerScreen({Key? key}) : super(key: key);
+  PlayerScreen({Key? key, required this.urls}) : super(key: key);
+  List<String> urls;
 
   @override
   _PlayerScreenState createState() => _PlayerScreenState();
@@ -16,7 +17,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
       body: SafeArea(
         top: false,
         bottom: false,
-        child: Player(),
+        child: Player(urls: widget.urls),
       ),
     );
   }

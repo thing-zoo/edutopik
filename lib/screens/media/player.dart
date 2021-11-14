@@ -8,7 +8,8 @@ import 'package:visibility_detector/visibility_detector.dart';
 import 'package:video_player/video_player.dart';
 
 class Player extends StatefulWidget {
-  Player({Key? key}) : super(key: key);
+  Player({Key? key, required this.urls}) : super(key: key);
+  List<String> urls;
 
   @override
   _PlayerState createState() => _PlayerState();
@@ -18,22 +19,24 @@ class _PlayerState extends State<Player> {
   late FlickManager flickManager;
   late DataManager dataManager;
 
-  List<String> urls = (mockData["items"] as List)
-      .map<String>((item) => item["trailer_url"])
-      .toList();
+  /* 테스트용 링크 */
+  // List<String> urls = (mockData["items"] as List)
+  //     .map<String>((item) => item["trailer_url"])
+  //     .toList();
 
   @override
   void initState() {
     super.initState();
     flickManager = FlickManager(
         videoPlayerController: VideoPlayerController.network(
-          urls[0], /* 백엔드: 현재 강의 동영상은 여기 넣으면 됩니당~ */
+          widget.urls[0], /* 백엔드: 현재 강의 동영상은 여기 넣으면 됩니당~ */
+          // urls[0], /* 테스트용 링크 */
         ),
         onVideoEnd: () {
           dataManager.skipToNextVideo(Duration(seconds: 5));
         });
 
-    dataManager = DataManager(flickManager: flickManager, urls: urls);
+    dataManager = DataManager(flickManager: flickManager, urls: widget.urls);
   }
 
   @override
