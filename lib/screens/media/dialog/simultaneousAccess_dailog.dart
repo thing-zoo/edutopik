@@ -1,9 +1,10 @@
 import 'package:edutopik/screens/login/btn/rounded_button_dialog.dart';
+import 'package:edutopik/screens/otp/otp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
-class ReAuthCodeDialog extends StatelessWidget {
-  const ReAuthCodeDialog({Key? key}) : super(key: key);
+class SimultaneousAccessDialog extends StatelessWidget {
+  const SimultaneousAccessDialog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,22 +17,33 @@ class ReAuthCodeDialog extends StatelessWidget {
           alignment: Alignment.topCenter,
           children: [
             Container(
-              height: size.height * 0.23,
+              height: size.height * 0.35,
               width: size.width * 0.8,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(10, 70, 10, 5),
+                padding: const EdgeInsets.fromLTRB(10, 82, 10, 5),
                 child: Column(
                   children: [
                     Text(
-                      '인증 번호를 재 전송 했습니다.',
+                      '이미 다른 기기에서 수강 중입니다.',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
+                    SizedBox(height: size.height * 0.03),
+                    Text(
+                      '다른기기의 수강을 강제 종료한 후',
+                      style: TextStyle(fontSize: 14),
+                    ),
+                    SizedBox(height: size.height * 0.01),
+                    Text(
+                      '현재 기기로 수강하시겠습니까?',
+                      style: TextStyle(fontSize: 14),
+                    ),
                     SizedBox(height: size.height * 0.02),
                     RoundedButtonForDialog(
-                      text: "OK",
-                      press: () => Navigator.pop(context, true),
-                    )
+                        text: "OK",
+                        press: () {
+                          /* 강제 종료 */
+                        }),
                   ],
                 ),
               ),
@@ -39,12 +51,12 @@ class ReAuthCodeDialog extends StatelessWidget {
             Positioned(
                 top: -55,
                 child: CircleAvatar(
-                  backgroundColor: Colors.green,
-                  radius: 50,
+                  backgroundColor: Colors.redAccent,
+                  radius: 55,
                   child: Icon(
-                    Ionicons.checkmark_circle,
+                    Ionicons.alert_outline,
                     color: Colors.white,
-                    size: 100,
+                    size: 85,
                   ),
                 )),
           ],
