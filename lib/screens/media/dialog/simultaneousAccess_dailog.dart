@@ -1,5 +1,4 @@
 import 'package:edutopik/screens/login/btn/rounded_button_dialog.dart';
-import 'package:edutopik/screens/otp/otp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 

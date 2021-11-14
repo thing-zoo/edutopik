@@ -30,14 +30,15 @@ dependencies:
   webview_flutter:
   flutter_svg:
   flick_video_player: ^0.4.0-dev.4
-  video_player: 
-  visibility_detector: 
-  volume_control: 
-  screen_brightness: 
-  syncfusion_flutter_sliders: 
+  video_player:
+  visibility_detector:
+  volume_control:
+  screen_brightness:
+  syncfusion_flutter_sliders:
   ionicons: ^0.1.2
-  http:
-
+  dio: ^4.0.3
+  http: ^0.13.4
+  device_info: ^2.0.3
 
 dev_dependencies:
   flutter_test:

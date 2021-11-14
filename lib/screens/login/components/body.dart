@@ -1,12 +1,15 @@
 import 'package:edutopik/screens/login/btn/already_have_an_account_acheck.dart';
 import 'package:edutopik/screens/login/dialog/devOveruse_dialog.dart';
 import 'package:edutopik/screens/login/dialog/incorrectAcc_dialog.dart';
+import 'package:edutopik/screens/otp/components/device_info.dart';
 import 'package:edutopik/widget/web_view.dart';
 import 'package:flutter/material.dart';
 import 'package:edutopik/screens/login/components/background.dart';
 import 'package:edutopik/screens/login/btn/rounded_button.dart';
 import 'package:edutopik/screens/login/btn/rounded_email_field.dart';
 import 'package:edutopik/screens/login/btn/rounded_password_field.dart';
+import 'dart:convert';
+import "package:http/http.dart" as http;
 
 class Body extends StatefulWidget {
   const Body({
@@ -67,6 +70,24 @@ class _BodyState extends State<Body> {
                 print(_controllerEmail.text);
                 print(_controllerPassword.text);
 
+                //디바이스 번호
+                final String mobileId = await getMobileId();
+                print(mobileId);
+
+                var url = Uri.parse('https://example.com/whatsit/create');
+
+                http.Response response = await http.post(
+                  url,
+                  body: {
+                    'device_id': mobileId,
+                    'user_email': userEmail,
+                    'user_pwd': userPass,
+                  },
+                );
+                print('Response status: ${response.statusCode}');
+                print('Response body: ${response.body}');
+                print('...');
+
                 /*사용자 정보가 등록되어 있는지 확인하는 부분,
                 디비에 해당 사용자 정보가 있는지 확인하는 절차 필요*/
 
@@ -77,13 +98,14 @@ class _BodyState extends State<Body> {
                       builder: (BuildContext context) {
                         return DevOveruseDialog();
                       });
+
                   /* 현재 로그인을 시도한 기기가 등록된 기기인지 확인하고
 
                   1. 등록된 기기가 아니고 2개의 기기 모두 등록 되어 있는 경우
 
                   showDialog(
                       context: context,
-                      builder: (BuildContext context) {
+                      builder: (BuildContext context){
                         return LoginDialog();
                       });
 
