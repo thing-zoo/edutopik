@@ -11,8 +11,8 @@
 		<true/>
 	</dict>
 	<!-- 추가안하면 흰화면나온다고함,,,? -->
-	<!-- <key>io.flutter.embedded_views_preview</key>
-	<string>YES</string> -->
+	<key>io.flutter.embedded_views_preview</key>
+	<string>YES</string>
 
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>

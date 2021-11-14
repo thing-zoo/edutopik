@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.edutopik">
+    package="com.joeuncamp.edutopik">
    <application
         android:label="edutopik"
         android:icon="@mipmap/ic_launcher"
