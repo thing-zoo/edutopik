@@ -22,7 +22,7 @@ class DevOveruseDialog extends StatelessWidget {
           alignment: Alignment.topCenter,
           children: [
             Container(
-              height: size.height * 0.39,
+              height: size.height * 0.50,
               width: size.width * 0.8,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(10, 82, 10, 5),
@@ -30,29 +30,31 @@ class DevOveruseDialog extends StatelessWidget {
                   children: [
                     Text(
                       '이미 2대의 기기가 등록되어 있습니다.',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: size.height * 0.022),
                     ),
                     SizedBox(height: size.height * 0.02),
                     Text(
                       '한 ID당 2대까지 기기등록이 가능합니다.',
-                      style: TextStyle(fontSize: 14),
+                      style: TextStyle(fontSize: size.height * 0.02),
                     ),
                     SizedBox(height: size.height * 0.01),
                     Text(
                       '2대를 모두 등록한 경우,',
-                      style: TextStyle(fontSize: 14),
+                      style: TextStyle(fontSize: size.height * 0.02),
                     ),
                     SizedBox(height: size.height * 0.01),
                     Text(
                       '본인인증 후 변경이 가능합니다.',
-                      style: TextStyle(fontSize: 14),
+                      style: TextStyle(fontSize: size.height * 0.02),
                     ),
                     SizedBox(height: size.height * 0.02),
                     Text(
                       '기기를 변경 하시겠습니까?',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: size.height * 0.022),
                     ),
                     SizedBox(height: size.height * 0.02),
                     RoundedButtonForDialog(
