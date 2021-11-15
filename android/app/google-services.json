@@ -7,12 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:819769927152:android:63f95caa9183e49cf5a935",
+        "mobilesdk_app_id": "1:819769927152:android:7a56db6cf7506deaf5a935",
         "android_client_info": {
           "package_name": "com.joeuncamp.edutopik"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "819769927152-jsskq2852t40shcj3t7o5no8b6kgue1q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.joeuncamp.edutopik",
+            "certificate_hash": "86df557a18b64ebf2912ea7addb016f07ff28d1b"
+          }
+        },
         {
           "client_id": "819769927152-c3m582clv8m8li6l6akau4r0ovilefv3.apps.googleusercontent.com",
           "client_type": 3
@@ -29,6 +37,13 @@
             {
               "client_id": "819769927152-c3m582clv8m8li6l6akau4r0ovilefv3.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "819769927152-800477cts6m0k3rgen7j3fkdf1jjnpu8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.joeuncamp.edutopik"
+              }
             }
           ]
         }

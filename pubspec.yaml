@@ -42,6 +42,7 @@ dependencies:
   logger: ^1.1.0
   device_info: ^2.0.3
   shared_preferences: ^2.0.8
+  firebase_core: ^1.10.0
 
 dev_dependencies:
   flutter_test:
