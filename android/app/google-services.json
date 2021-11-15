@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "819769927152",
+    "project_id": "flutter-firebase-6e339",
+    "storage_bucket": "flutter-firebase-6e339.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:819769927152:android:63f95caa9183e49cf5a935",
+        "android_client_info": {
+          "package_name": "com.joeuncamp.edutopik"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "819769927152-c3m582clv8m8li6l6akau4r0ovilefv3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZWpZlSZHD2e_PpBY_5V0-0zt9E9T3kzM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "819769927152-c3m582clv8m8li6l6akau4r0ovilefv3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

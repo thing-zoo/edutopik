@@ -25,7 +25,7 @@ class Body extends StatelessWidget {
             ),
             SizedBox(height: size.height * 0.03),
             Text(
-              "귀하의 이메일로 인증코드를 발송했습니다.",
+              "귀하의 휴대전화로 인증코드를 발송했습니다.",
               style: TextStyle(
                   fontWeight: FontWeight.bold, fontSize: size.width * 0.035),
             ),

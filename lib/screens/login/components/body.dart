@@ -8,7 +8,6 @@ import 'package:edutopik/screens/login/components/background.dart';
 import 'package:edutopik/screens/login/btn/rounded_button.dart';
 import 'package:edutopik/screens/login/btn/rounded_email_field.dart';
 import 'package:edutopik/screens/login/btn/rounded_password_field.dart';
-import 'dart:convert';
 import "package:http/http.dart" as http;
 
 class Body extends StatefulWidget {
@@ -24,7 +23,8 @@ class _BodyState extends State<Body> {
   final _controllerEmail = TextEditingController();
   final _controllerPassword = TextEditingController();
 
-  void dispoes() {
+  @override
+  void dispose() {
     _controllerEmail.dispose();
     _controllerPassword.dispose();
     super.dispose();
@@ -33,8 +33,8 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    String userEmail = "wlwl1011@naver.com";
-    String userPass = "123";
+    String userEmail = "maanki@nate.com";
+    String userPass = "2580";
     return Background(
       child: SingleChildScrollView(
         child: Column(
@@ -74,22 +74,22 @@ class _BodyState extends State<Body> {
                 final String mobileId = await getMobileId();
                 print(mobileId);
 
-                var url = Uri.parse('https://example.com/whatsit/create');
+                /*var url = Uri.parse(
+                    'http://118.45.182.188/seeun_test/login_proc.asp');
 
                 http.Response response = await http.post(
                   url,
                   body: {
                     'device_id': mobileId,
-                    'user_email': userEmail,
-                    'user_pwd': userPass,
+                    'eMail': userEmail,
+                    'userPW': userPass,
                   },
                 );
                 print('Response status: ${response.statusCode}');
                 print('Response body: ${response.body}');
-                print('...');
-
-                /*사용자 정보가 등록되어 있는지 확인하는 부분,
-                디비에 해당 사용자 정보가 있는지 확인하는 절차 필요*/
+*/
+                /* 사용자 정보가 등록되어 있는지 확인하는 부분,
+                디비에 해당 사용자 정보가 있는지 확인하는 절차 필요 */
 
                 if (_controllerEmail.text == userEmail &&
                     _controllerPassword.text == userPass) {
@@ -102,7 +102,7 @@ class _BodyState extends State<Body> {
                   /* 현재 로그인을 시도한 기기가 등록된 기기인지 확인하고
 
                   1. 등록된 기기가 아니고 2개의 기기 모두 등록 되어 있는 경우
-
+                  if( )
                   showDialog(
                       context: context,
                       builder: (BuildContext context){
