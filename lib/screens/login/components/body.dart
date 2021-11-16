@@ -8,7 +8,8 @@ import 'package:edutopik/screens/login/components/background.dart';
 import 'package:edutopik/screens/login/btn/rounded_button.dart';
 import 'package:edutopik/screens/login/btn/rounded_email_field.dart';
 import 'package:edutopik/screens/login/btn/rounded_password_field.dart';
-import "package:http/http.dart" as http;
+import 'package:crypto/crypto.dart';
+import 'dart:convert';
 
 class Body extends StatefulWidget {
   const Body({
@@ -35,6 +36,7 @@ class _BodyState extends State<Body> {
     Size size = MediaQuery.of(context).size;
     String userEmail = "maanki@nate.com";
     String userPass = "2580";
+
     return Background(
       child: SingleChildScrollView(
         child: Column(
@@ -73,32 +75,40 @@ class _BodyState extends State<Body> {
                 //디바이스 번호
                 final String mobileId = await getMobileId();
                 print(mobileId);
+                /*
+                //암호화
+                var hashed_email = sha256(_controllerEmail.text);
+                var hashed_password = sha256(_controllerPassword.text);
+                var hashed_mobileId = sha256(mobileId);
 
-                /*var url = Uri.parse(
+                var url = Uri.parse(
                     'http://118.45.182.188/seeun_test/login_proc.asp');
 
                 http.Response response = await http.post(
                   url,
                   body: {
-                    'device_id': mobileId,
-                    'eMail': userEmail,
-                    'userPW': userPass,
+                    'device_id': hashed_mobileId,
+                    'eMail': hashed_email,
+                    'userPW': hashed_password,
                   },
                 );
                 print('Response status: ${response.statusCode}');
                 print('Response body: ${response.body}');
-*/
+
                 /* 사용자 정보가 등록되어 있는지 확인하는 부분,
                 디비에 해당 사용자 정보가 있는지 확인하는 절차 필요 */
+              final int statusCode = response.statusCode;
 
-                if (_controllerEmail.text == userEmail &&
-                    _controllerPassword.text == userPass) {
-                  showDialog(
+                if (statusCode < 200 || statusCode > 400) {
+
+                  if(statusCode == ){
+                      showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return DevOveruseDialog();
                       });
-
+                  }
+                  
                   /* 현재 로그인을 시도한 기기가 등록된 기기인지 확인하고
 
                   1. 등록된 기기가 아니고 2개의 기기 모두 등록 되어 있는 경우
@@ -121,6 +131,8 @@ class _BodyState extends State<Body> {
                     ),
                   );
                   */
+    }
+                  
                 } else {
                   showDialog(
                       context: context,
@@ -136,7 +148,7 @@ class _BodyState extends State<Body> {
                   } else {
                     print("error");
                   }
-                }
+                }*/
               },
             ),
             SizedBox(height: size.height * 0.03),
@@ -155,4 +167,10 @@ class _BodyState extends State<Body> {
       ),
     );
   }
+}
+
+Future<Digest> sha256(String input) async {
+  var bytes = utf8.encode(input);
+  Digest digest = sha512.convert(bytes);
+  return digest;
 }
