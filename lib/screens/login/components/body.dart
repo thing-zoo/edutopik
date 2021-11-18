@@ -10,6 +10,7 @@ import 'package:edutopik/screens/login/btn/rounded_email_field.dart';
 import 'package:edutopik/screens/login/btn/rounded_password_field.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
+import "package:http/http.dart" as http;
 
 class Body extends StatefulWidget {
   const Body({
@@ -75,11 +76,19 @@ class _BodyState extends State<Body> {
                 //디바이스 번호
                 final String mobileId = await getMobileId();
                 print(mobileId);
-                /*
+
                 //암호화
-                var hashed_email = sha256(_controllerEmail.text);
-                var hashed_password = sha256(_controllerPassword.text);
-                var hashed_mobileId = sha256(mobileId);
+                Digest hash_password;
+                var password_bytes = utf8.encode(_controllerPassword.text);
+                hash_password = sha256.convert(password_bytes);
+                String hashed_password = hash_password.toString();
+
+                Digest hash_mobileId;
+                var mobileId_bytes = utf8.encode(mobileId);
+                hash_mobileId = sha256.convert(mobileId_bytes);
+                String hashed_mobileId = hash_mobileId.toString();
+
+                String nonhased_email = _controllerEmail.text;
 
                 var url = Uri.parse(
                     'http://118.45.182.188/seeun_test/login_proc.asp');
@@ -88,7 +97,7 @@ class _BodyState extends State<Body> {
                   url,
                   body: {
                     'device_id': hashed_mobileId,
-                    'eMail': hashed_email,
+                    'eMail': nonhased_email,
                     'userPW': hashed_password,
                   },
                 );
@@ -97,15 +106,19 @@ class _BodyState extends State<Body> {
 
                 /* 사용자 정보가 등록되어 있는지 확인하는 부분,
                 디비에 해당 사용자 정보가 있는지 확인하는 절차 필요 */
-              final int statusCode = response.statusCode;
+                final int statusCode = response.statusCode;
 
-                if (statusCode < 200 || statusCode > 400) {
+                //final Map<String, dynamic> res =
+                //  json.decode(utf8.decode(response.bodyBytes));
 
-                  if(statusCode == ){
+/*
+                if (statusCode <= 200 || statusCode >= 400) {
+
+                  if(res == ){
                       showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return DevOveruseDialog();
+                        return DevOveruseDialog(userId: _controllerEmail.text, mobileId: hashed_mobileId.toString());
                       });
                   }
                   
@@ -167,10 +180,4 @@ class _BodyState extends State<Body> {
       ),
     );
   }
-}
-
-Future<Digest> sha256(String input) async {
-  var bytes = utf8.encode(input);
-  Digest digest = sha512.convert(bytes);
-  return digest;
 }
