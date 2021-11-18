@@ -1,9 +1,9 @@
+import 'package:edutopik/screens/media/play_time.dart';
 import 'package:edutopik/screens/media/player_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:edutopik/screens/test_http.dart';
-import "package:http/http.dart" as http;
 
 class JSTest extends StatefulWidget {
   JSTest({Key? key}) : super(key: key);
@@ -41,16 +41,24 @@ class _JSTestState extends State<JSTest> {
                   print(message.message);
 
                   var msg = message.message.split('&');
-                  print(msg[0]);
+                  PlayTime playTime = new PlayTime(
+                    get_time_url: msg[10],
+                    send_url: msg[11],
+                    uid: msg[1],
+                    ocode: msg[3],
+                    scode: msg[4],
+                    lm_num: int.parse(msg[6]),
+                    lm_time: msg[7],
+                    // uuid: ,
+                  );
+
                   if (msg[0] == '"playLecture') {
                     if (msg[2] == "overload") {
-                      _asyncConfirmDialog(msg[8], msg[9], msg[10]);
+                      _asyncConfirmDialog(msg[8], msg[9], playTime);
                     }
                     //미디어 플레이어로 이동
                     else {
-                      getPlayTime(
-                          msg[10], msg[1], msg[3], msg[4], msg[6], msg[7]);
-                      startPlayer(msg[8], msg[9], msg[10]);
+                      startPlayer(msg[8], msg[9], playTime);
                     }
                   } else {
                     //중복이라는걸 알리는 메세지 -> uuid를 주면 그 값이랑 자기 값 비교해서 끄기
@@ -63,25 +71,28 @@ class _JSTestState extends State<JSTest> {
   }
 
   //preUrl: 동영상링크 앞부분(공통), listUrl: 개별 동영상 링크 뒷부분, timeUrl: 마지막시청지점
-  void startPlayer(preUrl, listUrl, timeUrl) async {
-    final Map<String, dynamic> res = await new Session().get(listUrl);
-    // print(res);
-    List<String> urls = await makeUrlList(preUrl, res);
-    // print(urls.runtimeType);
-    // print(urls[0]);
+  void startPlayer(preUrl, listUrl, PlayTime playTime) async {
+    //개별 동영상 링크 리스트 가져오기
+    String scode = playTime.scode;
+    final Map<String, dynamic> res =
+        await new Session().get('$listUrl?scode=$scode');
+    List<List<String>> res2 = await makeUrlList(preUrl, res);
+    List<String> urls = res2[0];
+    List<String> titles = res2[1];
+
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => PlayerScreen(urls: urls)),
+      MaterialPageRoute(
+        builder: (context) => PlayerScreen(
+          urls: urls,
+          titles: titles,
+          playTime: playTime,
+        ),
+      ),
     );
   }
 
-  Future getPlayTime(timeUrl, uid, ocode, scode, lmnum, lmtime) async {
-    final Map<String, dynamic> res2 = await new Session().get(
-        '$timeUrl?uid=$uid&ocode=$ocode&scode=$scode&lm_num=$lmnum&lm_time=$lmtime&UUID=54321');
-    print(res2);
-  }
-
-  Future<void> _asyncConfirmDialog(preUrl, listUrl, timeUrl) async {
+  Future<void> _asyncConfirmDialog(preUrl, listUrl, playTime) async {
     return showDialog<void>(
       context: context,
       builder: (context) {
@@ -100,7 +111,7 @@ class _JSTestState extends State<JSTest> {
               onPressed: () {
                 //test2.asp열어서 덮어쓰기 해야함...
                 Navigator.pop(context);
-                startPlayer(preUrl, listUrl, timeUrl);
+                startPlayer(preUrl, listUrl, playTime);
               },
             )
           ],
@@ -110,10 +121,12 @@ class _JSTestState extends State<JSTest> {
   }
 }
 
-Future<List<String>> makeUrlList(preUrl, res) async {
-  List<String> urls = await (res["data"] as List)
+Future makeUrlList(preUrl, res) async {
+  List<String> urls = (res["data"] as List)
       .map<String>((postUrl) => preUrl + '/' + postUrl)
       .toList();
-  // print(urls);
-  return urls;
+  List<String> titles =
+      (res["title"] as List).map<String>((title) => title).toList();
+  print(titles);
+  return [urls, titles];
 }

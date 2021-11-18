@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:edutopik/constants.dart';
 import 'package:edutopik/screens/media/data_manager.dart';
+import 'package:edutopik/screens/media/play_time.dart';
+import 'package:edutopik/screens/test_http.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,8 +12,17 @@ import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:volume_control/volume_control.dart';
 
 class MediaControl extends StatefulWidget {
-  MediaControl({Key? key, this.dataManager}) : super(key: key);
-  final DataManager? dataManager;
+  MediaControl({
+    Key? key,
+    this.dataManager,
+    this.flickVideoManager,
+    required this.playTime,
+    required this.titles,
+  }) : super(key: key);
+  DataManager? dataManager;
+  FlickVideoManager? flickVideoManager;
+  PlayTime playTime;
+  List<String> titles;
 
   @override
   State<MediaControl> createState() => _MediaControlState();
@@ -29,6 +40,16 @@ class _MediaControlState extends State<MediaControl> {
     super.initState();
     initScreenBrightness();
     initVolumeState();
+    initPlayer();
+  }
+
+  Future initPlayer() async {
+    //시청기록, 강의수강여부 가져오기
+    widget.playTime = await setPlayTime(widget.playTime);
+    //이어보기
+    int time = widget.playTime.current_time;
+    Duration position = Duration(hours: time ~/ 60, minutes: time % 60);
+    widget.flickVideoManager!.videoPlayerController!.seekTo(position);
   }
 
   //init screen_brightness plugin
@@ -73,9 +94,6 @@ class _MediaControlState extends State<MediaControl> {
 
   @override
   Widget build(BuildContext context) {
-    FlickVideoManager flickVideoManager =
-        Provider.of<FlickVideoManager>(context);
-
     return Stack(
       children: <Widget>[
         //아이콘 보이도록 투명한 검은 뒷배경
@@ -91,7 +109,7 @@ class _MediaControlState extends State<MediaControl> {
             /* 뒤로,빨리감기 */
             child: FlickSeekVideoAction(
               child: Center(
-                child: flickVideoManager.nextVideoAutoPlayTimer != null
+                child: widget.flickVideoManager!.nextVideoAutoPlayTimer != null
                     ? FlickAutoPlayCircularProgress(
                         /* 로딩 */
                         colors: FlickAutoPlayTimerProgressColors(
@@ -168,7 +186,7 @@ class _MediaControlState extends State<MediaControl> {
                                 _playBackSpeed = 0.5;
                               else
                                 _playBackSpeed -= 0.25;
-                              flickVideoManager.videoPlayerController
+                              widget.flickVideoManager!.videoPlayerController
                                   ?.setPlaybackSpeed(_playBackSpeed);
                             });
                           },
@@ -190,7 +208,7 @@ class _MediaControlState extends State<MediaControl> {
                                 _playBackSpeed = 2.0;
                               else
                                 _playBackSpeed += 0.25;
-                              flickVideoManager.videoPlayerController
+                              widget.flickVideoManager!.videoPlayerController
                                   ?.setPlaybackSpeed(_playBackSpeed);
                             });
                           },
@@ -206,8 +224,31 @@ class _MediaControlState extends State<MediaControl> {
                       children: [
                         /* 이전강의로 */
                         GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             widget.dataManager!.skipToPreviousVideo();
+                            setState(() {
+                              //속도초기화
+                              _playBackSpeed = 1.0;
+                              //데이터 보내기,,,
+                              widget.playTime.current_time = widget
+                                  .flickVideoManager!
+                                  .videoPlayerValue!
+                                  .position
+                                  .inMinutes;
+                              sendPlayTime(
+                                widget.playTime.send_url,
+                                widget.playTime.uid,
+                                widget.playTime.ocode,
+                                widget.playTime.scode,
+                                widget.playTime.lm_num,
+                                widget.playTime.uuid,
+                                widget.playTime.current_time,
+                                'N',
+                              );
+                              //이동후 가져오기
+                              widget.playTime.lm_num--;
+                              initPlayer();
+                            });
                           },
                           child: Row(
                             children: [
@@ -235,8 +276,29 @@ class _MediaControlState extends State<MediaControl> {
                         ),
                         /* 다음강의로 */
                         GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             widget.dataManager!.skipToNextVideo();
+                            setState(() {
+                              //속도초기화
+                              _playBackSpeed = 1.0;
+                              //데이터 보내기,,,
+                              // widget.playTime.current_time = 16;
+                              widget.playTime.current_time = widget.flickVideoManager!.videoPlayerValue!.position.inMinutes;
+                              // print(widget.flickVideoManager!.videoPlayerValue!.position.inMinutes);
+                              sendPlayTime(
+                                widget.playTime.send_url,
+                                widget.playTime.uid,
+                                widget.playTime.ocode,
+                                widget.playTime.scode,
+                                widget.playTime.lm_num,
+                                widget.playTime.uuid,
+                                widget.playTime.current_time,
+                                'N',
+                              );
+                              //이동후 가져오기
+                              widget.playTime.lm_num++;
+                              initPlayer();
+                            });
                           },
                           child: Row(
                             children: [
@@ -337,10 +399,28 @@ class _MediaControlState extends State<MediaControl> {
                     GestureDetector(
                       onTap: () {
                         SystemChrome.setEnabledSystemUIMode(
-                            SystemUiMode.manual);
+                          SystemUiMode.manual,
+                          overlays: [
+                            SystemUiOverlay.top,
+                            SystemUiOverlay.bottom
+                          ],
+                        );
                         SystemChrome.setPreferredOrientations(
                             [DeviceOrientation.portraitUp]);
                         Navigator.pop(context);
+                        // widget.playTime.current_time = widget.flickVideoManager!
+                        //     .videoPlayerValue!.position.inMinutes;
+                        //데이터 보내기,,,
+                        sendPlayTime(
+                          widget.playTime.send_url,
+                          widget.playTime.uid,
+                          widget.playTime.ocode,
+                          widget.playTime.scode,
+                          widget.playTime.lm_num,
+                          widget.playTime.uuid,
+                          widget.playTime.current_time,
+                          'Y',
+                        );
                       },
                       child: Icon(
                         Icons.arrow_back_ios_new,
@@ -352,8 +432,8 @@ class _MediaControlState extends State<MediaControl> {
                     ),
                     /* 강의 제목 */
                     Text(
-                      '[TOPIK] 1강. 강의 소개',
-                      /* 백엔드: 여기에 이름 가져와서 넣도록~ */
+                      // '[TOPIK] 1강. 강의 소개',
+                      widget.titles[widget.playTime.lm_num - 1],
                       style: TextStyle(fontSize: fontSize),
                     ),
                   ],
@@ -365,4 +445,33 @@ class _MediaControlState extends State<MediaControl> {
       ],
     );
   }
+}
+
+Future sendPlayTime(
+    url, uid, ocode, scode, lm_num, uuid, current_time, fin) async {
+  final Map<String, dynamic> res = await new Session().get(
+      '$url?uid=$uid&ocode=$ocode&scode=$scode&lm_num=$lm_num&uuid=$uuid&current_time=$current_time&fin=$fin');
+  print(res);
+}
+
+Future getPlayTime(timeUrl, uid, ocode, scode, lm_num) async {
+  final Map<String, dynamic> res = await new Session()
+      .get('$timeUrl?uid=$uid&ocode=$ocode&scode=$scode&lm_num=$lm_num');
+  print(res);
+  return res;
+}
+
+Future<PlayTime> setPlayTime(PlayTime playTime) async {
+  //현재 시청 지점 가져오기
+  final Map<String, dynamic> res = await getPlayTime(
+    playTime.get_time_url,
+    playTime.uid,
+    playTime.ocode,
+    playTime.scode,
+    playTime.lm_num,
+  );
+  playTime.current_time = int.parse(res['current_time']);
+  playTime.fin = res['fin'];
+
+  return playTime;
 }

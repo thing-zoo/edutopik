@@ -4,13 +4,24 @@ import 'package:flick_video_player/flick_video_player.dart';
 import 'package:video_player/video_player.dart';
 
 class DataManager {
-  DataManager({required this.flickManager, required this.urls});
+  DataManager({
+    required this.flickManager,
+    required this.urls,
+    // required this.titles,
+    required this.currentPlaying,
+  });
 
-  int currentPlaying = 0;
+  int currentPlaying;
   final FlickManager flickManager;
   final List<String> urls;
+  // final List<String> titles;
 
   late Timer videoChangeTimer;
+
+  // String getTitle() {
+  //   print(currentPlaying);
+  //   return titles[currentPlaying];
+  // }
 
   String getNextVideo() {
     currentPlaying++;
