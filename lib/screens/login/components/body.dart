@@ -1,4 +1,5 @@
 import 'package:edutopik/screens/login/btn/already_have_an_account_acheck.dart';
+import 'package:edutopik/screens/login/dialog/devNew_dialog.dart';
 import 'package:edutopik/screens/login/dialog/devOveruse_dialog.dart';
 import 'package:edutopik/screens/login/dialog/incorrectAcc_dialog.dart';
 import 'package:edutopik/screens/otp/components/device_info.dart';
@@ -82,11 +83,15 @@ class _BodyState extends State<Body> {
                 var password_bytes = utf8.encode(_controllerPassword.text);
                 hash_password = sha256.convert(password_bytes);
                 String hashed_password = hash_password.toString();
+                print("hashed password");
+                print(hashed_password);
 
                 Digest hash_mobileId;
                 var mobileId_bytes = utf8.encode(mobileId);
                 hash_mobileId = sha256.convert(mobileId_bytes);
                 String hashed_mobileId = hash_mobileId.toString();
+                print("hashed mobileId");
+                print(hashed_mobileId);
 
                 String nonhased_email = _controllerEmail.text;
 
@@ -108,44 +113,45 @@ class _BodyState extends State<Body> {
                 디비에 해당 사용자 정보가 있는지 확인하는 절차 필요 */
                 final int statusCode = response.statusCode;
 
-                //final Map<String, dynamic> res =
-                //  json.decode(utf8.decode(response.bodyBytes));
+                final Map<String, dynamic> res =
+                    json.decode(utf8.decode(response.bodyBytes));
 
-/*
                 if (statusCode <= 200 || statusCode >= 400) {
+                  if (res["IsLogin"] == "true") {
+                    // 로그인 정보가 등록되어 있다면
 
-                  if(res == ){
-                      showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return DevOveruseDialog(userId: _controllerEmail.text, mobileId: hashed_mobileId.toString());
-                      });
+                    if (res["IsRegister"] == true) //UUID가 등록되어 있는 기기라면
+                    {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) =>
+                              WebViewScreen(url: 'http://118.45.182.188/'),
+                        ),
+                      );
+                    } // 등록이 안되어 있으면
+                    else {
+                      if (res["CountUUID"] == "2") {
+                        //기기 바꿀래 물어봐야지
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return DevOveruseDialog(
+                                  userId: _controllerEmail.text,
+                                  mobileId: hashed_mobileId.toString());
+                            });
+                      } else {
+                        //기기 새로 등록할래 물어봐야지c
+
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return DevNewDialog(
+                                  userId: _controllerEmail.text,
+                                  mobileId: hashed_mobileId.toString());
+                            });
+                      }
+                    }
                   }
-                  
-                  /* 현재 로그인을 시도한 기기가 등록된 기기인지 확인하고
-
-                  1. 등록된 기기가 아니고 2개의 기기 모두 등록 되어 있는 경우
-                  if( )
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context){
-                        return LoginDialog();
-                      });
-
-                  2. 등록된 기기는 아니지만 등록된 기기가 2개가 되지 않았을 경우 
-                  */
-
-                  /* 사용자 로그인 완료 및 기기 등록 제한에 걸리지 않으면.. 웹뷰 페이지로 이동..
-                  
-                  Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) =>
-                      WebViewScreen(url: 'http://118.45.182.188/'),    
-                    ),
-                  );
-                  */
-    }
-                  
                 } else {
                   showDialog(
                       context: context,
@@ -161,7 +167,7 @@ class _BodyState extends State<Body> {
                   } else {
                     print("error");
                   }
-                }*/
+                }
               },
             ),
             SizedBox(height: size.height * 0.03),
