@@ -36,8 +36,6 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    String userEmail = "maanki@nate.com";
-    String userPass = "2580";
 
     return Background(
       child: SingleChildScrollView(
@@ -94,6 +92,8 @@ class _BodyState extends State<Body> {
                 print(hashed_mobileId);
 
                 String nonhased_email = _controllerEmail.text;
+                print("email");
+                print(nonhased_email);
 
                 var url = Uri.parse(
                     'http://118.45.182.188/seeun_test/login_proc.asp');
@@ -117,9 +117,42 @@ class _BodyState extends State<Body> {
                     json.decode(utf8.decode(response.bodyBytes));
 
                 if (statusCode <= 200 || statusCode >= 400) {
+                  print("서버 연결 성공");
+
+                  print("이메일 전송 확인");
+                  print(res["givenUID"]);
+                  print(nonhased_email);
+
+                  if (res["givenUID"] == nonhased_email) {
+                    print("이메일 일치");
+                  } else {
+                    print("이메일 일치 안 함");
+                  }
+                  //
+                  print("모바일 기기 등록 전송 확인");
+                  print(res["givenID"]);
+                  print(hash_mobileId);
+
+                  if (res["givenID"] == hashed_mobileId) {
+                    print("해쉬된 맥 아이디 일치");
+                  } else {
+                    print("맥 아이디 일치 안 함");
+                  }
+
+                  //
+                  print("비밀번호 전송 확인");
+                  print(res["givenPW"]);
+                  print(hashed_password);
+
+                  if (res["givenPW"] == hashed_password) {
+                    print("비밀번호 일치");
+                  } else {
+                    print("비밀번호 일치 안 함");
+                  }
+
                   if (res["IsLogin"] == "true") {
                     // 로그인 정보가 등록되어 있다면
-
+                    print("로그인 정보가 등록 된 사용자");
                     if (res["IsRegister"] == true) //UUID가 등록되어 있는 기기라면
                     {
                       Navigator.of(context).push(
@@ -151,21 +184,13 @@ class _BodyState extends State<Body> {
                             });
                       }
                     }
-                  }
-                } else {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return IncorrectAccDialog();
-                      });
-                  if (_controllerEmail.text == userEmail &&
-                      _controllerPassword.text != userPass) {
-                    print("password error");
-                  } else if (_controllerEmail.text != userEmail &&
-                      _controllerPassword.text == userPass) {
-                    print("email error");
                   } else {
-                    print("error");
+                    print("로그인 정보 업슴");
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return IncorrectAccDialog();
+                        });
                   }
                 }
               },

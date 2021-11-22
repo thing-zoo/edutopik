@@ -8,7 +8,8 @@ import "package:http/http.dart" as http;
 import 'package:firebase_auth/firebase_auth.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
-String verificationId = "";
+
+String verificationId1 = "";
 
 class OtpForm extends StatefulWidget {
   OtpForm({Key? key, required this.userId, required this.mobileId})
@@ -132,13 +133,7 @@ class _OtpFormState extends State<OtpForm> {
                   textAlign: TextAlign.center,
                   decoration: otpInputDecoration,
                   controller: _controllerCode4,
-                  onChanged: (value) {
-                    if (value.length == 1) {
-                      pin4FocusNode!.unfocus();
-                      print(value);
-                      // Then you need to check is the code is correct or not
-                    }
-                  },
+                  onChanged: (value) => nextField(value, pin3FocusNode),
                 ),
               ),
               SizedBox(width: size.width * 0.02),
@@ -153,13 +148,7 @@ class _OtpFormState extends State<OtpForm> {
                   textAlign: TextAlign.center,
                   decoration: otpInputDecoration,
                   controller: _controllerCode5,
-                  onChanged: (value) {
-                    if (value.length == 1) {
-                      pin5FocusNode!.unfocus();
-                      print(value);
-                      // Then you need to check is the code is correct or not
-                    }
-                  },
+                  onChanged: (value) => nextField(value, pin3FocusNode),
                 ),
               ),
               SizedBox(width: size.width * 0.02),
@@ -174,13 +163,7 @@ class _OtpFormState extends State<OtpForm> {
                   textAlign: TextAlign.center,
                   decoration: otpInputDecoration,
                   controller: _controllerCode6,
-                  onChanged: (value) {
-                    if (value.length == 1) {
-                      pin6FocusNode!.unfocus();
-                      print(value);
-                      // Then you need to check is the code is correct or not
-                    }
-                  },
+                  onChanged: (value) => nextField(value, pin3FocusNode),
                 ),
               ),
             ],
@@ -189,6 +172,28 @@ class _OtpFormState extends State<OtpForm> {
           RoundedButton(
             text: "확인",
             press: () async {
+              var url = Uri.parse(
+                  'http://118.45.182.188/seeun_test/device_register.asp');
+
+              http.Response response = await http.post(
+                url,
+                body: {
+                  'device_id': widget.mobileId,
+                  'eMail': widget.userId,
+                },
+              );
+
+              print('Response status: ${response.statusCode}');
+              print('Response body: ${response.body}');
+              final int statusCode = response.statusCode;
+              if (statusCode <= 200 || statusCode >= 400) {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) =>
+                        WebViewScreen(url: 'http://118.45.182.188/'),
+                  ),
+                );
+              }
               code = _controllerCode1.text +
                   _controllerCode2.text +
                   _controllerCode3.text +
@@ -198,15 +203,14 @@ class _OtpFormState extends State<OtpForm> {
 
               PhoneAuthCredential phoneAuthCredential =
                   PhoneAuthProvider.credential(
-                      verificationId: verificationId, smsCode: code);
-
-              print(phoneAuthCredential);
+                      verificationId: verificationId1, smsCode: code);
 
               final authCredential =
                   await _auth.signInWithCredential(phoneAuthCredential);
 
               if (authCredential.user != null) {
                 // 인증코드가 맞으면
+                print("인증번호 맞음");
                 var url = Uri.parse(
                     'http://118.45.182.188/seeun_test/device_register.asp');
 
@@ -260,5 +264,6 @@ void sendMessage() async {
       },
       codeSent: (verificationId, resendingToken) async {
         print("코드보냄");
+        verificationId1 = verificationId;
       });
 }

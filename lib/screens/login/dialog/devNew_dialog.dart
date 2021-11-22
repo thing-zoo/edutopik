@@ -19,7 +19,7 @@ class DevNewDialog extends StatelessWidget {
           alignment: Alignment.topCenter,
           children: [
             Container(
-              height: size.height * 0.23,
+              height: size.height * 0.27,
               width: size.width * 0.8,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(10, 70, 10, 5),
@@ -36,6 +36,7 @@ class DevNewDialog extends StatelessWidget {
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
+                    SizedBox(height: size.height * 0.02),
                     RoundedButtonForDialog(
                         text: "OK",
                         press: () async {
