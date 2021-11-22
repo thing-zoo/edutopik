@@ -153,8 +153,9 @@ class _BodyState extends State<Body> {
                   if (res["IsLogin"] == "true") {
                     // 로그인 정보가 등록되어 있다면
                     print("로그인 정보가 등록 된 사용자");
-                    if (res["IsRegister"] == true) //UUID가 등록되어 있는 기기라면
+                    if (res["IsRegister"] == "true") //UUID가 등록되어 있는 기기라면
                     {
+                      print("UUID 등록 된 기기 ");
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (_) =>
