@@ -20,7 +20,7 @@ class DevOveruseDialog extends StatelessWidget {
           alignment: Alignment.topCenter,
           children: [
             Container(
-              height: size.height * 0.42,
+              height: size.height * 0.45,
               width: size.width * 0.8,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(10, 82, 10, 5),
