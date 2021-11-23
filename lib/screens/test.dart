@@ -74,8 +74,10 @@ class _JSTestState extends State<JSTest> {
   void startPlayer(preUrl, listUrl, PlayTime playTime) async {
     //개별 동영상 링크 리스트 가져오기
     String scode = playTime.scode;
+    String uid = playTime.uid;
+    String uuid = "12345";
     final Map<String, dynamic> res =
-        await new Session().get('$listUrl?scode=$scode');
+        await new Session().get('$listUrl?scode=$scode&uid=$uid&uuid=$uuid');
     List<List<String>> res2 = await makeUrlList(preUrl, res);
     List<String> urls = res2[0];
     List<String> titles = res2[1];
