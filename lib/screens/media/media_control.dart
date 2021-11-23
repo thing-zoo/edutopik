@@ -45,7 +45,7 @@ class _MediaControlState extends State<MediaControl> {
   //플레이어 초기화
   Future<void> initPlayer() async {
     //시청기록, 강의수강여부 가져오기
-    widget.playTime = await setPlayTime(widget.playTime);
+    widget.playTime = await setPlayTime(widget.playTime, context);
     //이어보기
     int time = widget.playTime.current_time;
     Duration position = Duration(hours: time ~/ 60, minutes: time % 60);
@@ -471,8 +471,17 @@ Future getPlayTime(timeUrl, uid, ocode, scode, lm_num) async {
 }
 
 //서버에서 가져온 데이터 변수에 넣기
-Future<PlayTime> setPlayTime(PlayTime playTime) async {
+Future<PlayTime> setPlayTime(PlayTime playTime, BuildContext context) async {
   //현재 시청 지점 가져오기
+  int fin = await getLastLog(playTime.check_log, playTime.uid);
+  
+  if(fin==1){
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp]);
+    Navigator.pop(context);
+    return playTime;
+  }
+
   final Map<String, dynamic> res = await getPlayTime(
     playTime.get_time_url,
     playTime.uid,
@@ -484,4 +493,24 @@ Future<PlayTime> setPlayTime(PlayTime playTime) async {
   playTime.fin = res['fin'];
 
   return playTime;
+}
+
+// 서버측에서 현재 로그 받아와서 처리
+Future getLastLog(checkUrl, uid) async {
+  int fin=1;
+  final Map<String, dynamic> res = await new Session()
+      .get('$checkUrl?uid=$uid');
+
+  if(res["CurrentState"] == "none"){
+    print("로그 만료 & 종료");
+  }else{
+    if(res["UUID"] != "12345"){
+      print("중복시청 & 종료");
+    }else{
+      print("중복 X & 계속 실행");
+      fin=0;
+    }
+  }
+  print(res);
+  return fin;
 }

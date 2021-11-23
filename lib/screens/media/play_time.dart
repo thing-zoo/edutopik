@@ -9,6 +9,7 @@ class PlayTime {
   dynamic uuid;
   dynamic current_time; //마지막 시청 지점
   dynamic fin; //Y: 강의 수강 완료, N: 강의 시청중
+  dynamic check_log;
 
   PlayTime({
     this.get_time_url,
@@ -21,5 +22,6 @@ class PlayTime {
     this.uuid,
     this.current_time,
     this.fin,
+    this.check_log,
   });
 }

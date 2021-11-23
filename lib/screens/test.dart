@@ -50,6 +50,7 @@ class _JSTestState extends State<JSTest> {
                     lm_num: int.parse(msg[6]),
                     lm_time: msg[7],
                     // uuid: ,
+                    check_log: msg[12],
                   );
 
                   if (msg[0] == '"playLecture') {
