@@ -37,9 +37,13 @@ class _OtpFormState extends State<OtpForm> {
     _controllerCode2.dispose();
     _controllerCode3.dispose();
     _controllerCode4.dispose();
+    _controllerCode5.dispose();
+    _controllerCode6.dispose();
     pin2FocusNode!.dispose();
     pin3FocusNode!.dispose();
     pin4FocusNode!.dispose();
+    pin5FocusNode!.dispose();
+    pin6FocusNode!.dispose();
   }
 
   FocusNode? pin2FocusNode;
@@ -133,7 +137,7 @@ class _OtpFormState extends State<OtpForm> {
                   textAlign: TextAlign.center,
                   decoration: otpInputDecoration,
                   controller: _controllerCode4,
-                  onChanged: (value) => nextField(value, pin3FocusNode),
+                  onChanged: (value) => nextField(value, pin5FocusNode),
                 ),
               ),
               SizedBox(width: size.width * 0.02),
@@ -148,7 +152,7 @@ class _OtpFormState extends State<OtpForm> {
                   textAlign: TextAlign.center,
                   decoration: otpInputDecoration,
                   controller: _controllerCode5,
-                  onChanged: (value) => nextField(value, pin3FocusNode),
+                  onChanged: (value) => nextField(value, pin6FocusNode),
                 ),
               ),
               SizedBox(width: size.width * 0.02),
@@ -163,7 +167,7 @@ class _OtpFormState extends State<OtpForm> {
                   textAlign: TextAlign.center,
                   decoration: otpInputDecoration,
                   controller: _controllerCode6,
-                  onChanged: (value) => nextField(value, pin3FocusNode),
+                  onChanged: (value) {},
                 ),
               ),
             ],
