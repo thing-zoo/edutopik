@@ -176,28 +176,6 @@ class _OtpFormState extends State<OtpForm> {
           RoundedButton(
             text: "확인",
             press: () async {
-              var url = Uri.parse(
-                  'http://118.45.182.188/seeun_test/device_register.asp');
-
-              http.Response response = await http.post(
-                url,
-                body: {
-                  'device_id': widget.mobileId,
-                  'eMail': widget.userId,
-                },
-              );
-
-              print('Response status: ${response.statusCode}');
-              print('Response body: ${response.body}');
-              final int statusCode = response.statusCode;
-              if (statusCode <= 200 || statusCode >= 400) {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) =>
-                        WebViewScreen(url: 'http://118.45.182.188/'),
-                  ),
-                );
-              }
               code = _controllerCode1.text +
                   _controllerCode2.text +
                   _controllerCode3.text +

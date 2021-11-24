@@ -2,6 +2,7 @@ import 'package:edutopik/screens/login/dialog/reAuthCode_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:edutopik/constants.dart';
 import 'package:edutopik/size_config.dart';
+import '../otp_screen.dart';
 import 'background.dart';
 import 'otp_form.dart';
 
@@ -40,11 +41,12 @@ class Body extends StatelessWidget {
             SizedBox(height: SizeConfig.screenHeight * 0.015),
             GestureDetector(
               onTap: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return ReAuthCodeDialog();
-                    });
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) =>
+                        OtpScreen(userId: userId, mobileId: mobileId),
+                  ),
+                );
 
                 // OTP code resend
               },

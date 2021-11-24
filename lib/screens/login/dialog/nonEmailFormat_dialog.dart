@@ -1,9 +1,10 @@
 import 'package:edutopik/screens/login/btn/rounded_button_dialog.dart';
+import 'package:edutopik/screens/otp/otp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
-class ReAuthCodeDialog extends StatelessWidget {
-  const ReAuthCodeDialog({Key? key}) : super(key: key);
+class NonEmailFormatDialog extends StatelessWidget {
+  const NonEmailFormatDialog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,21 +24,15 @@ class ReAuthCodeDialog extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      '인증 번호를 재 전송 했습니다.',
+                      '잘못된 이메일 형식입니다.',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                     SizedBox(height: size.height * 0.02),
                     RoundedButtonForDialog(
                       text: "OK",
-                      press: () {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return ReAuthCodeDialog();
-                            });
-                      },
-                    )
+                      press: () => Navigator.pop(context, true),
+                    ),
                   ],
                 ),
               ),
@@ -45,12 +40,12 @@ class ReAuthCodeDialog extends StatelessWidget {
             Positioned(
                 top: -55,
                 child: CircleAvatar(
-                  backgroundColor: Colors.green,
-                  radius: 50,
+                  backgroundColor: Colors.redAccent,
+                  radius: 55,
                   child: Icon(
-                    Ionicons.checkmark_circle,
+                    Ionicons.alert_outline,
                     color: Colors.white,
-                    size: 100,
+                    size: 85,
                   ),
                 )),
           ],
