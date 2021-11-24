@@ -52,8 +52,7 @@ class _MediaControlState extends State<MediaControl> {
     widget.flickVideoManager?.videoPlayerController?.seekTo(position);
     setState(() {
       //속도 유지
-      widget.flickVideoManager?.videoPlayerController
-          ?.setPlaybackSpeed(_playBackSpeed);
+      _playBackSpeed = 1.0;
     });
   }
 
@@ -474,10 +473,9 @@ Future getPlayTime(timeUrl, uid, ocode, scode, lm_num) async {
 Future<PlayTime> setPlayTime(PlayTime playTime, BuildContext context) async {
   //현재 시청 지점 가져오기
   int fin = await getLastLog(playTime.check_log, playTime.uid);
-  
-  if(fin==1){
-    SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.portraitUp]);
+
+  if (fin == 1) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     Navigator.pop(context);
     return playTime;
   }
@@ -497,18 +495,18 @@ Future<PlayTime> setPlayTime(PlayTime playTime, BuildContext context) async {
 
 // 서버측에서 현재 로그 받아와서 처리
 Future getLastLog(checkUrl, uid) async {
-  int fin=1;
-  final Map<String, dynamic> res = await new Session()
-      .get('$checkUrl?uid=$uid');
+  int fin = 1;
+  final Map<String, dynamic> res =
+      await new Session().get('$checkUrl?uid=$uid');
 
-  if(res["CurrentState"] == "none"){
+  if (res["CurrentState"] == "none") {
     print("로그 만료 & 종료");
-  }else{
-    if(res["UUID"] != "12345"){
+  } else {
+    if (res["UUID"] != "12345") {
       print("중복시청 & 종료");
-    }else{
+    } else {
       print("중복 X & 계속 실행");
-      fin=0;
+      fin = 0;
     }
   }
   print(res);

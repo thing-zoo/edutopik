@@ -38,7 +38,7 @@ class _JSTestState extends State<JSTest> {
             JavascriptChannel(
                 name: 'JavaScriptChannel',
                 onMessageReceived: (JavascriptMessage message) {
-                  print(message.message);
+                  // print(message.message);
 
                   var msg = message.message.split('&');
                   PlayTime playTime = new PlayTime(
@@ -101,7 +101,7 @@ class _JSTestState extends State<JSTest> {
       builder: (context) {
         return AlertDialog(
           title: Text('알림'),
-          content: Text('기기를 변경하시겠습니까?'),
+          content: Text('다른 기기에서 강의를 시청 중입니다.\n기기를 변경하시겠습니까?'),
           actions: <Widget>[
             ElevatedButton(
               child: Text('아니오'),
@@ -110,7 +110,7 @@ class _JSTestState extends State<JSTest> {
               },
             ),
             ElevatedButton(
-              child: Text('네'),
+              child: Text('예'),
               onPressed: () {
                 //test2.asp열어서 덮어쓰기 해야함...
                 Navigator.pop(context);
@@ -130,6 +130,6 @@ Future makeUrlList(preUrl, res) async {
       .toList();
   List<String> titles =
       (res["title"] as List).map<String>((title) => title).toList();
-  print(titles);
+  // print(titles);
   return [urls, titles];
 }
