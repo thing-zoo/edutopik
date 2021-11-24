@@ -5,6 +5,7 @@ import 'package:edutopik/screens/login/dialog/incorrectAcc_dialog.dart';
 import 'package:edutopik/screens/login/dialog/nonEmailFormat_dialog.dart';
 import 'package:edutopik/screens/otp/components/device_info.dart';
 import 'package:edutopik/widget/web_view.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:edutopik/screens/login/components/background.dart';
 import 'package:edutopik/screens/login/btn/rounded_button.dart';
@@ -13,6 +14,7 @@ import 'package:edutopik/screens/login/btn/rounded_password_field.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
 import "package:http/http.dart" as http;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class Body extends StatefulWidget {
   const Body({
@@ -24,14 +26,39 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  static final storage = new FlutterSecureStorage();
   final _controllerEmail = TextEditingController();
   final _controllerPassword = TextEditingController();
-
+  String userInfo = "";
   @override
   void dispose() {
     _controllerEmail.dispose();
     _controllerPassword.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      _asyncMethod();
+    });
+  }
+
+  _asyncMethod() async {
+    //read 함수를 통하여 key값에 맞는 정보를 불러오게 됩니다. 이때 불러오는 결과의 타입은 String 타입임을 기억해야 합니다.
+    //(데이터가 없을때는 null을 반환을 합니다.)
+    userInfo = (await storage.read(key: "login"))!;
+    print(userInfo);
+
+    //user의 정보가 있다면 바로 로그아웃 페이지로 넝어가게 합니다.
+    if (userInfo != null) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => WebViewScreen(url: 'http://118.45.182.188/'),
+        ),
+      );
+    }
   }
 
   @override
@@ -72,6 +99,14 @@ class _BodyState extends State<Body> {
             RoundedButton(
               text: "LOGIN",
               press: () async {
+                await storage.write(
+                    key: "login",
+                    value: "email " +
+                        _controllerEmail.text.toString() +
+                        " " +
+                        "password " +
+                        _controllerPassword.text.toString());
+
                 print(_controllerEmail.text);
                 print(_controllerPassword.text);
 
