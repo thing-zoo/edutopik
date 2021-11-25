@@ -451,7 +451,7 @@ class _MediaControlState extends State<MediaControl> {
       ],
     );
   }
-}
+
 
 //서버로 데이터 보내기
 Future sendPlayTime(
@@ -475,8 +475,6 @@ Future<PlayTime> setPlayTime(PlayTime playTime, BuildContext context) async {
   int fin = await getLastLog(playTime.check_log, playTime.uid);
 
   if (fin == 1) {
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    Navigator.pop(context);
     return playTime;
   }
 
@@ -500,10 +498,14 @@ Future getLastLog(checkUrl, uid) async {
       await new Session().get('$checkUrl?uid=$uid');
 
   if (res["CurrentState"] == "none") {
-    print("로그 만료 & 종료");
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    Navigator.pop(context);
+    FlutterDialog("로그 만료 & 종료");
   } else {
     if (res["UUID"] != "12345") {
-      print("중복시청 & 종료");
+      SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+      Navigator.pop(context);
+      FlutterDialog("중복시청 & 종료");
     } else {
       print("중복 X & 계속 실행");
       fin = 0;
@@ -511,4 +513,45 @@ Future getLastLog(checkUrl, uid) async {
   }
   print(res);
   return fin;
+}
+
+// Alert
+  void FlutterDialog(String txt) {
+    showDialog(
+        context: context,
+        //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            //Dialog Main Title
+            title: Column(
+              children: <Widget>[
+                new Text("강의 종료 알림"),
+              ],
+            ),
+            //
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  txt,
+                ),
+              ],
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("확인"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        });
+  }
+
 }
