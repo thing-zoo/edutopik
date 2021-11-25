@@ -55,6 +55,7 @@ class _OtpFormState extends State<OtpForm> {
   @override
   void initState() {
     super.initState();
+    sendMessage();
 
     pin2FocusNode = FocusNode();
     pin3FocusNode = FocusNode();
@@ -71,7 +72,6 @@ class _OtpFormState extends State<OtpForm> {
 
   @override
   Widget build(BuildContext context) {
-    sendMessage();
     Size size = MediaQuery.of(context).size;
     return Form(
       child: Column(

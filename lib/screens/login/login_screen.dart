@@ -19,18 +19,18 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   String userInfo = ".";
-  int check = 0;
 
   @override
+  int check = 0;
   void initState() {
     super.initState();
+    check = 0;
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       _asyncMethod();
     });
   }
 
   _asyncMethod() async {
-    check = 1;
     int temp = 0;
     //read 함수를 통하여 key값에 맞는 정보를 불러오게 됩니다. 이때 불러오는 결과의 타입은 String 타입임을 기억해야 합니다.
     //(데이터가 없을때는 null을 반환을 합니다.)
@@ -84,6 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final Map<String, dynamic> res =
         json.decode(utf8.decode(response.bodyBytes));
 
+    check = 1;
     if (statusCode <= 200 || statusCode >= 400) {
       print("서버 연결 성공");
 
@@ -95,19 +96,19 @@ class _LoginScreenState extends State<LoginScreen> {
         print("냠냠 로그아웃");
         temp = 1;
         //user의 정보가 있다면 바로 로그아웃 페이지로 넝어가게 합니다.
+      }
 
-        userInfo = (await Body.storage.read(key: "login"))!;
+      userInfo = (await Body.storage.read(key: "login"))!;
 
-        print("update userInfo");
-        print(userInfo);
+      print("update userInfo");
+      print(userInfo);
 
-        if (userInfo != null) {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (_) => WebViewScreen(url: 'http://118.45.182.188/'),
-            ),
-          );
-        }
+      if (userInfo != null) {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => WebViewScreen(url: 'http://118.45.182.188/'),
+          ),
+        );
       }
     }
 
