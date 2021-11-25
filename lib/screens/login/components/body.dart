@@ -88,7 +88,7 @@ class _BodyState extends State<Body> {
                   final String mobileId = await getMobileId();
                   print(mobileId);
 
-                  //암호화
+                  //암호화 - sha256
                   Digest hash_password;
                   var password_bytes = utf8.encode(_controllerPassword.text);
                   hash_password = sha256.convert(password_bytes);
