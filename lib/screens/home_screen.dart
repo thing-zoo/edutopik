@@ -1,6 +1,6 @@
 import 'package:edutopik/screens/media/play_time.dart';
 import 'package:edutopik/screens/media/player_screen.dart';
-import 'package:edutopik/screens/test_http.dart';
+import 'package:edutopik/widgets/session.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
