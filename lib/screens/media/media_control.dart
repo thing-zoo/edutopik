@@ -47,7 +47,7 @@ class _MediaControlState extends State<MediaControl> {
     //시청기록, 강의수강여부 가져오기
     widget.playTime = await setPlayTime(widget.playTime, context);
     //이어보기
-    int time = widget.playTime.current_time;
+    int time = widget.playTime.current_time ?? 0;
     Duration position = Duration(hours: time ~/ 60, minutes: time % 60);
     widget.flickVideoManager?.videoPlayerController?.seekTo(position);
     setState(() {
