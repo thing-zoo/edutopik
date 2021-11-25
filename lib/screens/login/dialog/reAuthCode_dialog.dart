@@ -1,5 +1,4 @@
 import 'package:edutopik/screens/login/btn/rounded_button_dialog.dart';
-import 'package:edutopik/screens/otp/otp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -31,7 +30,13 @@ class ReAuthCodeDialog extends StatelessWidget {
                     SizedBox(height: size.height * 0.02),
                     RoundedButtonForDialog(
                       text: "OK",
-                      press: () => Navigator.pop(context, true),
+                      press: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return ReAuthCodeDialog();
+                            });
+                      },
                     )
                   ],
                 ),

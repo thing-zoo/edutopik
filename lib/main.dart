@@ -1,8 +1,5 @@
 import 'package:edutopik/screens/login/login_screen.dart';
-import 'package:edutopik/screens/media/player_screen.dart';
 import 'package:edutopik/screens/splash_screen.dart';
-import 'package:edutopik/screens/test.dart';
-import 'package:edutopik/widget/web_view.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -30,7 +27,7 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            home: JSTest(),
+            home: LoginScreen(),
           );
         }
       },

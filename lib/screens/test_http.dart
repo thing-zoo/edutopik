@@ -13,9 +13,9 @@ class Session {
 
   Future<dynamic> get(String url) async {
     print('get() url: $url');
-    http.Response response =
-        await http.get(Uri.parse(url), headers: headers);
-    
+
+    http.Response response = await http.get(Uri.parse(url), headers: headers);
+
     final int statusCode = response.statusCode;
     if (statusCode < 200 || statusCode > 400 || json == null) {
       //코드 입력

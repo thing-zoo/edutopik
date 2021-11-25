@@ -1,17 +1,18 @@
 import 'package:edutopik/screens/media/play_time.dart';
 import 'package:edutopik/screens/media/player_screen.dart';
+import 'package:edutopik/screens/test_http.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:edutopik/screens/test_http.dart';
 
-class JSTest extends StatefulWidget {
-  JSTest({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  HomeScreen({Key? key, required this.uuid}) : super(key: key);
+  String uuid;
   @override
-  _JSTestState createState() => _JSTestState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _JSTestState extends State<JSTest> {
+class _HomeScreenState extends State<HomeScreen> {
   WebViewController? _controller;
 
   @override
@@ -49,7 +50,7 @@ class _JSTestState extends State<JSTest> {
                     scode: msg[4],
                     lm_num: int.parse(msg[6]),
                     lm_time: msg[7],
-                    // uuid: ,
+                    uuid: widget.uuid,
                     check_log: msg[12],
                   );
 
@@ -76,7 +77,7 @@ class _JSTestState extends State<JSTest> {
     //개별 동영상 링크 리스트 가져오기
     String scode = playTime.scode;
     String uid = playTime.uid;
-    String uuid = "54321";
+    String uuid = playTime.uuid;
     final Map<String, dynamic> res =
         await new Session().get('$listUrl?scode=$scode&uid=$uid&uuid=$uuid');
     List<List<String>> res2 = await makeUrlList(preUrl, res);

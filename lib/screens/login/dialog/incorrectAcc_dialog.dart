@@ -1,5 +1,4 @@
 import 'package:edutopik/screens/login/btn/rounded_button_dialog.dart';
-import 'package:edutopik/screens/otp/otp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -17,7 +16,7 @@ class IncorrectAccDialog extends StatelessWidget {
           alignment: Alignment.topCenter,
           children: [
             Container(
-              height: size.height * 0.23,
+              height: size.height * 0.245,
               width: size.width * 0.8,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(10, 70, 10, 5),
