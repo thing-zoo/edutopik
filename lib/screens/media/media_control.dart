@@ -472,7 +472,7 @@ Future getPlayTime(timeUrl, uid, ocode, scode, lm_num) async {
 //서버에서 가져온 데이터 변수에 넣기
 Future<PlayTime> setPlayTime(PlayTime playTime, BuildContext context) async {
   //현재 시청 지점 가져오기
-  int fin = await getLastLog(playTime.check_log, playTime.uid);
+  int fin = await getLastLog(playTime.check_log, playTime.uid, playTime.uuid);
 
   if (fin == 1) {
     return playTime;
@@ -492,7 +492,7 @@ Future<PlayTime> setPlayTime(PlayTime playTime, BuildContext context) async {
 }
 
 // 서버측에서 현재 로그 받아와서 처리
-Future getLastLog(checkUrl, uid) async {
+Future getLastLog(checkUrl, uid, uuid) async {
   int fin = 1;
   final Map<String, dynamic> res =
       await new Session().get('$checkUrl?uid=$uid');
@@ -502,7 +502,7 @@ Future getLastLog(checkUrl, uid) async {
     Navigator.pop(context);
     FlutterDialog("로그 만료 & 종료");
   } else {
-    if (res["UUID"] != "12345") {
+    if (res["UUID"] != "54321") {
       SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
       Navigator.pop(context);
       FlutterDialog("중복시청 & 종료");
@@ -543,7 +543,7 @@ Future getLastLog(checkUrl, uid) async {
               ],
             ),
             actions: <Widget>[
-              new FlatButton(
+              new ElevatedButton(
                 child: new Text("확인"),
                 onPressed: () {
                   Navigator.pop(context);
