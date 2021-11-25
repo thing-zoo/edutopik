@@ -1,13 +1,14 @@
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
+import 'package:edutopik/screens/home_screen.dart';
 import 'package:edutopik/screens/otp/components/device_info.dart';
+import 'package:edutopik/widgets/web_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:edutopik/screens/login/components/body.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import "package:http/http.dart" as http;
-import 'package:webview_flutter/webview_flutter.dart';
 
 //Show Loin screen
 class LoginScreen extends StatefulWidget {
@@ -98,7 +99,8 @@ class _LoginScreenState extends State<LoginScreen> {
     if (userInfo != null) {
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (_) => WebView(initialUrl: 'http://118.45.182.188/'),
+          builder: (_) => HomeScreen(uuid: hashed_mobileId),
+          // builder: (_) => WebViewScreen(url: 'http://118.45.182.188/'),
         ),
       );
     }

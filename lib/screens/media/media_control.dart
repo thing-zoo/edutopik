@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:edutopik/constants.dart';
 import 'package:edutopik/screens/media/data_manager.dart';
 import 'package:edutopik/screens/media/play_time.dart';
-import 'package:edutopik/screens/test_http.dart';
+import 'package:edutopik/widgets/session.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -452,68 +452,67 @@ class _MediaControlState extends State<MediaControl> {
     );
   }
 
-
 //서버로 데이터 보내기
-Future sendPlayTime(
-    url, uid, ocode, scode, lm_num, uuid, current_time, fin) async {
-  final Map<String, dynamic> res = await new Session().get(
-      '$url?uid=$uid&ocode=$ocode&scode=$scode&lm_num=$lm_num&uuid=$uuid&current_time=$current_time&fin=$fin');
-  print(res);
-}
+  Future sendPlayTime(
+      url, uid, ocode, scode, lm_num, uuid, current_time, fin) async {
+    final Map<String, dynamic> res = await new Session().get(
+        '$url?uid=$uid&ocode=$ocode&scode=$scode&lm_num=$lm_num&uuid=$uuid&current_time=$current_time&fin=$fin');
+    print(res);
+  }
 
 //서버에서 데이터 가져오기
-Future getPlayTime(timeUrl, uid, ocode, scode, lm_num) async {
-  final Map<String, dynamic> res = await new Session()
-      .get('$timeUrl?uid=$uid&ocode=$ocode&scode=$scode&lm_num=$lm_num');
-  print(res);
-  return res;
-}
+  Future getPlayTime(timeUrl, uid, ocode, scode, lm_num) async {
+    final Map<String, dynamic> res = await new Session()
+        .get('$timeUrl?uid=$uid&ocode=$ocode&scode=$scode&lm_num=$lm_num');
+    print(res);
+    return res;
+  }
 
 //서버에서 가져온 데이터 변수에 넣기
-Future<PlayTime> setPlayTime(PlayTime playTime, BuildContext context) async {
-  //현재 시청 지점 가져오기
-  int fin = await getLastLog(playTime.check_log, playTime.uid, playTime.uuid);
+  Future<PlayTime> setPlayTime(PlayTime playTime, BuildContext context) async {
+    //현재 시청 지점 가져오기
+    int fin = await getLastLog(playTime.check_log, playTime.uid, playTime.uuid);
 
-  if (fin == 1) {
+    if (fin == 1) {
+      return playTime;
+    }
+
+    final Map<String, dynamic> res = await getPlayTime(
+      playTime.get_time_url,
+      playTime.uid,
+      playTime.ocode,
+      playTime.scode,
+      playTime.lm_num,
+    );
+    playTime.current_time = int.parse(res['current_time']);
+    playTime.fin = res['fin'];
+
     return playTime;
   }
 
-  final Map<String, dynamic> res = await getPlayTime(
-    playTime.get_time_url,
-    playTime.uid,
-    playTime.ocode,
-    playTime.scode,
-    playTime.lm_num,
-  );
-  playTime.current_time = int.parse(res['current_time']);
-  playTime.fin = res['fin'];
-
-  return playTime;
-}
-
 // 서버측에서 현재 로그 받아와서 처리
-Future getLastLog(checkUrl, uid, uuid) async {
-  int fin = 1;
-  final Map<String, dynamic> res =
-      await new Session().get('$checkUrl?uid=$uid');
+  Future getLastLog(checkUrl, uid, uuid) async {
+    int fin = 1;
+    final Map<String, dynamic> res =
+        await new Session().get('$checkUrl?uid=$uid');
 
-  if (res["CurrentState"] == "none") {
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    Navigator.pop(context);
-    FlutterDialog("로그 만료 & 종료");
-  } else {
-    if (res["UUID"] != "54321") {
+    if (res["CurrentState"] == "none") {
       SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
       Navigator.pop(context);
-      FlutterDialog("중복시청 & 종료");
+      FlutterDialog("로그 만료 & 종료");
     } else {
-      print("중복 X & 계속 실행");
-      fin = 0;
+      if (res["UUID"] != uuid) {
+        SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+        Navigator.pop(context);
+        FlutterDialog("중복시청 & 종료");
+      } else {
+        print("중복 X & 계속 실행");
+        fin = 0;
+      }
     }
+    print(res);
+    return fin;
   }
-  print(res);
-  return fin;
-}
 
 // Alert
   void FlutterDialog(String txt) {
@@ -553,5 +552,4 @@ Future getLastLog(checkUrl, uid, uuid) async {
           );
         });
   }
-
 }

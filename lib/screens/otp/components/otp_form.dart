@@ -1,21 +1,22 @@
+import 'package:edutopik/screens/home_screen.dart';
 import 'package:edutopik/screens/login/btn/rounded_button.dart';
 import 'package:edutopik/screens/otp/dialog/incorrectAuth_dialog.dart';
+import 'package:edutopik/widgets/web_view.dart';
 import 'package:flutter/material.dart';
 import 'package:edutopik/size_config.dart';
 import 'package:edutopik/constants.dart';
 import "package:http/http.dart" as http;
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
 String verificationId1 = "";
 
 class OtpForm extends StatefulWidget {
-  OtpForm({Key? key, required this.userId, required this.mobileId})
+  OtpForm({Key? key, required this.userId, required this.hashed_mobileId})
       : super(key: key);
   final String userId;
-  final String mobileId;
+  final String hashed_mobileId;
   @override
   _OtpFormState createState() => _OtpFormState();
 }
@@ -199,7 +200,7 @@ class _OtpFormState extends State<OtpForm> {
                 http.Response response = await http.post(
                   url,
                   body: {
-                    'device_id': widget.mobileId,
+                    'device_id': widget.hashed_mobileId,
                     'eMail': widget.userId,
                   },
                 );
@@ -211,7 +212,7 @@ class _OtpFormState extends State<OtpForm> {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) =>
-                          WebView(initialUrl: 'http://118.45.182.188/'),
+                          HomeScreen(uuid: widget.hashed_mobileId),
                     ),
                   );
                 }

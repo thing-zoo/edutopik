@@ -1,10 +1,11 @@
-import 'package:edutopik/screens/test.dart';
+import 'package:edutopik/screens/home_screen.dart';
 import 'package:edutopik/screens/login/btn/already_have_an_account_acheck.dart';
 import 'package:edutopik/screens/login/dialog/devNew_dialog.dart';
 import 'package:edutopik/screens/login/dialog/devOveruse_dialog.dart';
 import 'package:edutopik/screens/login/dialog/incorrectAcc_dialog.dart';
 import 'package:edutopik/screens/login/dialog/nonEmailFormat_dialog.dart';
 import 'package:edutopik/screens/otp/components/device_info.dart';
+import 'package:edutopik/widgets/web_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:edutopik/screens/login/components/background.dart';
@@ -15,7 +16,6 @@ import 'package:crypto/crypto.dart';
 import 'dart:convert';
 import "package:http/http.dart" as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key, required storage}) : super(key: key);
@@ -171,7 +171,7 @@ class _BodyState extends State<Body> {
                         print("UUID 등록 된 기기 ");
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (_) => HomeScreen(uuid: mobileId),
+                            builder: (_) => HomeScreen(uuid: hashed_mobileId),
                           ),
                         );
                       } // 등록이 안되어 있으면
@@ -220,8 +220,8 @@ class _BodyState extends State<Body> {
               press: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (_) => WebView(
-                      initialUrl:
+                    builder: (_) => WebViewScreen(
+                      url:
                           'http://www.edutopik.com/member/join_agree.asp',
                     ),
                   ),
