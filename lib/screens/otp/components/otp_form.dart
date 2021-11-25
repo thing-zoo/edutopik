@@ -55,8 +55,8 @@ class _OtpFormState extends State<OtpForm> {
   @override
   void initState() {
     super.initState();
-    sendMessage();
 
+    sendMessage();
     pin2FocusNode = FocusNode();
     pin3FocusNode = FocusNode();
     pin4FocusNode = FocusNode();

@@ -19,19 +19,17 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   String userInfo = ".";
+  int check = 0;
 
   @override
-  int check = 0;
   void initState() {
     super.initState();
-    check = 0;
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       _asyncMethod();
     });
   }
 
   _asyncMethod() async {
-    int temp = 0;
     //read 함수를 통하여 key값에 맞는 정보를 불러오게 됩니다. 이때 불러오는 결과의 타입은 String 타입임을 기억해야 합니다.
     //(데이터가 없을때는 null을 반환을 합니다.)
 
@@ -57,6 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
     String nonhased_email = userEmail;
     print("email");
     print(nonhased_email);
+    check = 1;
 
     Digest hash_password;
     var password_bytes = utf8.encode(userPassword);
@@ -84,7 +83,6 @@ class _LoginScreenState extends State<LoginScreen> {
     final Map<String, dynamic> res =
         json.decode(utf8.decode(response.bodyBytes));
 
-    check = 1;
     if (statusCode <= 200 || statusCode >= 400) {
       print("서버 연결 성공");
 
@@ -94,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Body.storage.delete(key: "login");
 
         print("냠냠 로그아웃");
-        temp = 1;
+
         //user의 정보가 있다면 바로 로그아웃 페이지로 넝어가게 합니다.
       }
 
@@ -127,10 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
             );
           }
           if (snapshot.connectionState == ConnectionState.done) {
-            if (check != 0) {
-              check = 0;
-              return Body(storage: Body.storage);
-            }
+            return Body(storage: Body.storage);
           }
           return CircularProgressIndicator();
         },
