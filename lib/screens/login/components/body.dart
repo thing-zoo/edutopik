@@ -17,16 +17,14 @@ import "package:http/http.dart" as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class Body extends StatefulWidget {
-  const Body({
-    Key? key,
-  }) : super(key: key);
+  const Body({Key? key, required storage}) : super(key: key);
+  static final storage = new FlutterSecureStorage();
 
   @override
   State<Body> createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
-  static final storage = new FlutterSecureStorage();
   final _controllerEmail = TextEditingController();
   final _controllerPassword = TextEditingController();
   String userInfo = "";
@@ -35,30 +33,6 @@ class _BodyState extends State<Body> {
     _controllerEmail.dispose();
     _controllerPassword.dispose();
     super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      _asyncMethod();
-    });
-  }
-
-  _asyncMethod() async {
-    //read 함수를 통하여 key값에 맞는 정보를 불러오게 됩니다. 이때 불러오는 결과의 타입은 String 타입임을 기억해야 합니다.
-    //(데이터가 없을때는 null을 반환을 합니다.)
-    userInfo = (await storage.read(key: "login"))!;
-    print(userInfo);
-
-    //user의 정보가 있다면 바로 로그아웃 페이지로 넝어가게 합니다.
-    if (userInfo != null) {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (_) => WebViewScreen(url: 'http://118.45.182.188/'),
-        ),
-      );
-    }
   }
 
   @override
@@ -99,7 +73,7 @@ class _BodyState extends State<Body> {
             RoundedButton(
               text: "LOGIN",
               press: () async {
-                await storage.write(
+                await Body.storage.write(
                     key: "login",
                     value: "email " +
                         _controllerEmail.text.toString() +
