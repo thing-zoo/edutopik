@@ -3,7 +3,11 @@ import 'package:edutopik/screens/media/player.dart';
 import 'package:flutter/material.dart';
 
 class PlayerScreen extends StatefulWidget {
-  PlayerScreen({Key? key, required this.urls, required this.titles, required this.playTime})
+  PlayerScreen(
+      {Key? key,
+      required this.urls,
+      required this.titles,
+      required this.playTime})
       : super(key: key);
   List<String> urls;
   List<String> titles;
