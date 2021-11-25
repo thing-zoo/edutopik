@@ -75,10 +75,8 @@ class _BodyState extends State<Body> {
               press: () async {
                 await Body.storage.write(
                     key: "login",
-                    value: "email " +
-                        _controllerEmail.text.toString() +
+                    value: _controllerEmail.text.toString() +
                         " " +
-                        "password " +
                         _controllerPassword.text.toString());
 
                 print(_controllerEmail.text);
