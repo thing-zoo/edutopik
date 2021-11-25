@@ -51,7 +51,7 @@ class _MediaControlState extends State<MediaControl> {
     Duration position = Duration(hours: time ~/ 60, minutes: time % 60);
     widget.flickVideoManager?.videoPlayerController?.seekTo(position);
     setState(() {
-      //속도 유지
+      //속도 초기화
       _playBackSpeed = 1.0;
     });
   }
