@@ -77,9 +77,8 @@ class _PlayerState extends State<Player> {
           flickManager: flickManager,
           preferredDeviceOrientation: [
             //바로 전체화면 되도록!
-            DeviceOrientation.portraitDown,
-            DeviceOrientation.landscapeLeft,
             DeviceOrientation.landscapeRight,
+            DeviceOrientation.landscapeLeft,
           ],
           systemUIOverlay: [], //하단바,상단바 없애줌
           flickVideoWithControls: FlickVideoWithControls(
