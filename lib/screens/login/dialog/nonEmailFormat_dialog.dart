@@ -17,7 +17,7 @@ class NonEmailFormatDialog extends StatelessWidget {
           alignment: Alignment.topCenter,
           children: [
             Container(
-              height: size.height * 0.23,
+              height: size.height * 0.24,
               width: size.width * 0.8,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(10, 70, 10, 5),
