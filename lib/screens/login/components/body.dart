@@ -212,6 +212,7 @@ class _BodyState extends State<Body> {
                     }
                   }
                 } else {
+                  emailCheck = 1;
                   showDialog(
                       context: context,
                       builder: (BuildContext context) {

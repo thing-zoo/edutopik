@@ -31,6 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   _asyncMethod() async {
     check = 1;
+    int temp = 0;
     //read 함수를 통하여 key값에 맞는 정보를 불러오게 됩니다. 이때 불러오는 결과의 타입은 String 타입임을 기억해야 합니다.
     //(데이터가 없을때는 null을 반환을 합니다.)
 
@@ -90,17 +91,24 @@ class _LoginScreenState extends State<LoginScreen> {
         // 등록된 기기가 아니네...
         //로그아웃 시키자
         Body.storage.delete(key: "login");
-        print("냠냠 로그아웃");
-      }
-    }
 
-    //user의 정보가 있다면 바로 로그아웃 페이지로 넝어가게 합니다.
-    if (userInfo != null) {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (_) => WebViewScreen(url: 'http://118.45.182.188/'),
-        ),
-      );
+        print("냠냠 로그아웃");
+        temp = 1;
+        //user의 정보가 있다면 바로 로그아웃 페이지로 넝어가게 합니다.
+
+        userInfo = (await Body.storage.read(key: "login"))!;
+
+        print("update userInfo");
+        print(userInfo);
+
+        if (userInfo != null) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => WebViewScreen(url: 'http://118.45.182.188/'),
+            ),
+          );
+        }
+      }
     }
 
     return userInfo;
