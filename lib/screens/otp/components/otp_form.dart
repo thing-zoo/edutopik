@@ -13,10 +13,10 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 String verificationId1 = "";
 
 class OtpForm extends StatefulWidget {
-  OtpForm({Key? key, required this.userId, required this.hashed_mobileId})
+  OtpForm({Key? key, required this.userId, required this.mobileId})
       : super(key: key);
   final String userId;
-  final String hashed_mobileId;
+  final String mobileId;//hashed
   @override
   _OtpFormState createState() => _OtpFormState();
 }
@@ -200,7 +200,7 @@ class _OtpFormState extends State<OtpForm> {
                 http.Response response = await http.post(
                   url,
                   body: {
-                    'device_id': widget.hashed_mobileId,
+                    'device_id': widget.mobileId,
                     'eMail': widget.userId,
                   },
                 );
@@ -212,7 +212,7 @@ class _OtpFormState extends State<OtpForm> {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) =>
-                          HomeScreen(uuid: widget.hashed_mobileId),
+                          HomeScreen(uuid: widget.mobileId),
                     ),
                   );
                 }
