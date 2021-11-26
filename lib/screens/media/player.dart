@@ -47,6 +47,7 @@ class _PlayerState extends State<Player> {
     dataManager = DataManager(
       flickManager: flickManager,
       urls: widget.urls,
+      titles: widget.titles,
       currentPlaying: widget.playTime.lm_num - 1,
     );
   }
@@ -87,7 +88,6 @@ class _PlayerState extends State<Player> {
               dataManager: dataManager,
               playTime: widget.playTime,
               flickVideoManager: flickManager.flickVideoManager,
-              titles: widget.titles,
             ),
           ),
         ),

@@ -8,7 +8,7 @@ class PlayTime {
   dynamic lm_time; //강의 전체 시간
   dynamic uuid;
   dynamic current_time; //마지막 시청 지점
-  dynamic fin; //Y: 강의 수강 완료, N: 강의 시청중
+  dynamic fin; //Y: 강의 시청 완료, N: 강의 시청중
   dynamic check_log;
 
   PlayTime({

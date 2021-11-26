@@ -7,21 +7,20 @@ class DataManager {
   DataManager({
     required this.flickManager,
     required this.urls,
-    // required this.titles,
+    required this.titles,
     required this.currentPlaying,
   });
 
   int currentPlaying;
   final FlickManager flickManager;
   final List<String> urls;
-  // final List<String> titles;
+  final List<String> titles;
 
   late Timer videoChangeTimer;
 
-  // String getTitle() {
-  //   print(currentPlaying);
-  //   return titles[currentPlaying];
-  // }
+  String getTitle() {
+    return titles[currentPlaying];
+  }
 
   String getNextVideo() {
     currentPlaying++;
