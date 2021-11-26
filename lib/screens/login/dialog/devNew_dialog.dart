@@ -24,19 +24,20 @@ class DevNewDialog extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(10, 70, 10, 5),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       '새로운 기기로 로그인 하셨습니다.',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
-                    SizedBox(height: size.height * 0.02),
+                    // SizedBox(height: size.height * 0.02),
                     Text(
                       '해당 기기를 등록하시겠습니까?',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
-                    SizedBox(height: size.height * 0.02),
+                    // SizedBox(height: size.height * 0.02),
                     RoundedButtonForDialog(
                         text: "OK",
                         press: () async {
