@@ -56,7 +56,7 @@ class _OtpFormState extends State<OtpForm> {
   @override
   void initState() {
     super.initState();
-
+    sendMessage();
     pin2FocusNode = FocusNode();
     pin3FocusNode = FocusNode();
     pin4FocusNode = FocusNode();
@@ -72,7 +72,7 @@ class _OtpFormState extends State<OtpForm> {
 
   @override
   Widget build(BuildContext context) {
-    sendMessage();
+    
     Size size = MediaQuery.of(context).size;
     return Form(
       child: Column(
@@ -237,7 +237,7 @@ void sendMessage() async {
       codeAutoRetrievalTimeout: (verificationId) {
         // Auto-resolution timed out...
       },
-      phoneNumber: "+8210" + "2523" + "9668",
+      phoneNumber: "+8210" + "2372" + "4300",
       verificationCompleted: (phoneAuthCredential) async {
         print("otp 문자옴");
       },

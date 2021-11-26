@@ -98,13 +98,14 @@ class _LoginScreenState extends State<LoginScreen> {
       }
 
     //user의 정보가 있다면 바로 로그아웃 페이지로 넝어가게 합니다.
-    if (userInfo != null) {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (_) => HomeScreen(uuid: hashed_mobileId),
-          // builder: (_) => WebViewScreen(url: 'http://118.45.182.188/'),
-        ),
-      );
+      if (userInfo != null) {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => HomeScreen(uuid: hashed_mobileId),
+            // builder: (_) => WebViewScreen(url: 'http://118.45.182.188/'),
+          ),
+        );
+      }
     }
 
     return userInfo;
