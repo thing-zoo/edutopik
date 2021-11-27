@@ -16,12 +16,10 @@ class MediaControl extends StatefulWidget {
     this.dataManager,
     this.flickVideoManager,
     required this.playTime,
-    required this.titles,
   }) : super(key: key);
   DataManager? dataManager;
   FlickVideoManager? flickVideoManager;
   PlayTime playTime;
-  List<String> titles;
 
   @override
   State<MediaControl> createState() => _MediaControlState();
@@ -439,7 +437,7 @@ class _MediaControlState extends State<MediaControl> {
                     /* 강의 제목 */
                     Text(
                       // '[TOPIK] 1강. 강의 소개',
-                      widget.titles[widget.playTime.lm_num - 1],
+                      widget.dataManager!.getTitle(),
                       style: TextStyle(fontSize: fontSize),
                     ),
                   ],
@@ -515,7 +513,7 @@ class _MediaControlState extends State<MediaControl> {
   }
 
 // Alert
-  void FlutterDialog(String txt) {
+  void FlutterDialog(String text) {
     showDialog(
         context: context,
         //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
@@ -524,29 +522,28 @@ class _MediaControlState extends State<MediaControl> {
           return AlertDialog(
             // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0)),
-            //Dialog Main Title
-            title: Column(
-              children: <Widget>[
-                new Text("강의 종료 알림"),
-              ],
-            ),
-            //
+                borderRadius: BorderRadius.circular(30.0)),
+            title: Text("강의 종료 알림"),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  txt,
+                  text,
                 ),
               ],
             ),
             actions: <Widget>[
               new ElevatedButton(
-                child: new Text("확인"),
+                child: Text("확인"),
                 onPressed: () {
                   Navigator.pop(context);
                 },
+                style: ElevatedButton.styleFrom(
+                  primary: kPrimaryColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0)),
+                ),
               ),
             ],
           );

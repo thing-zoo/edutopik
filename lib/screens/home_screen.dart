@@ -1,3 +1,4 @@
+import 'package:edutopik/constants.dart';
 import 'package:edutopik/screens/media/play_time.dart';
 import 'package:edutopik/screens/media/player_screen.dart';
 import 'package:edutopik/widgets/session.dart';
@@ -101,14 +102,21 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('알림'),
+          title: Text('중복 시청 알림'),
           content: Text('다른 기기에서 강의를 시청 중입니다.\n기기를 변경하시겠습니까?'),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
           actions: <Widget>[
             ElevatedButton(
               child: Text('아니오'),
               onPressed: () {
                 Navigator.pop(context);
               },
+              style: ElevatedButton.styleFrom(
+                primary: kPrimaryColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0)),
+              ),
             ),
             ElevatedButton(
               child: Text('예'),
@@ -117,6 +125,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.pop(context);
                 startPlayer(preUrl, listUrl, playTime);
               },
+              style: ElevatedButton.styleFrom(
+                primary: kPrimaryColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0)),
+              ),
             )
           ],
         );
