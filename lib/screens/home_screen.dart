@@ -4,6 +4,7 @@ import 'package:edutopik/screens/media/player_screen.dart';
 import 'package:edutopik/widgets/session.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -52,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     lm_num: int.parse(msg[6]),
                     lm_time: msg[7],
                     uuid: widget.uuid,
-                    check_log: msg[12],
+                    check_log_url: msg[12],
                   );
 
                   if (msg[0] == '"playLecture') {

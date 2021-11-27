@@ -450,7 +450,7 @@ class _MediaControlState extends State<MediaControl> {
     );
   }
 
-//서버로 데이터 보내기
+  //서버로 데이터 보내기
   Future sendPlayTime(
       url, uid, ocode, scode, lm_num, uuid, current_time, fin) async {
     final Map<String, dynamic> res = await new Session().get(
@@ -458,7 +458,7 @@ class _MediaControlState extends State<MediaControl> {
     print(res);
   }
 
-//서버에서 데이터 가져오기
+  //서버에서 데이터 가져오기
   Future getPlayTime(timeUrl, uid, ocode, scode, lm_num) async {
     final Map<String, dynamic> res = await new Session()
         .get('$timeUrl?uid=$uid&ocode=$ocode&scode=$scode&lm_num=$lm_num');
@@ -466,10 +466,11 @@ class _MediaControlState extends State<MediaControl> {
     return res;
   }
 
-//서버에서 가져온 데이터 변수에 넣기
+  //서버에서 가져온 데이터 변수에 넣기
   Future<PlayTime> setPlayTime(PlayTime playTime, BuildContext context) async {
     //현재 시청 지점 가져오기
-    int fin = await getLastLog(playTime.check_log, playTime.uid, playTime.uuid);
+    int fin =
+        await getLastLog(playTime.check_log_url, playTime.uid, playTime.uuid);
 
     if (fin == 1) {
       return playTime;
@@ -488,7 +489,7 @@ class _MediaControlState extends State<MediaControl> {
     return playTime;
   }
 
-// 서버측에서 현재 로그 받아와서 처리
+  // 서버측에서 현재 로그 받아와서 처리
   Future getLastLog(checkUrl, uid, uuid) async {
     int fin = 1;
     final Map<String, dynamic> res =
