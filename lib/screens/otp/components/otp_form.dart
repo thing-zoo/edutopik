@@ -16,7 +16,7 @@ class OtpForm extends StatefulWidget {
   OtpForm({Key? key, required this.userId, required this.mobileId})
       : super(key: key);
   final String userId;
-  final String mobileId;//hashed
+  final String mobileId; //hashed
   @override
   _OtpFormState createState() => _OtpFormState();
 }
@@ -72,7 +72,6 @@ class _OtpFormState extends State<OtpForm> {
 
   @override
   Widget build(BuildContext context) {
-    
     Size size = MediaQuery.of(context).size;
     return Form(
       child: Column(
@@ -184,44 +183,49 @@ class _OtpFormState extends State<OtpForm> {
                   _controllerCode5.text +
                   _controllerCode6.text;
 
-              PhoneAuthCredential phoneAuthCredential =
-                  PhoneAuthProvider.credential(
-                      verificationId: verificationId1, smsCode: code);
+              try {
+                PhoneAuthCredential phoneAuthCredential =
+                    PhoneAuthProvider.credential(
+                        verificationId: verificationId1, smsCode: code);
 
-              final authCredential =
-                  await _auth.signInWithCredential(phoneAuthCredential);
+                final authCredential =
+                    await _auth.signInWithCredential(phoneAuthCredential);
+                print("인증번호가 맞나?");
+                print(authCredential.user);
+                if (authCredential.user != null) {
+                  // 인증코드가 맞으면
+                  print("인증번호 맞음");
+                  var url = Uri.parse(
+                      'http://118.45.182.188/seeun_test/device_register.asp');
 
-              if (authCredential.user != null) {
-                // 인증코드가 맞으면
-                print("인증번호 맞음");
-                var url = Uri.parse(
-                    'http://118.45.182.188/seeun_test/device_register.asp');
-
-                http.Response response = await http.post(
-                  url,
-                  body: {
-                    'device_id': widget.mobileId,
-                    'eMail': widget.userId,
-                  },
-                );
-
-                print('Response status: ${response.statusCode}');
-                print('Response body: ${response.body}');
-                final int statusCode = response.statusCode;
-                if (statusCode <= 200 || statusCode >= 400) {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) =>
-                          HomeScreen(uuid: widget.mobileId),
-                    ),
+                  http.Response response = await http.post(
+                    url,
+                    body: {
+                      'device_id': widget.mobileId,
+                      'eMail': widget.userId,
+                    },
                   );
+
+                  print('Response status: ${response.statusCode}');
+                  print('Response body: ${response.body}');
+                  final int statusCode = response.statusCode;
+                  if (statusCode <= 200 || statusCode >= 400) {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => HomeScreen(uuid: widget.mobileId),
+                      ),
+                    );
+                  }
                 }
-              } else {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => IncorrectAuthDialog(),
-                  ),
-                );
+              } catch (e) {
+                // 예외처리를 위한 코드
+                // code for handling exception
+                print(e);
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return IncorrectAuthDialog();
+                    });
               }
             },
           ),

@@ -97,7 +97,8 @@ class _LoginScreenState extends State<LoginScreen> {
         //user의 정보가 있다면 바로 로그아웃 페이지로 넝어가게 합니다.
       }
 
-    //user의 정보가 있다면 바로 로그아웃 페이지로 넝어가게 합니다.
+      userInfo = (await Body.storage.read(key: "login"))!;
+
       if (userInfo != null) {
         Navigator.of(context).push(
           MaterialPageRoute(
@@ -113,7 +114,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: FutureBuilder(
         future: Firebase.initializeApp(),

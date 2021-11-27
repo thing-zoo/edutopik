@@ -16,7 +16,7 @@ class IncorrectAuthDialog extends StatelessWidget {
           alignment: Alignment.topCenter,
           children: [
             Container(
-              height: size.height * 0.23,
+              height: size.height * 0.24,
               width: size.width * 0.8,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(10, 70, 10, 5),
@@ -39,10 +39,10 @@ class IncorrectAuthDialog extends StatelessWidget {
             Positioned(
                 top: -55,
                 child: CircleAvatar(
-                  backgroundColor: Colors.black,
+                  backgroundColor: Colors.redAccent,
                   radius: 50,
                   child: Icon(
-                    Ionicons.person_circle_outline,
+                    Ionicons.alert_outline,
                     color: Colors.white,
                     size: 100,
                   ),

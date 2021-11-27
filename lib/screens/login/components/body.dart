@@ -132,37 +132,6 @@ class _BodyState extends State<Body> {
                   if (statusCode <= 200 || statusCode >= 400) {
                     print("서버 연결 성공");
 
-                    print("이메일 전송 확인");
-                    print(res["givenUID"]);
-                    print(nonhased_email);
-
-                    if (res["givenUID"] == nonhased_email) {
-                      print("이메일 일치");
-                    } else {
-                      print("이메일 일치 안 함");
-                    }
-                    //
-                    print("모바일 기기 등록 전송 확인");
-                    print(res["givenID"]);
-                    print(hash_mobileId);
-
-                    if (res["givenID"] == hashed_mobileId) {
-                      print("해쉬된 맥 아이디 일치");
-                    } else {
-                      print("맥 아이디 일치 안 함");
-                    }
-
-                    //
-                    print("비밀번호 전송 확인");
-                    print(res["givenPW"]);
-                    print(hashed_password);
-
-                    if (res["givenPW"] == hashed_password) {
-                      print("비밀번호 일치");
-                    } else {
-                      print("비밀번호 일치 안 함");
-                    }
-
                     if (res["IsLogin"] == "true") {
                       // 로그인 정보가 등록되어 있다면
                       print("로그인 정보가 등록 된 사용자");
@@ -222,8 +191,7 @@ class _BodyState extends State<Body> {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (_) => WebViewScreen(
-                      url:
-                          'http://www.edutopik.com/member/join_agree.asp',
+                      url: 'http://www.edutopik.com/member/join_agree.asp',
                     ),
                   ),
                 );
