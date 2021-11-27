@@ -19,7 +19,7 @@ class DevNewDialog extends StatelessWidget {
           alignment: Alignment.topCenter,
           children: [
             Container(
-              height: size.height * 0.27,
+              height: size.height * 0.28,
               width: size.width * 0.8,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(10, 70, 10, 5),
