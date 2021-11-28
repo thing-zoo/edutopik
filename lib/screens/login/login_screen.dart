@@ -53,9 +53,9 @@ class _LoginScreenState extends State<LoginScreen> {
     print("hashed mobileId");
     print(hashed_mobileId);
 
-    String nonhased_email = userEmail;
+    String nonhashed_email = userEmail;
     print("email");
-    print(nonhased_email);
+    print(nonhashed_email);
     check = 1;
 
     Digest hash_password;
@@ -71,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
       url,
       body: {
         'device_id': hashed_mobileId,
-        'eMail': nonhased_email,
+        'eMail': nonhashed_email,
         'userPW': hashed_password,
       },
     );
@@ -102,35 +102,9 @@ class _LoginScreenState extends State<LoginScreen> {
     userInfo = (await Body.storage.read(key: "login"))!;
 
     if (userInfo != null) {
-      //쿠키 넘기기
-      print("쿠기 넘기기");
-      var curl = Uri.parse('http://118.45.182.188/seeun_test/auto_login.asp');
-
-      http.Response cresponse = await http.post(
-        curl,
-        body: {
-          'device_id': hashed_mobileId,
-          'eMail': nonhased_email,
-          //'userPW': hashed_password,
-        },
-      );
-
-      print('Response status: ${cresponse.statusCode}');
-      print('Response body: ${cresponse.body}');
-
-      final int cstatusCode = cresponse.statusCode;
-
-      final Map<String, dynamic> cres =
-          json.decode(utf8.decode(cresponse.bodyBytes));
-
-      if (cstatusCode <= 200 || cstatusCode >= 400) {
-        print(res);
-      }
-
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (_) => HomeScreen(uuid: hashed_mobileId),
-          // builder: (_) => WebViewScreen(url: 'http://118.45.182.188/'),
+          builder: (_) => HomeScreen(uuid: hashed_mobileId, email: nonhashed_email),
         ),
       );
     }

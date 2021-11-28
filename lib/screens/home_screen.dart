@@ -7,17 +7,19 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key, required this.uuid}) : super(key: key);
+  HomeScreen({Key? key, required this.uuid, required this.email}) : super(key: key);
   String uuid;
+  String email;
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   WebViewController? _controller;
-
   @override
   Widget build(BuildContext context) {
+    String email = widget.email;
+    String uuid = widget.uuid;
     return Scaffold(
       // appBar: AppBar(
       //     title: ElevatedButton(
@@ -31,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
       // )),
       body: SafeArea(
         child: WebView(
-          initialUrl: 'http://118.45.182.188/',
+          initialUrl: 'http://118.45.182.188/seeun_test/auto_login.asp?uid=$email&uuid=$uuid',
           onWebViewCreated: (WebViewController webviewController) {
             _controller = webviewController;
           },

@@ -219,38 +219,11 @@ class _OtpFormState extends State<OtpForm> {
                   print('Response status: ${response.statusCode}');
                   print('Response body: ${response.body}');
                   final int statusCode = response.statusCode;
-                  if (statusCode <= 200 || statusCode >= 400) {
-                    print("쿠기 넘기기");
-                    var curl = Uri.parse(
-                        'http://118.45.182.188/seeun_test/auto_login.asp');
-
-                    http.Response cresponse = await http.post(
-                      curl,
-                      body: {
-                        'device_id': widget.mobileId,
-                        'eMail': widget.userId,
-                        //'userPW': widget.pass,
-                      },
-                    );
-
-                    print('Response status: ${cresponse.statusCode}');
-                    print('Response body: ${cresponse.body}');
-
-                    final int cstatusCode = cresponse.statusCode;
-
-                    final Map<String, dynamic> cres =
-                        json.decode(utf8.decode(response.bodyBytes));
-
-                    if (cstatusCode <= 200 || cstatusCode >= 400) {
-                      print(cres);
-                    }
-
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => HomeScreen(uuid: widget.mobileId),
-                      ),
-                    );
-                  }
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => HomeScreen(uuid: widget.mobileId, email: widget.userId),
+                    ),
+                  );
                 }
               } catch (e) {
                 // 예외처리를 위한 코드
