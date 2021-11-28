@@ -4,10 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 class DevNewDialog extends StatelessWidget {
-  const DevNewDialog({Key? key, required this.userId, required this.mobileId})
+  const DevNewDialog(
+      {Key? key,
+      required this.userId,
+      required this.mobileId,
+      required this.pass})
       : super(key: key);
   final String userId;
   final String mobileId;
+  final String pass;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -46,8 +51,10 @@ class DevNewDialog extends StatelessWidget {
                    */
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (_) =>
-                                  OtpScreen(userId: userId, mobileId: mobileId),
+                              builder: (_) => OtpScreen(
+                                  userId: userId,
+                                  mobileId: mobileId,
+                                  pass: pass),
                             ),
                           );
                         }),

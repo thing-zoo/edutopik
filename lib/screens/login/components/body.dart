@@ -137,6 +137,31 @@ class _BodyState extends State<Body> {
                       print("로그인 정보가 등록 된 사용자");
                       if (res["IsRegister"] == "true") //UUID가 등록되어 있는 기기라면
                       {
+                        print("쿠기 넘기기");
+                        var curl = Uri.parse(
+                            'http://118.45.182.188/seeun_test/auto_login.asp');
+
+                        http.Response cresponse = await http.post(
+                          curl,
+                          body: {
+                            'device_id': hashed_mobileId,
+                            'eMail': nonhased_email,
+                            //'userPW': hashed_password,
+                          },
+                        );
+
+                        print('Response status: ${cresponse.statusCode}');
+                        print('Response body: ${cresponse.body}');
+
+                        final int cstatusCode = cresponse.statusCode;
+
+                        final Map<String, dynamic> cres =
+                            json.decode(utf8.decode(response.bodyBytes));
+
+                        if (cstatusCode <= 200 || cstatusCode >= 400) {
+                          print(cres);
+                        }
+
                         print("UUID 등록 된 기기 ");
                         Navigator.of(context).push(
                           MaterialPageRoute(
@@ -152,7 +177,8 @@ class _BodyState extends State<Body> {
                               builder: (BuildContext context) {
                                 return DevOveruseDialog(
                                     userId: _controllerEmail.text,
-                                    mobileId: hashed_mobileId.toString());
+                                    mobileId: hashed_mobileId.toString(),
+                                    pass: hashed_password);
                               });
                         } else {
                           //기기 새로 등록할래 물어봐야지c
@@ -162,7 +188,8 @@ class _BodyState extends State<Body> {
                               builder: (BuildContext context) {
                                 return DevNewDialog(
                                     userId: _controllerEmail.text,
-                                    mobileId: hashed_mobileId.toString());
+                                    mobileId: hashed_mobileId.toString(),
+                                    pass: hashed_password);
                               });
                         }
                       }

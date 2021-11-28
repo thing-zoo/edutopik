@@ -7,10 +7,15 @@ import 'background.dart';
 import 'otp_form.dart';
 
 class Body extends StatelessWidget {
-  Body({Key? key, required this.userId, required this.mobileId})
+  Body(
+      {Key? key,
+      required this.userId,
+      required this.mobileId,
+      required this.pass})
       : super(key: key);
   final String userId;
   final String mobileId;
+  final String pass;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -37,14 +42,14 @@ class Body extends StatelessWidget {
             SizedBox(height: size.height * 0.01),
             buildTimer(),
             SizedBox(height: size.height * 0.03),
-            OtpForm(userId: userId, mobileId: mobileId),
+            OtpForm(userId: userId, mobileId: mobileId, pass: pass),
             SizedBox(height: SizeConfig.screenHeight * 0.015),
             GestureDetector(
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (_) =>
-                        OtpScreen(userId: userId, mobileId: mobileId),
+                    builder: (_) => OtpScreen(
+                        userId: userId, mobileId: mobileId, pass: pass),
                   ),
                 );
 
