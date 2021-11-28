@@ -39,10 +39,10 @@ class _MediaControlState extends State<MediaControl> {
     initVolumeState();
     initPlayer();
   }
-
+  
   //플레이어 초기화
   Future<void> initPlayer() async {
-    //시청기록, 강의수강여부 가져오기
+    //시청로그, 시청지점 가져오기
     widget.playTime = await setPlayTime(widget.playTime, context);
     //이어보기
     int time = widget.playTime.current_time ?? 0;
@@ -468,7 +468,7 @@ class _MediaControlState extends State<MediaControl> {
 
   //서버에서 가져온 데이터 변수에 넣기
   Future<PlayTime> setPlayTime(PlayTime playTime, BuildContext context) async {
-    //현재 시청 지점 가져오기
+    //강의 시청 로그 가져오기
     int fin =
         await getLastLog(playTime.check_log_url, playTime.uid, playTime.uuid);
 
@@ -476,6 +476,7 @@ class _MediaControlState extends State<MediaControl> {
       return playTime;
     }
 
+    //현재 시청 지점 가져오기
     final Map<String, dynamic> res = await getPlayTime(
       playTime.get_time_url,
       playTime.uid,

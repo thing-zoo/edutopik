@@ -4,7 +4,6 @@ import 'package:edutopik/screens/media/player_screen.dart';
 import 'package:edutopik/widgets/session.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -74,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  //preUrl: 동영상링크 앞부분(공통), listUrl: 개별 동영상 링크 뒷부분, timeUrl: 마지막시청지점
+  //preUrl: 동영상링크 앞부분(공통), listUrl: 개별 동영상 링크 뒷부분
   void startPlayer(preUrl, listUrl, PlayTime playTime) async {
     //개별 동영상 링크 리스트 가져오기
     String scode = playTime.scode;
