@@ -91,25 +91,48 @@ class _LoginScreenState extends State<LoginScreen> {
         // 등록된 기기가 아니네...
         //로그아웃 시키자
         Body.storage.delete(key: "login");
-
         print("냠냠 로그아웃");
 
         //user의 정보가 있다면 바로 로그아웃 페이지로 넝어가게 합니다.
       }
-
-      userInfo = (await Body.storage.read(key: "login"))!;
-
-      if (userInfo != null) {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) => HomeScreen(uuid: hashed_mobileId),
-            // builder: (_) => WebViewScreen(url: 'http://118.45.182.188/'),
-          ),
-        );
-      }
     }
 
-    return userInfo;
+    print("User Info update");
+    userInfo = (await Body.storage.read(key: "login"))!;
+
+    if (userInfo != null) {
+      //쿠키 넘기기
+      print("쿠기 넘기기");
+      var curl = Uri.parse('118.45.182.188/seeun_test/auto_login.asp');
+
+      http.Response cresponse = await http.post(
+        curl,
+        body: {
+          'device_id': hashed_mobileId,
+          'eMail': nonhased_email,
+          //'userPW': hashed_password,
+        },
+      );
+
+      print('Response status: ${cresponse.statusCode}');
+      print('Response body: ${cresponse.body}');
+
+      final int cstatusCode = cresponse.statusCode;
+
+      final Map<String, dynamic> cres =
+          json.decode(utf8.decode(cresponse.bodyBytes));
+
+      if (cstatusCode <= 200 || cstatusCode >= 400) {
+        print(res);
+      }
+
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => HomeScreen(uuid: hashed_mobileId),
+          // builder: (_) => WebViewScreen(url: 'http://118.45.182.188/'),
+        ),
+      );
+    }
   }
 
   @override

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:edutopik/screens/home_screen.dart';
 import 'package:edutopik/screens/login/btn/rounded_button.dart';
 import 'package:edutopik/screens/otp/dialog/incorrectAuth_dialog.dart';
@@ -13,10 +15,15 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 String verificationId1 = "";
 
 class OtpForm extends StatefulWidget {
-  OtpForm({Key? key, required this.userId, required this.mobileId})
+  OtpForm(
+      {Key? key,
+      required this.userId,
+      required this.mobileId,
+      required this.pass})
       : super(key: key);
   final String userId;
   final String mobileId; //hashed
+  final String pass;
   @override
   _OtpFormState createState() => _OtpFormState();
 }
@@ -190,8 +197,11 @@ class _OtpFormState extends State<OtpForm> {
 
                 final authCredential =
                     await _auth.signInWithCredential(phoneAuthCredential);
+
                 print("인증번호가 맞나?");
+
                 print(authCredential.user);
+
                 if (authCredential.user != null) {
                   // 인증코드가 맞으면
                   print("인증번호 맞음");
@@ -210,6 +220,31 @@ class _OtpFormState extends State<OtpForm> {
                   print('Response body: ${response.body}');
                   final int statusCode = response.statusCode;
                   if (statusCode <= 200 || statusCode >= 400) {
+                    print("쿠기 넘기기");
+                    var curl =
+                        Uri.parse('118.45.182.188/seeun_test/auto_login.asp');
+
+                    http.Response cresponse = await http.post(
+                      curl,
+                      body: {
+                        'device_id': widget.mobileId,
+                        'eMail': widget.userId,
+                        //'userPW': widget.pass,
+                      },
+                    );
+
+                    print('Response status: ${cresponse.statusCode}');
+                    print('Response body: ${cresponse.body}');
+
+                    final int cstatusCode = cresponse.statusCode;
+
+                    final Map<String, dynamic> cres =
+                        json.decode(utf8.decode(response.bodyBytes));
+
+                    if (cstatusCode <= 200 || cstatusCode >= 400) {
+                      print(cres);
+                    }
+
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (_) => HomeScreen(uuid: widget.mobileId),
@@ -241,7 +276,7 @@ void sendMessage() async {
       codeAutoRetrievalTimeout: (verificationId) {
         // Auto-resolution timed out...
       },
-      phoneNumber: "+8210" + "2372" + "4300",
+      phoneNumber: "+8210" + "2523" + "9668",
       verificationCompleted: (phoneAuthCredential) async {
         print("otp 문자옴");
       },
