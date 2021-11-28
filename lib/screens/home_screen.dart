@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:edutopik/screens/media/play_time.dart';
 import 'package:edutopik/screens/media/player_screen.dart';
 import 'package:edutopik/widgets/session.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -18,19 +21,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //     title: ElevatedButton(
-      //   child: Text('send to javascript'),
-      //   onPressed: () {
-      //     if (_controller != null) {
-      //       _controller!.evaluateJavascript(
-      //           'window.fromFlutter("this is title from Flutter")');
-      //     }
-      //   },
-      // )),
       body: SafeArea(
         child: WebView(
-          initialUrl: 'http://118.45.182.188/',
+          initialUrl: 'http://118.45.182.188/over_test/auto_login.asp',
           onWebViewCreated: (WebViewController webviewController) {
             _controller = webviewController;
           },
@@ -60,6 +53,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     }
                     //미디어 플레이어로 이동
                     else {
+                      //확인 주소
+                      check_start(playTime);
                       startPlayer(msg[8], msg[9], playTime);
                     }
                   } else {
@@ -114,6 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Text('예'),
               onPressed: () {
                 //test2.asp열어서 덮어쓰기 해야함...
+                check_start(playTime);
                 Navigator.pop(context);
                 startPlayer(preUrl, listUrl, playTime);
               },
@@ -123,7 +119,69 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     );
   }
+
+  late Timer _timer; // 타이머
+
+  void check_start(PlayTime playTime) {
+    _timer = Timer.periodic(Duration(seconds: 5), (timer) async{
+      var UID = playTime.uid;
+      final Map<String, dynamic> res =
+      await new Session().get('http://118.45.182.188/over_test/check_final_log.asp?uid=$UID');
+      await end_player(res['CurrentState'], res['UUID'], playTime);
+    });
+  }
+
+  Future end_player (String Cstate, String Uuid, PlayTime playTime) async {
+    if(Cstate=="overload" && Uuid != playTime.uuid){
+      _timer.cancel();
+      SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+      Navigator.pop(context);
+      FlutterDialog("중복시청 & 종료");
+    }else{
+      print("중복X");
+    }
+  }
+
+  void FlutterDialog(String txt) {
+    showDialog(
+        context: context,
+        //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            //Dialog Main Title
+            title: Column(
+              children: <Widget>[
+                new Text("강의 종료 알림"),
+              ],
+            ),
+            //
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  txt,
+                ),
+              ],
+            ),
+            actions: <Widget>[
+              new ElevatedButton(
+                child: new Text("확인"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        });
+  }
 }
+
+
 
 Future makeUrlList(preUrl, res) async {
   List<String> urls = (res["data"] as List)
