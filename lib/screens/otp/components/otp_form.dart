@@ -221,8 +221,8 @@ class _OtpFormState extends State<OtpForm> {
                   final int statusCode = response.statusCode;
                   if (statusCode <= 200 || statusCode >= 400) {
                     print("쿠기 넘기기");
-                    var curl =
-                        Uri.parse('118.45.182.188/seeun_test/auto_login.asp');
+                    var curl = Uri.parse(
+                        'http://118.45.182.188/seeun_test/auto_login.asp');
 
                     http.Response cresponse = await http.post(
                       curl,

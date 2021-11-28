@@ -139,7 +139,7 @@ class _BodyState extends State<Body> {
                       {
                         print("쿠기 넘기기");
                         var curl = Uri.parse(
-                            '118.45.182.188/seeun_test/auto_login.asp');
+                            'http://118.45.182.188/seeun_test/auto_login.asp');
 
                         http.Response cresponse = await http.post(
                           curl,

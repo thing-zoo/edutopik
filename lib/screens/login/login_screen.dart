@@ -103,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (userInfo != null) {
       //쿠키 넘기기
       print("쿠기 넘기기");
-      var curl = Uri.parse('118.45.182.188/seeun_test/auto_login.asp');
+      var curl = Uri.parse('http://118.45.182.188/seeun_test/auto_login.asp');
 
       http.Response cresponse = await http.post(
         curl,
