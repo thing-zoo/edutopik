@@ -33,13 +33,25 @@ class _MediaControlState extends State<MediaControl> {
   double _brightness = 0.5;
 
   @override
+  void dispose() {
+    super.dispose();
+    //상태바&네비게이션바 보이게
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom],
+    );
+    //세로 모드
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  }
+
+  @override
   void initState() {
     super.initState();
     initScreenBrightness();
     initVolumeState();
     initPlayer();
   }
-  
+
   //플레이어 초기화
   Future<void> initPlayer() async {
     //시청로그, 시청지점 가져오기
@@ -398,18 +410,6 @@ class _MediaControlState extends State<MediaControl> {
                     /* 뒤로가기 */
                     GestureDetector(
                       onTap: () {
-                        //상태바&네비게이션바 보이게
-                        SystemChrome.setEnabledSystemUIMode(
-                          SystemUiMode.manual,
-                          overlays: [
-                            SystemUiOverlay.top,
-                            SystemUiOverlay.bottom
-                          ],
-                        );
-                        //세로 모드
-                        SystemChrome.setPreferredOrientations(
-                            [DeviceOrientation.portraitUp]);
-
                         //현재 위치 가져오기
                         widget.playTime.current_time = widget.flickVideoManager
                             ?.videoPlayerValue?.position.inMinutes;
@@ -497,14 +497,12 @@ class _MediaControlState extends State<MediaControl> {
         await new Session().get('$checkUrl?uid=$uid');
 
     if (res["CurrentState"] == "none") {
-      SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
       Navigator.pop(context);
-      FlutterDialog("로그 만료 & 종료");
+      FlutterDialog("세션이 만료되었습니다.");
     } else {
       if (res["UUID"] != uuid) {
-        SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
         Navigator.pop(context);
-        FlutterDialog("중복시청 & 종료");
+        FlutterDialog("중복시청이 감지되었습니다.");
       } else {
         print("중복 X & 계속 실행");
         fin = 0;
