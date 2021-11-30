@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:device_info/device_info.dart';
 import 'package:edutopik/screens/home_screen.dart';
 import 'package:edutopik/screens/login/btn/rounded_button.dart';
 import 'package:edutopik/screens/otp/dialog/incorrectAuth_dialog.dart';
@@ -19,11 +20,14 @@ class OtpForm extends StatefulWidget {
       {Key? key,
       required this.userId,
       required this.mobileId,
-      required this.pass})
+      required this.pass,
+      required this.deleteDeviceUUID})
       : super(key: key);
   final String userId;
   final String mobileId; //hashed
   final String pass;
+  final String deleteDeviceUUID;
+
   @override
   _OtpFormState createState() => _OtpFormState();
 }
@@ -208,11 +212,17 @@ class _OtpFormState extends State<OtpForm> {
                   var url = Uri.parse(
                       'http://118.45.182.188/seeun_test/device_register.asp');
 
+                  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+                  IosDeviceInfo deviceName = await deviceInfo.iosInfo;
+                  print('name ${deviceName.name}');
+
                   http.Response response = await http.post(
                     url,
                     body: {
                       'device_id': widget.mobileId,
                       'eMail': widget.userId,
+                      'device_name': deviceName.name,
+                      'delete_device': widget.deleteDeviceUUID
                     },
                   );
 
@@ -221,7 +231,8 @@ class _OtpFormState extends State<OtpForm> {
                   final int statusCode = response.statusCode;
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (_) => HomeScreen(uuid: widget.mobileId, email: widget.userId),
+                      builder: (_) => HomeScreen(
+                          uuid: widget.mobileId, email: widget.userId),
                     ),
                   );
                 }

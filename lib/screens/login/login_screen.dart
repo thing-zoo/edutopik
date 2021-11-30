@@ -31,39 +31,25 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   _asyncMethod() async {
-    //read 함수를 통하여 key값에 맞는 정보를 불러오게 됩니다. 이때 불러오는 결과의 타입은 String 타입임을 기억해야 합니다.
-    //(데이터가 없을때는 null을 반환을 합니다.)
+    //key값에 맞는 정보를 불러옴
+    //(데이터가 없을때는 null을 반환을 합니다.) -> 이전에 로그인 하지 않은 경우
 
-    //로그인이 되어 있는 기기는 해당 디바이스가 디비에서 삭제되어있을 경우 로그인 해제해야함
     userInfo = (await Body.storage.read(key: "login"))!;
-
-    print(userInfo);
 
     List<String> user = userInfo.split(' ');
     String userEmail = user[0];
     String userPassword = user[1];
 
     final String mobileId = await getMobileId();
-    print(mobileId);
-
     Digest hash_mobileId;
     var mobileId_bytes = utf8.encode(mobileId);
     hash_mobileId = sha256.convert(mobileId_bytes);
     String hashed_mobileId = hash_mobileId.toString();
-    print("hashed mobileId");
-    print(hashed_mobileId);
-
     String nonhashed_email = userEmail;
-    print("email");
-    print(nonhashed_email);
-    check = 1;
-
     Digest hash_password;
     var password_bytes = utf8.encode(userPassword);
     hash_password = sha256.convert(password_bytes);
     String hashed_password = hash_password.toString();
-    print("hashed password");
-    print(hashed_password);
 
     var url = Uri.parse('http://118.45.182.188/seeun_test/login_proc.asp');
 
@@ -71,6 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
       url,
       body: {
         'device_id': hashed_mobileId,
+        //'device_name': deviceName,
         'eMail': nonhashed_email,
         'userPW': hashed_password,
       },
@@ -91,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
         // 등록된 기기가 아니네...
         //로그아웃 시키자
         Body.storage.delete(key: "login");
-        print("냠냠 로그아웃");
+        print("로그아웃");
 
         //user의 정보가 있다면 바로 로그아웃 페이지로 넝어가게 합니다.
       }
@@ -104,7 +91,8 @@ class _LoginScreenState extends State<LoginScreen> {
     if (userInfo != null) {
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (_) => HomeScreen(uuid: hashed_mobileId, email: nonhashed_email),
+          builder: (_) =>
+              HomeScreen(uuid: hashed_mobileId, email: nonhashed_email),
         ),
       );
     }

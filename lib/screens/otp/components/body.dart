@@ -11,11 +11,13 @@ class Body extends StatelessWidget {
       {Key? key,
       required this.userId,
       required this.mobileId,
-      required this.pass})
+      required this.pass,
+      required this.deleteDeviceUUID})
       : super(key: key);
   final String userId;
   final String mobileId;
   final String pass;
+  String deleteDeviceUUID;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -42,7 +44,11 @@ class Body extends StatelessWidget {
             SizedBox(height: size.height * 0.01),
             buildTimer(),
             SizedBox(height: size.height * 0.03),
-            OtpForm(userId: userId, mobileId: mobileId, pass: pass),
+            OtpForm(
+                userId: userId,
+                mobileId: mobileId,
+                pass: pass,
+                deleteDeviceUUID: deleteDeviceUUID),
             SizedBox(height: SizeConfig.screenHeight * 0.015),
             GestureDetector(
               onTap: () {

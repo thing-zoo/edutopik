@@ -8,20 +8,27 @@ class OtpScreen extends StatelessWidget {
       {Key? key,
       required this.userId,
       required this.mobileId,
-      required this.pass})
+      required this.pass,
+      deleteDeviceUUID})
       : super(key: key);
   final String userId;
   final String mobileId;
   final String pass;
+  String deleteDeviceUUID = " ";
   static String routeName = "/otp";
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("OTP Verification"),
       ),
-      body: Body(userId: userId, mobileId: mobileId, pass: pass),
+      body: Body(
+          userId: userId,
+          mobileId: mobileId,
+          pass: pass,
+          deleteDeviceUUID: deleteDeviceUUID),
     );
   }
 }

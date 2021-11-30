@@ -1,3 +1,4 @@
+import 'package:device_info/device_info.dart';
 import 'package:edutopik/screens/home_screen.dart';
 import 'package:edutopik/screens/login/btn/already_have_an_account_acheck.dart';
 import 'package:edutopik/screens/login/dialog/devNew_dialog.dart';
@@ -84,12 +85,12 @@ class _BodyState extends State<Body> {
                 if (!regExp.hasMatch(_controllerEmail.text)) {
                   emailCheck = 0;
                 }
+                //이메일 형식 확인
                 if (emailCheck == 1) {
                   //디바이스 번호(UUID)
                   final String mobileId = await getMobileId();
                   print(mobileId);
 
-                  //암호화 - sha256
                   Digest hash_password;
                   var password_bytes = utf8.encode(_controllerPassword.text);
                   hash_password = sha256.convert(password_bytes);
@@ -115,38 +116,35 @@ class _BodyState extends State<Body> {
                     url,
                     body: {
                       'device_id': hashed_mobileId,
+                      //'device_name': deviceName.name,
                       'eMail': nonhased_email,
                       'userPW': hashed_password,
                     },
                   );
-                  print('Response status: ${response.statusCode}');
-                  print('Response body: ${response.body}');
 
-                  /* 사용자 정보가 등록되어 있는지 확인하는 부분,
-                디비에 해당 사용자 정보가 있는지 확인하는 절차 필요 */
+                  /* 사용자 정보가 등록되어 있는지 확인하는 부분 : 디비에 해당 사용자 정보가 있는지 확인하는 절차 필요 */
+
                   final int statusCode = response.statusCode;
-
                   final Map<String, dynamic> res =
                       json.decode(utf8.decode(response.bodyBytes));
 
-                  if (statusCode <= 200 || statusCode >= 400) {
-                    print("서버 연결 성공");
+                  print(res);
 
+                  if (statusCode <= 200 || statusCode >= 400) {
                     if (res["IsLogin"] == "true") {
                       // 로그인 정보가 등록되어 있다면
                       print("로그인 정보가 등록 된 사용자");
                       if (res["IsRegister"] == "true") //UUID가 등록되어 있는 기기라면
                       {
-                        print("UUID 등록 된 기기 ");
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (_) => HomeScreen(uuid: hashed_mobileId, email:nonhased_email),
+                            builder: (_) => HomeScreen(
+                                uuid: hashed_mobileId, email: nonhased_email),
                           ),
                         );
                       } // 등록이 안되어 있으면
                       else {
                         if (res["CountUUID"] == "2") {
-                          //기기 바꿀래 물어봐야지
                           showDialog(
                               context: context,
                               builder: (BuildContext context) {
@@ -155,9 +153,10 @@ class _BodyState extends State<Body> {
                                     mobileId: hashed_mobileId.toString(),
                                     pass: hashed_password);
                               });
+                          //기기 바꿀래 물어봐야지
+
                         } else {
                           //기기 새로 등록할래 물어봐야지c
-
                           showDialog(
                               context: context,
                               builder: (BuildContext context) {

@@ -9,6 +9,7 @@
 .history
 .svn/
 
+
 # IntelliJ related
 *.iml
 *.ipr
@@ -46,3 +47,4 @@ app.*.map.json
 /android/app/release
 ios/Flutter/Generated.xcconfig
 ios/Flutter/flutter_export_environment.sh
+.ios/
