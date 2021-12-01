@@ -2,9 +2,9 @@ class PlayTime {
   dynamic get_time_url; //강의 데이터 수신 url
   dynamic send_url; //강의 데이터 발신 url
   dynamic uid; //아이디
-  dynamic ocode; //강의코드
-  dynamic scode; //강의내 챕터코드
-  dynamic lm_num; //강의 번호
+  dynamic ocode; //주문코드
+  dynamic scode; //챕터코드
+  dynamic lm_num; //챕터내 강의 차시
   dynamic lm_time; //강의 전체 시간
   dynamic uuid; //UUID
   dynamic current_time; //이어볼 시청 지점
