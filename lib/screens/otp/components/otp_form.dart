@@ -260,7 +260,7 @@ void sendMessage() async {
       codeAutoRetrievalTimeout: (verificationId) {
         // Auto-resolution timed out...
       },
-      phoneNumber: "+8210" + "2523" + "9668",
+      phoneNumber: "+8210" + "2372" + "4300",
       verificationCompleted: (phoneAuthCredential) async {
         print("otp 문자옴");
       },
