@@ -67,7 +67,7 @@ class _OtpFormState extends State<OtpForm> {
   @override
   void initState() {
     super.initState();
-    sendMessage();
+    sendMessage(widget.userId);
     pin2FocusNode = FocusNode();
     pin3FocusNode = FocusNode();
     pin4FocusNode = FocusNode();
@@ -254,22 +254,39 @@ class _OtpFormState extends State<OtpForm> {
   }
 }
 
-void sendMessage() async {
-  await _auth.verifyPhoneNumber(
-      timeout: const Duration(seconds: 60),
-      codeAutoRetrievalTimeout: (verificationId) {
-        // Auto-resolution timed out...
-      },
-      phoneNumber: "+8210" + "2523" + "9668",
-      verificationCompleted: (phoneAuthCredential) async {
-        print("otp 문자옴");
-      },
-      verificationFailed: (verificationFailed) async {
-        print(verificationFailed.code);
-        print("코드발송실패");
-      },
-      codeSent: (verificationId, resendingToken) async {
-        print("코드보냄");
-        verificationId1 = verificationId;
-      });
+void sendMessage(String userId) async {
+  var url = Uri.parse('https://www.edutopik2.com/seeun_test/user_info.asp');
+
+  http.Response response = await http.post(
+    url,
+    body: {
+      'eMail': userId,
+    },
+  );
+  print('Response status: ${response.statusCode}');
+  print('Response body: ${response.body}');
+  final int statusCode = response.statusCode;
+  final Map<String, dynamic> res = json.decode(utf8.decode(response.bodyBytes));
+  print(statusCode);
+  print(res);
+
+  if (statusCode <= 200 || statusCode >= 400) {
+    await _auth.verifyPhoneNumber(
+        timeout: const Duration(seconds: 60),
+        codeAutoRetrievalTimeout: (verificationId) {
+          // Auto-resolution timed out...
+        },
+        phoneNumber: res['phone'],
+        verificationCompleted: (phoneAuthCredential) async {
+          print("otp 문자옴");
+        },
+        verificationFailed: (verificationFailed) async {
+          print(verificationFailed.code);
+          print("코드발송실패");
+        },
+        codeSent: (verificationId, resendingToken) async {
+          print("코드보냄");
+          verificationId1 = verificationId;
+        });
+  }
 }
