@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: WebView(
           initialUrl:
-              'http://118.45.182.188/seeun_test/auto_login.asp?uid=$email&uuid=$uuid',
+              'https://www.edutopik2.com/seeun_test/auto_login.asp?uid=$email&uuid=$uuid',
           onWebViewCreated: (WebViewController webviewController) {
             _controller = webviewController;
           },

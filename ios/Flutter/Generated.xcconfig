@@ -2,25 +2,13 @@
 FLUTTER_ROOT=/Users/gimminji/Dovelopment/flutter
 FLUTTER_APPLICATION_PATH=/Users/gimminji/Code/flutter/merge/edutopik
 COCOAPODS_PARALLEL_CODE_SIGN=true
-<<<<<<< HEAD
 FLUTTER_TARGET=/Users/gimminji/Code/flutter/merge/edutopik/lib/main.dart
-=======
-FLUTTER_TARGET=/Users/thingzoo/Development/flutter-project/edutopik/lib/main.dart
->>>>>>> 7dedd9109c07c50ff2b8394dfe9ad62dfea91059
 FLUTTER_BUILD_DIR=build
 FLUTTER_BUILD_NAME=1.0.0
 FLUTTER_BUILD_NUMBER=1
 EXCLUDED_ARCHS[sdk=iphonesimulator*]=i386
-<<<<<<< HEAD
-DART_DEFINES=RkxVVFRFUl9XRUJfQVVUT19ERVRFQ1Q9dHJ1ZQ==
-DART_OBFUSCATION=false
-TRACK_WIDGET_CREATION=true
-TREE_SHAKE_ICONS=false
-PACKAGE_CONFIG=/Users/gimminji/Code/flutter/merge/edutopik/.dart_tool/package_config.json
-=======
 DART_DEFINES=Zmx1dHRlci5pbnNwZWN0b3Iuc3RydWN0dXJlZEVycm9ycz10cnVl,RkxVVFRFUl9XRUJfQVVUT19ERVRFQ1Q9dHJ1ZQ==
 DART_OBFUSCATION=false
 TRACK_WIDGET_CREATION=true
 TREE_SHAKE_ICONS=false
-PACKAGE_CONFIG=/Users/thingzoo/Development/flutter-project/edutopik/.dart_tool/package_config.json
->>>>>>> 7dedd9109c07c50ff2b8394dfe9ad62dfea91059
+PACKAGE_CONFIG=/Users/gimminji/Code/flutter/merge/edutopik/.dart_tool/package_config.json

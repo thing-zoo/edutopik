@@ -39,27 +39,17 @@ class _LoginScreenState extends State<LoginScreen> {
     List<String> user = userInfo.split(' ');
     String userEmail = user[0];
     String userPassword = user[1];
-
     final String mobileId = await getMobileId();
-    Digest hash_mobileId;
-    var mobileId_bytes = utf8.encode(mobileId);
-    hash_mobileId = sha256.convert(mobileId_bytes);
-    String hashed_mobileId = hash_mobileId.toString();
-    String nonhashed_email = userEmail;
-    Digest hash_password;
-    var password_bytes = utf8.encode(userPassword);
-    hash_password = sha256.convert(password_bytes);
-    String hashed_password = hash_password.toString();
 
-    var url = Uri.parse('http://118.45.182.188/seeun_test/login_proc.asp');
+    var url = Uri.parse('https://www.edutopik2.com/seeun_test/login_proc.asp');
 
     http.Response response = await http.post(
       url,
       body: {
-        'device_id': hashed_mobileId,
-        //'device_name': deviceName,
-        'eMail': nonhashed_email,
-        'userPW': hashed_password,
+        'eMail': userEmail,
+        //hash 처리 안 한거
+        'device_id': mobileId,
+        'userPW': userPassword,
       },
     );
 
@@ -91,8 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (userInfo != null) {
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (_) =>
-              HomeScreen(uuid: hashed_mobileId, email: nonhashed_email),
+          builder: (_) => HomeScreen(uuid: mobileId, email: userEmail),
         ),
       );
     }

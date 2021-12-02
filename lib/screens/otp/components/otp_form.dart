@@ -210,7 +210,7 @@ class _OtpFormState extends State<OtpForm> {
                   // 인증코드가 맞으면
                   print("인증번호 맞음");
                   var url = Uri.parse(
-                      'http://118.45.182.188/seeun_test/device_register.asp');
+                      'https://www.edutopik2.com/seeun_test/device_register.asp');
 
                   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
                   IosDeviceInfo deviceName = await deviceInfo.iosInfo;

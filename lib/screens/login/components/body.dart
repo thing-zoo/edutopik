@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:device_info/device_info.dart';
 import 'package:edutopik/screens/home_screen.dart';
 import 'package:edutopik/screens/login/btn/already_have_an_account_acheck.dart';
@@ -89,36 +91,20 @@ class _BodyState extends State<Body> {
                 if (emailCheck == 1) {
                   //디바이스 번호(UUID)
                   final String mobileId = await getMobileId();
-                  print(mobileId);
+                  final String userEmail = _controllerEmail.text;
+                  final String userPassword = _controllerPassword.text;
 
-                  Digest hash_password;
-                  var password_bytes = utf8.encode(_controllerPassword.text);
-                  hash_password = sha256.convert(password_bytes);
-                  String hashed_password = hash_password.toString();
-                  print("hashed password");
-                  print(hashed_password);
-
-                  Digest hash_mobileId;
-                  var mobileId_bytes = utf8.encode(mobileId);
-                  hash_mobileId = sha256.convert(mobileId_bytes);
-                  String hashed_mobileId = hash_mobileId.toString();
-                  print("hashed mobileId");
-                  print(hashed_mobileId);
-
-                  String nonhased_email = _controllerEmail.text;
-                  print("email");
-                  print(nonhased_email);
+                  // HTTPS 통신
 
                   var url = Uri.parse(
-                      'http://118.45.182.188/seeun_test/login_proc.asp');
+                      'https://www.edutopik2.com/seeun_test/login_proc.asp');
 
                   http.Response response = await http.post(
                     url,
                     body: {
-                      'device_id': hashed_mobileId,
-                      //'device_name': deviceName.name,
-                      'eMail': nonhased_email,
-                      'userPW': hashed_password,
+                      'eMail': userEmail,
+                      'device_id': mobileId,
+                      'userPW': userPassword
                     },
                   );
 
@@ -127,7 +113,7 @@ class _BodyState extends State<Body> {
                   final int statusCode = response.statusCode;
                   final Map<String, dynamic> res =
                       json.decode(utf8.decode(response.bodyBytes));
-
+                  print(statusCode);
                   print(res);
 
                   if (statusCode <= 200 || statusCode >= 400) {
@@ -139,7 +125,8 @@ class _BodyState extends State<Body> {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (_) => HomeScreen(
-                                uuid: hashed_mobileId, email: nonhased_email),
+                                uuid: mobileId,
+                                email: _controllerEmail.text.toString()),
                           ),
                         );
                       } // 등록이 안되어 있으면
@@ -149,9 +136,10 @@ class _BodyState extends State<Body> {
                               context: context,
                               builder: (BuildContext context) {
                                 return DevOveruseDialog(
-                                    userId: _controllerEmail.text,
-                                    mobileId: hashed_mobileId.toString(),
-                                    pass: hashed_password);
+                                  userId: _controllerEmail.text,
+                                  mobileId: mobileId.toString(),
+                                  pass: _controllerPassword.text.toString(),
+                                );
                               });
                           //기기 바꿀래 물어봐야지
 
@@ -162,8 +150,8 @@ class _BodyState extends State<Body> {
                               builder: (BuildContext context) {
                                 return DevNewDialog(
                                     userId: _controllerEmail.text,
-                                    mobileId: hashed_mobileId.toString(),
-                                    pass: hashed_password);
+                                    mobileId: mobileId.toString(),
+                                    pass: _controllerPassword.text.toString());
                               });
                         }
                       }
@@ -192,7 +180,7 @@ class _BodyState extends State<Body> {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (_) => WebViewScreen(
-                      url: 'http://www.edutopik.com/member/join_agree.asp',
+                      url: 'https://www.edutopik.com/member/join_agree.asp',
                     ),
                   ),
                 );

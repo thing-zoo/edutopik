@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:edutopik/screens/login/login_screen.dart';
 import 'package:edutopik/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +23,7 @@ class MyApp extends StatelessWidget {
           );
         } else {
           // Loading is done, return the app:
+
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'EDU-TOPIK',

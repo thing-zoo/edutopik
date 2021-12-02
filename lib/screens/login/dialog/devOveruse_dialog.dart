@@ -223,7 +223,7 @@ class _DevOveruseDialogState extends State<DevOveruseDialog> {
                           // 기기 선택 관련 dialog 추가적으로 필요함
                           //1. 일단 데이터 베이스에서 기기를 가져오자.
                           var url = Uri.parse(
-                              'http://118.45.182.188/seeun_test/select_device.asp');
+                              'https://www.edutopik2.com/seeun_test/select_device.asp');
 
                           http.Response response = await http.post(
                             url,
