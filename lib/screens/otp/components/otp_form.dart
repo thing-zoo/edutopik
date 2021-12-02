@@ -276,7 +276,7 @@ void sendMessage(String userId) async {
         codeAutoRetrievalTimeout: (verificationId) {
           // Auto-resolution timed out...
         },
-        phoneNumber: res['phone'],
+        phoneNumber: res['Phone'],
         verificationCompleted: (phoneAuthCredential) async {
           print("otp 문자옴");
         },
