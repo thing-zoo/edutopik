@@ -254,6 +254,7 @@ class _OtpFormState extends State<OtpForm> {
   }
 }
 
+<<<<<<< HEAD
 void sendMessage(String userId) async {
   var url = Uri.parse('https://www.edutopik2.com/seeun_test/user_info.asp');
 
@@ -289,4 +290,24 @@ void sendMessage(String userId) async {
           verificationId1 = verificationId;
         });
   }
+=======
+void sendMessage() async {
+  await _auth.verifyPhoneNumber(
+      timeout: const Duration(seconds: 60),
+      codeAutoRetrievalTimeout: (verificationId) {
+        // Auto-resolution timed out...
+      },
+      phoneNumber: "+8210" + "2372" + "4300",
+      verificationCompleted: (phoneAuthCredential) async {
+        print("otp 문자옴");
+      },
+      verificationFailed: (verificationFailed) async {
+        print(verificationFailed.code);
+        print("코드발송실패");
+      },
+      codeSent: (verificationId, resendingToken) async {
+        print("코드보냄");
+        verificationId1 = verificationId;
+      });
+>>>>>>> d0c033c62ec4cadc294ab9af4875bbd2abc924e9
 }
