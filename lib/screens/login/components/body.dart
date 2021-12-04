@@ -113,9 +113,8 @@ class _BodyState extends State<Body> {
                   final int statusCode = response.statusCode;
                   final Map<String, dynamic> res =
                       json.decode(utf8.decode(response.bodyBytes));
-                  print(statusCode);
-                  print(res);
 
+                  print(res);
                   if (statusCode <= 200 || statusCode >= 400) {
                     if (res["IsLogin"] == "true") {
                       // 로그인 정보가 등록되어 있다면
@@ -131,6 +130,7 @@ class _BodyState extends State<Body> {
                         );
                       } // 등록이 안되어 있으면
                       else {
+                        /*
                         if (res["CountUUID"] == "2") {
                           showDialog(
                               context: context,
@@ -153,7 +153,7 @@ class _BodyState extends State<Body> {
                                     mobileId: mobileId.toString(),
                                     pass: _controllerPassword.text.toString());
                               });
-                        }
+                        }*/
                       }
                     } else {
                       print("로그인 정보 업슴");
