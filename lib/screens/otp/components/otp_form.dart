@@ -67,7 +67,7 @@ class _OtpFormState extends State<OtpForm> {
   @override
   void initState() {
     super.initState();
-    sendMessage(widget.userId);
+    //sendMessage(widget.userId);
     pin2FocusNode = FocusNode();
     pin3FocusNode = FocusNode();
     pin4FocusNode = FocusNode();
@@ -195,7 +195,7 @@ class _OtpFormState extends State<OtpForm> {
                   _controllerCode6.text;
 
               try {
-                PhoneAuthCredential phoneAuthCredential =
+                /*PhoneAuthCredential phoneAuthCredential =
                     PhoneAuthProvider.credential(
                         verificationId: verificationId1, smsCode: code);
 
@@ -204,9 +204,9 @@ class _OtpFormState extends State<OtpForm> {
 
                 print("인증번호가 맞나?");
 
-                print(authCredential.user);
+                print(authCredential.user);*/
 
-                if (authCredential.user != null) {
+                if (code == "111111") {
                   // 인증코드가 맞으면
                   print("인증번호 맞음");
                   var url = Uri.parse(

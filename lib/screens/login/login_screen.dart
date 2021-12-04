@@ -65,15 +65,15 @@ class _LoginScreenState extends State<LoginScreen> {
       print("서버 연결 성공");
 
       if (res["IsRegister"] == "false") {
+        print(res);
         // 등록된 기기가 아니네...
         //로그아웃 시키자
         Body.storage.delete(key: "login");
         print("로그아웃");
 
-        //user의 정보가 있다면 바로 로그아웃 페이지로 넝어가게 합니다.
+        //user의 정보가 있다면 바로 로그아웃 페이지로 넝어가게 합니다
       }
     }
-    Body.storage.delete(key: "login");
 
     print("User Info update");
     userInfo = (await Body.storage.read(key: "login"))!;

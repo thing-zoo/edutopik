@@ -120,16 +120,7 @@ class _BodyState extends State<Body> {
                       // 로그인 정보가 등록되어 있다면
                       print("로그인 정보가 등록 된 사용자");
 
-                      print("메인 페이지로 이동");
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => HomeScreen(
-                              uuid: mobileId,
-                              email: _controllerEmail.text.toString()),
-                        ),
-                      );
-
-                      /*if (res["IsRegister"] == "true") //UUID가 등록되어 있는 기기라면
+                      if (res["IsRegister"] == "true") //UUID가 등록되어 있는 기기라면
                       {
                         print("메인 페이지로 이동");
                         Navigator.of(context).push(
@@ -141,7 +132,6 @@ class _BodyState extends State<Body> {
                         );
                       } // 등록이 안되어 있으면
                       else {
-                        
                         if (res["CountUUID"] == "2") {
                           showDialog(
                               context: context,
@@ -165,7 +155,7 @@ class _BodyState extends State<Body> {
                                     pass: _controllerPassword.text.toString());
                               });
                         }
-                      }*/
+                      }
                     } else {
                       print("로그인 정보 업슴");
                       showDialog(
