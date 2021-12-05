@@ -8,11 +8,13 @@ class DevNewDialog extends StatelessWidget {
       {Key? key,
       required this.userId,
       required this.mobileId,
-      required this.pass})
+      required this.pass,
+      required this.deleteDeviceUUID})
       : super(key: key);
   final String userId;
   final String mobileId;
   final String pass;
+  final String deleteDeviceUUID;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -54,7 +56,8 @@ class DevNewDialog extends StatelessWidget {
                               builder: (_) => OtpScreen(
                                   userId: userId,
                                   mobileId: mobileId,
-                                  pass: pass),
+                                  pass: pass,
+                                  deleteDeviceUUID:deleteDeviceUUID ),
                             ),
                           );
                         }),

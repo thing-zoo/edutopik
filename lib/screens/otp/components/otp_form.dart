@@ -277,6 +277,7 @@ void sendMessage(String userId) async {
           // Auto-resolution timed out...
         },
         phoneNumber: res['Phone'],
+        //phoneNumber: "+821025239668",
         verificationCompleted: (phoneAuthCredential) async {
           print("otp 문자옴");
         },

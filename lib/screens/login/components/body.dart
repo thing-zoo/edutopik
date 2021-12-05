@@ -151,7 +151,8 @@ class _BodyState extends State<Body> {
                                 return DevNewDialog(
                                     userId: _controllerEmail.text,
                                     mobileId: mobileId.toString(),
-                                    pass: _controllerPassword.text.toString());
+                                    pass: _controllerPassword.text.toString(),
+                                    deleteDeviceUUID : " ");
                               });
                         }
                       }

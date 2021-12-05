@@ -17,7 +17,7 @@ class Body extends StatelessWidget {
   final String userId;
   final String mobileId;
   final String pass;
-  String deleteDeviceUUID;
+  final String deleteDeviceUUID;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -55,7 +55,10 @@ class Body extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (_) => OtpScreen(
-                        userId: userId, mobileId: mobileId, pass: pass),
+                        userId: userId,
+                        mobileId: mobileId,
+                        pass: pass,
+                        deleteDeviceUUID: deleteDeviceUUID),
                   ),
                 );
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:edutopik/size_config.dart';
-
 import 'components/body.dart';
 
 class OtpScreen extends StatelessWidget {
@@ -9,12 +8,12 @@ class OtpScreen extends StatelessWidget {
       required this.userId,
       required this.mobileId,
       required this.pass,
-      deleteDeviceUUID})
+      required this.deleteDeviceUUID})
       : super(key: key);
   final String userId;
   final String mobileId;
   final String pass;
-  String deleteDeviceUUID = " ";
+  final String deleteDeviceUUID;
   static String routeName = "/otp";
   @override
   Widget build(BuildContext context) {
