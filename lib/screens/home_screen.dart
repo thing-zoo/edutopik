@@ -59,16 +59,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     check_log_url: msg[12],
                   );
 
-                  if (msg[0] == '"playLecture') {
-                    if (msg[2] == "overload") {
-                      _asyncConfirmDialog(msg[8], msg[9], playTime);
-                    }
-                    //미디어 플레이어로 이동
-                    else {
-                      startPlayer(msg[8], msg[9], playTime);
-                    }
-                  } else {
-                    //중복이라는걸 알리는 메세지 -> uuid를 주면 그 값이랑 자기 값 비교해서 끄기
+                  if (msg[2] == "overload") {
+                    _asyncConfirmDialog(msg[8], msg[9], playTime);
+                  }
+                  //미디어 플레이어로 이동
+                  else {
+                    startPlayer(msg[8], msg[9], playTime);
                   }
                 })
           ]),

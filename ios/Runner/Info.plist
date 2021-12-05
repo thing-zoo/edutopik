@@ -25,13 +25,15 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.819769927152-800477cts6m0k3rgen7j3fkdf1jjnpu8</string>
+				<string>com.googleusercontent.apps.819769927152-iudg35ug8q491jfdolik778t12gp43r8</string>
 			</array>
 		</dict>
 		<dict/>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<string>0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -60,7 +62,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>FirebaseAppDelegateProxyEnabled</key>
-	<string>0</string>
 </dict>
 </plist>

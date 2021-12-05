@@ -3,9 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>819769927152-800477cts6m0k3rgen7j3fkdf1jjnpu8.apps.googleusercontent.com</string>
+	<string>819769927152-iudg35ug8q491jfdolik778t12gp43r8.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.819769927152-800477cts6m0k3rgen7j3fkdf1jjnpu8</string>
+	<string>com.googleusercontent.apps.819769927152-iudg35ug8q491jfdolik778t12gp43r8</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>819769927152-jsskq2852t40shcj3t7o5no8b6kgue1q.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCpirf79tGFwjkl2aCq8_sYKH6F61CT1yk</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.knu.edutopik</string>
+	<string>com.myknu.edutopik</string>
 	<key>PROJECT_ID</key>
 	<string>flutter-firebase-6e339</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:819769927152:ios:fb389aa21e3349eef5a935</string>
+	<string>1:819769927152:ios:3ce4609e5b0e9f58f5a935</string>
 </dict>
 </plist>

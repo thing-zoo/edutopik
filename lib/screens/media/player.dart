@@ -27,18 +27,12 @@ class _PlayerState extends State<Player> {
   late FlickManager flickManager;
   late DataManager dataManager;
 
-  /* 테스트용 링크 */
-  // List<String> urls = (mockData["items"] as List)
-  //     .map<String>((item) => item["trailer_url"])
-  //     .toList();
-
   @override
   void initState() {
     super.initState();
     flickManager = FlickManager(
         videoPlayerController: VideoPlayerController.network(
           widget.urls[widget.playTime.lm_num - 1],
-          // urls[0], /* 테스트용 링크 */
         ),
         onVideoEnd: () {
           dataManager.skipToNextVideo(Duration(seconds: 5));
