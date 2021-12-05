@@ -73,7 +73,6 @@ class _LoginScreenState extends State<LoginScreen> {
         //user의 정보가 있다면 바로 로그아웃 페이지로 넝어가게 합니다.
       }
     }
-    Body.storage.delete(key: "login");
 
     print("User Info update");
     userInfo = (await Body.storage.read(key: "login"))!;
