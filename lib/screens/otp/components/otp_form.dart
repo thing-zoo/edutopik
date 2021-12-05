@@ -216,6 +216,11 @@ class _OtpFormState extends State<OtpForm> {
                   IosDeviceInfo deviceName = await deviceInfo.iosInfo;
                   print('name ${deviceName.name}');
 
+                  print(widget.mobileId);
+                  print(widget.userId);
+                  print(deviceName.name);
+                  print(widget.deleteDeviceUUID);
+
                   http.Response response = await http.post(
                     url,
                     body: {
