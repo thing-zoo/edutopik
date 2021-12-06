@@ -147,7 +147,7 @@ class _DevOveruseDialogState extends State<DevOveruseDialog> {
                           ),
                         );
                       } else {
-                        if (isCheck1 = true) //1번 기기 삭제
+                        if (isCheck2 = true) //2번 기기 삭제
                         {
                           Navigator.of(context).push(
                             MaterialPageRoute(
