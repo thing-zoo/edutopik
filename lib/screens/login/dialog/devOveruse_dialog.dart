@@ -137,6 +137,7 @@ class _DevOveruseDialogState extends State<DevOveruseDialog> {
                     press: () async {
                       if (isCheck1 = true) //1번 기기 삭제
                       {
+                        print(deviceUUID1);
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (_) => OtpScreen(
@@ -147,18 +148,16 @@ class _DevOveruseDialogState extends State<DevOveruseDialog> {
                           ),
                         );
                       } else {
-                        if (isCheck1 = true) //1번 기기 삭제
-                        {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (_) => OtpScreen(
-                                  userId: widget.userId,
-                                  mobileId: widget.mobileId,
-                                  pass: widget.pass,
-                                  deleteDeviceUUID: deviceUUID2),
-                            ),
-                          );
-                        }
+                        print(deviceUUID2);
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => OtpScreen(
+                                userId: widget.userId,
+                                mobileId: widget.mobileId,
+                                pass: widget.pass,
+                                deleteDeviceUUID: deviceUUID2),
+                          ),
+                        );
                       }
                     }),
               ],
@@ -245,6 +244,16 @@ class _DevOveruseDialogState extends State<DevOveruseDialog> {
                             deviceName2 = res['NAME2'];
                             deviceUUID1 = res['UUID1'];
                             deviceUUID2 = res['UUID2'];
+                            print(deviceUUID1);
+                            if (deviceUUID1 ==
+                                "830E62DC-E607-40B0-B492-A9FAAE44FF8D") {
+                              print("1번 기기 잘 왓네 !");
+                            }
+                            if (deviceUUID1 ==
+                                " 830E62DC-E607-40B0-B492-A9FAAE44FF8D") {
+                              print("엥 공백도 같이 왓음");
+                            }
+                            print(deviceUUID2);
                           }
 
                           _showModalBottomSheet(context);

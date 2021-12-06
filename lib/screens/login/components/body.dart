@@ -137,9 +137,9 @@ class _BodyState extends State<Body> {
                               context: context,
                               builder: (BuildContext context) {
                                 return DevOveruseDialog(
-                                  userId: _controllerEmail.text,
-                                  mobileId: mobileId.toString(),
-                                  pass: _controllerPassword.text.toString(),
+                                  userId: userEmail,
+                                  mobileId: mobileId,
+                                  pass: userPassword,
                                 );
                               });
                           //기기 바꿀래 물어봐야지
@@ -150,9 +150,9 @@ class _BodyState extends State<Body> {
                               context: context,
                               builder: (BuildContext context) {
                                 return DevNewDialog(
-                                    userId: _controllerEmail.text,
-                                    mobileId: mobileId.toString(),
-                                    pass: _controllerPassword.text.toString());
+                                    userId: userEmail,
+                                    mobileId: mobileId,
+                                    pass: userPassword);
                               });
                         }
                       }
