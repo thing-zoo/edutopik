@@ -1,8 +1,8 @@
 // This is a generated file; do not edit or check into version control.
-FLUTTER_ROOT=/Users/gimminji/Dovelopment/flutter
-FLUTTER_APPLICATION_PATH=/Users/gimminji/Code/flutter/merge/newMerge/edutopik
+FLUTTER_ROOT=/Users/thingzoo/Development/flutter
+FLUTTER_APPLICATION_PATH=/Users/thingzoo/Development/flutter-project/edutopik
 COCOAPODS_PARALLEL_CODE_SIGN=true
-FLUTTER_TARGET=/Users/gimminji/Code/flutter/merge/newMerge/edutopik/lib/main.dart
+FLUTTER_TARGET=/Users/thingzoo/Development/flutter-project/edutopik/lib/main.dart
 FLUTTER_BUILD_DIR=build
 FLUTTER_BUILD_NAME=1.0.0
 FLUTTER_BUILD_NUMBER=1
@@ -11,4 +11,4 @@ DART_DEFINES=RkxVVFRFUl9XRUJfQVVUT19ERVRFQ1Q9dHJ1ZQ==
 DART_OBFUSCATION=false
 TRACK_WIDGET_CREATION=true
 TREE_SHAKE_ICONS=false
-PACKAGE_CONFIG=/Users/gimminji/Code/flutter/merge/newMerge/edutopik/.dart_tool/package_config.json
+PACKAGE_CONFIG=/Users/thingzoo/Development/flutter-project/edutopik/.dart_tool/package_config.json
