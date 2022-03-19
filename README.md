@@ -86,6 +86,10 @@
 - 기기고유값인 IMEI가 있지만, 이는 보안상의 문제로 현재 사용하고 있지 않기에 저희는 개인 정보 사용에 대한 문제도 해결하고, 고유 기기를 인식 할 수 있는 UUID를 활용하기로 함. 
 - 이 값을 통하여 개별 기기를 인식 하였음
 
+![장려상](https://user-images.githubusercontent.com/62577565/159119245-e15e656d-caab-4027-92a2-b565885ce998.png)
+
+- 또한 한국 방송 미디어 공학회 추계학술 대회에서 UUID 관련 논문을 작성하여 장려상을 수상함
+
 4. 자동 로그인 기능 및 기기등록 개수 2개 제한
 
 <img width="512" alt="Untitled" src="https://user-images.githubusercontent.com/62577565/155930421-af0ea683-7ad0-4eaf-9eaf-ce82c8268deb.png">
