@@ -28,7 +28,7 @@
 
 1. `git clone/download`
 2. `cd edutopik/lib` (해당 폴더로 이동)
-3. `flutter packages get` (파일 실행에 필요한 패키지 다운)
+3. `flutter pub get` (파일 실행에 필요한 패키지 다운)
 4. `flutter run`
 
 ## 개발배경
